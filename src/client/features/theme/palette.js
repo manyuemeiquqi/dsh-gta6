@@ -1,0 +1,128 @@
+// Neon-sunset palette. Every token carries its own light and dark value, so one
+// installed palette serves both system appearance modes.
+const t = (light, dark) => ({ light, dark })
+
+export const palette = Object.freeze({
+  '--dsw-alias-bg-base': t('#fdf6f2', '#0b0814'),
+  '--dsw-alias-bg-layer-1': t('#fffbf8', '#120e1e'),
+  '--dsw-alias-bg-layer-2': t('#f9ece7', '#1a1428'),
+  '--dsw-alias-bg-layer-3': t('#f3e0db', '#241b36'),
+  '--dsw-alias-bg-overlay': t('#fffbf8', '#1a1426'),
+  '--dsw-alias-bg-module-platform': t('#fbf0ec', '#151022'),
+  '--dsw-alias-bg-document-preview': t('#fdf6f2', '#0b0814'),
+
+  '--dsw-alias-card-fill': t('#fffbf8', '#151022'),
+  '--dsw-alias-card-fill-hover': t('#f8ebe6', '#20182f'),
+
+  '--dsw-alias-border-l1': t('#e9d8d3', '#2a2140'),
+  '--dsw-alias-border-l2-darkmode-thin': t('#dfcbc5', '#332850'),
+  '--dsw-alias-border-l2': t('#d8bfb9', '#3a2d56'),
+  '--dsw-alias-border-l3': t('#c5a49e', '#503d70'),
+  '--dsw-alias-border-l4': t('#a97f7a', '#6d5391'),
+  '--dsw-alias-border-selected': t('#cc2f6b', '#ff5f92'),
+
+  '--dsw-alias-label-primary': t('#2a1c2c', '#f8eaf4'),
+  '--dsw-alias-label-primary-dimmed': t('#5c4459', '#dcc3da'),
+  '--dsw-alias-label-primary-foreground': t('#4a2338', '#fff2f8'),
+  '--dsw-alias-label-primary-bluish': t('#2c5f6b', '#8fe3ea'),
+  '--dsw-alias-label-secondary': t('#6d5468', '#b89fc0'),
+  '--dsw-alias-label-tertiary': t('#8a7089', '#8e7897'),
+  '--dsw-alias-label-caption': t('#9a829a', '#7c6886'),
+  '--dsw-alias-label-on-color': t('#ffffff', '#2a1c2c'),
+
+  '--dsw-alias-brand-primary': t('#cc2f6b', '#ff5f92'),
+  '--dsw-alias-brand-primary-invert': t('#fff4f8', '#2a1c2c'),
+  '--dsw-alias-brand-primary-new-colorprimary-new-color': t('#cc2f6b', '#ff5f92'),
+  '--dsw-alias-brand-text': t('#a8225a', '#ffa7c3'),
+
+  '--dsw-alias-button-primary-fill': t('#cc2f6b', '#ff5f92'),
+  '--dsw-alias-button-primary-hover': t('#b02359', '#ff7ea8'),
+  '--dsw-alias-button-primary-dimmed': t('#f3d9e2', '#4d2440'),
+  '--dsw-alias-button-elevated-fill': t('#fff4f8', '#221a31'),
+  '--dsw-alias-button-floating-fill': t('#fff4f8', '#1e172c'),
+  '--dsw-alias-button-floating-hover': t('#f8e4ec', '#2b2140'),
+  '--dsw-alias-button-ghost-active-border': t('#d68aa8', '#8d6bb0'),
+  '--dsw-alias-button-ghost-active-fill': t('#f6e2ea', '#2b2142'),
+  '--dsw-alias-button-ghost-active-hover': t('#f0d5e1', '#372a52'),
+  '--dsw-alias-button-info-fill': t('#1f7f8f', '#5fe0ea'),
+  '--dsw-alias-button-info-hover': t('#176a78', '#8aeef4'),
+  '--dsw-alias-button-contrast-fill': t('#3a1f33', '#fff0f6'),
+  '--dsw-alias-button-tool-bar-fill-invisible': t('rgba(204, 47, 107, 0.10)', 'rgba(255, 95, 146, 0.12)'),
+  '--dsw-alias-button-tool-bar-fill': t('rgba(204, 47, 107, 0.18)', 'rgba(255, 95, 146, 0.22)'),
+  '--dsw-alias-button-tool-bar-hover': t('rgba(204, 47, 107, 0.30)', 'rgba(255, 95, 146, 0.34)'),
+
+  '--dsw-alias-interactive-bg-hover': t('#f7e7ee', '#211931'),
+  '--dsw-alias-interactive-bg-active': t('#f0dae5', '#2d2142'),
+  '--dsw-alias-interactive-bg-hover-accent': t('#f5dbe4', '#3a284f'),
+  '--dsw-alias-interactive-bg-hover-solid': t('#f7e7ee', '#211931'),
+
+  '--dsw-alias-specific-bubble': t('#fff6f9', '#171129'),
+  '--dsw-specific-bubble': t('#fff6f9', '#171129'),
+  '--dsw-specific-bubble-highlight': t('#f8e2ea', '#2b2040'),
+  '--dsw-alias-bubble-highlight': t('#f8e2ea', '#2b2040'),
+  '--dsw-specific-input-major': t('#fffbf8', '#120e1e'),
+
+  '--dsw-specific-sidebar-fill': t('rgba(252, 244, 240, 0.94)', 'rgba(9, 7, 16, 0.96)'),
+  '--dsw-specific-sidebar-tint': t('transparent', 'transparent'),
+  '--dsw-specific-sidebar-wash-top': t('transparent', 'transparent'),
+  '--dsw-specific-sidebar-wash-top-clear': t('transparent', 'transparent'),
+  '--dsw-specific-sidebar-wash-bottom': t('transparent', 'transparent'),
+  '--dsw-specific-sidebar-wash-bottom-clear': t('transparent', 'transparent'),
+  '--dsw-specific-sidebar-glass-fill': t('rgba(255, 250, 247, 0.96)', 'rgba(18, 14, 30, 0.96)'),
+  '--dsw-specific-sidebar-glass-hover': t('rgba(246, 230, 236, 0.96)', 'rgba(38, 28, 56, 0.96)'),
+  '--dsw-specific-sidebar-nav-item-active': t('#f5e3ea', '#2a1f3f'),
+  '--dsw-specific-sidebar-nav-item-active-accent': t('#cc2f6b', '#ff5f92'),
+
+  '--dsw-menu-surface-fill': t('#fffbf8', '#1a1428'),
+  '--dsw-specific-menu': t('#fffbf8', '#1a1428'),
+  '--dsw-alias-menu-group-header-fill': t('#fffbf8', '#1a1428'),
+  '--dsw-specific-selector': t('#f8eae5', '#251b38'),
+  '--dsw-alias-hovercard-bg': t('#fffbf8', '#1a1428'),
+
+  '--dsw-alias-markdown-code-block': t('#f6eae6', '#100c1c'),
+  '--dsw-alias-markdown-code-block-banner': t('#efdcd7', '#1c1530'),
+  '--dsw-alias-markdown-inline-code': t('#f6e2e9', '#2b2040'),
+  '--dsw-alias-markdown-code-segment-selected': t('#eec3d5', '#4a2f52'),
+  '--dsw-alias-markdown-code-segment-unselected': t('#f6eae6', '#100c1c'),
+  '--dsw-alias-markdown-placeholder': t('#f3e2e8', '#241c3a'),
+  '--dsw-alias-markdown-tag': t('#f3e2e8', '#241c3a'),
+
+  '--dsw-alias-link': t('#1f7f8f', '#6fdce6'),
+  '--dsw-alias-state-error-primary': t('#b02a4d', '#ff8fa3'),
+  '--dsw-alias-state-error-secondary': t('#9c2444', '#ffb0bc'),
+  '--dsw-alias-state-success-primary': t('#2f8f79', '#7fe0c0'),
+  '--dsw-alias-state-success-secondary': t('#256b5a', '#aef0da'),
+  '--dsw-alias-state-warn-label': t('#8f5f1c', '#f0b45c'),
+  '--dsw-alias-state-warn-primary': t('#a06a1f', '#f0b45c'),
+  '--dsw-alias-state-warn-secondary': t('#8a5a16', '#f8d29a'),
+
+  '--dsw-alias-tooltip-bg': t('#fffbf8', '#251b38'),
+  '--dsw-alias-tooltip-label': t('#3a2333', '#f8eaf4'),
+  '--dsw-alias-toast-bg': t('#fffbf8', '#251b38'),
+  '--dsw-alias-toast-label': t('#3a2333', '#f8eaf4'),
+  '--dsw-alias-toast-action': t('#b02359', '#ffa7c3'),
+
+  '--dsw-alias-scrollbar-bg-l1': t('#dcc8c2', '#463764'),
+  '--dsw-alias-scrollbar-bg-l2': t('#c3a8a2', '#5e4a80'),
+  '--dsw-alias-scrollbar-hover-l1': t('#b58b8a', '#6d5596'),
+  '--dsw-alias-scrollbar-hover-l2': t('#a2767a', '#8a6cb4'),
+
+  '--dsw-alias-label-deep-diving': t('#1f7f8f', '#6fdce6'),
+  '--dsw-alias-label-deep-diving-shimmer': t('#cc2f6b', '#ffa7c3'),
+  '--dsw-alias-turn-trigger-bg': t('#f7e7ee', '#211931'),
+  '--dsw-alias-turn-trigger-bg-hover': t('#f0dae5', '#2d2142'),
+  '--dsw-alias-switch-thumb': t('#8a7089', '#8e7897'),
+})
+
+/** Accent colors used by the theme's own artwork, not by the token sheet. */
+export const art = Object.freeze({
+  sunTop: '#fff3c4',
+  sunMid: '#ffcf6b',
+  sunLow: '#ff8a4c',
+  sunHot: '#ff4d7e',
+  sunDeep: '#c8348f',
+  horizon: '#ff5f92',
+  grid: 'rgba(255, 138, 180, 0.30)',
+  ink: '#0a0713',
+  cyan: '#5fe0ea',
+})

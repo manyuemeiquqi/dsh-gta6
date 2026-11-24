@@ -1,0 +1,198 @@
+/* Right-sidebar postcard panel. Uses the theme's own SVG art, no images. */
+
+.vice-panel {
+  container-type: inline-size;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100%;
+  padding: 18px;
+  overflow: auto;
+  color: var(--dsw-alias-label-primary);
+  background:
+    linear-gradient(180deg, rgba(255, 95, 146, 0.05), transparent 42%),
+    var(--dsw-alias-bg-base);
+}
+
+.vice-panel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--dsw-alias-label-tertiary);
+  font: 600 8px/1.4 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.16em;
+}
+
+.vice-panel-back {
+  padding: 6px 9px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 4px;
+  color: var(--dsw-alias-label-secondary);
+  background: transparent;
+  font: inherit;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.vice-panel-back:hover,
+.vice-panel-back:focus-visible {
+  color: var(--vice-rose);
+  border-color: var(--dsw-alias-border-selected);
+  outline: none;
+}
+
+.vice-panel-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 8px 0 2px;
+}
+
+.vice-panel-heading p {
+  margin: 0 0 6px;
+  color: var(--vice-rose);
+  font: 600 9px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.3em;
+}
+
+.vice-panel-heading h1 {
+  margin: 0;
+  color: var(--dsw-alias-label-primary);
+  font: 700 40px/0.95 Georgia, 'Times New Roman', serif;
+  letter-spacing: -0.055em;
+}
+
+.vice-stars {
+  display: grid;
+  justify-items: end;
+  gap: 7px;
+  color: var(--vice-gold);
+}
+
+.vice-stars span {
+  font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.16em;
+  opacity: 0.75;
+}
+
+.vice-stars b {
+  font: 13px/1 Georgia, serif;
+  letter-spacing: 2px;
+  opacity: 0.7;
+}
+
+/* The hero card reuses the scene frame geometry at a wider aspect. */
+.vice-panel-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.7;
+  border: 1px solid rgba(255, 95, 146, 0.24);
+  border-radius: 10px;
+  background: #160e26;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.28);
+  isolation: isolate;
+}
+
+.vice-panel-card .vice-frame {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: auto;
+  max-height: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.vice-panel-card .vice-caption strong {
+  font-size: 20px;
+}
+
+.vice-panel-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.vice-panel-tile {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.5;
+  border: 1px solid var(--dsw-alias-border-l1);
+  border-radius: 9px;
+  background: var(--dsw-alias-bg-layer-2);
+}
+
+.vice-panel-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.85;
+}
+
+.vice-panel-tile.is-cyan::before {
+  background:
+    radial-gradient(circle at 70% 22%, rgba(95, 224, 234, 0.42), transparent 58%),
+    linear-gradient(168deg, #0b2b3a, #14244a 55%, #2a1a44);
+}
+
+.vice-panel-tile.is-rose::before {
+  background:
+    radial-gradient(circle at 30% 26%, rgba(255, 179, 92, 0.42), transparent 58%),
+    linear-gradient(168deg, #3a1230, #4a1740 55%, #1d0f2b);
+}
+
+.vice-panel-tile span {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 16px 10px 9px;
+  color: var(--dsw-alias-label-primary-foreground);
+  background: linear-gradient(transparent, rgba(10, 5, 20, 0.72));
+  font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.14em;
+}
+
+.vice-panel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 0 10px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.vice-panel-footer i {
+  width: 5px;
+  height: 5px;
+  background: var(--vice-hot);
+  box-shadow: 0 0 10px var(--vice-hot);
+  transform: rotate(45deg);
+}
+
+.vice-panel-footer span {
+  font: 600 8px/1.5 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.18em;
+}
+
+@container (max-width: 340px) {
+  .vice-panel-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .vice-stars { justify-items: start; }
+  .vice-panel-heading h1 { font-size: 34px; }
+  .vice-panel-strip { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vice-panel * { animation: none !important; }
+}
+
+.vice-guide-icon {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  color: var(--vice-hot);
+}
+
+.vice-guide-icon svg { width: 100%; height: 100%; }

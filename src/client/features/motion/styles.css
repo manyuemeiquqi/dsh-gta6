@@ -1,0 +1,21 @@
+.vice-reveal {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.vice-reveal.vice-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 420ms cubic-bezier(.22, .7, .28, 1),
+    transform 420ms cubic-bezier(.22, .7, .28, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vice-reveal,
+  .vice-reveal.vice-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

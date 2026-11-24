@@ -1,0 +1,52 @@
+{
+  "name": "dsh-theme-vice",
+  "version": "0.1.0",
+  "private": false,
+  "description": "A neon-sunset theme for DeepSeek Harness. Original CSS and SVG artwork, no third-party media.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24.9.0",
+    "dsh": ">=0.2.0 <0.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "README.md",
+    "NOTICE.md",
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "src/client",
+    "src/host/index.cjs",
+    "src/shared",
+    "scripts/build.mjs"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "npm run build && node --check index.js && node --check client.js"
+  },
+  "devDependencies": {
+    "@deepseek-ai/schemastery": "^3.19.0",
+    "esbuild": "^0.28.2"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-theme",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  }
+}
