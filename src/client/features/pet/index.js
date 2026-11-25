@@ -16,13 +16,16 @@ const DONE_MS = 1300
 const BUBBLE_MS = 3600
 const DRAG_THRESHOLD = 5
 
+// Two voices, not one. Jason answers in short, flat sentences; Lucia is the
+// one pushing the schedule. Every line sits between 8 and 12 characters so the
+// bubble never jumps width, and the place names are Vice City's own.
 const LINES = [
-  'LEONIDA · 今晚去海豚馆？',
-  '奥兰多海滩，日落前出发。',
-  '这单干完，我们就走。',
-  '别回头，直接上车。',
-  'VICE CITY 从不等谁。',
-  'VCPD 还有 30 秒到。',
+  { who: 'JASON', line: '车没熄火，走。' },
+  { who: 'JASON', line: '我数到三，一起动手。' },
+  { who: 'JASON', line: '别急，先看清楚。' },
+  { who: 'LUCIA', line: '这次换我开车。' },
+  { who: 'LUCIA', line: '天快亮了，动作快点。' },
+  { who: 'LUCIA', line: 'Ocean Beach，老地方见。' },
 ]
 
 export function createPet({ body, assets }) {
@@ -118,7 +121,14 @@ export function createPet({ body, assets }) {
     let index = Math.floor(Math.random() * LINES.length)
     if (LINES.length > 1 && index === lastLine) index = (index + 1) % LINES.length
     lastLine = index
-    bubble.textContent = LINES[index]
+    const { who, line } = LINES[index]
+    const name = document.createElement('b')
+    name.className = 'vice-pet-who'
+    name.textContent = who
+    const text = document.createElement('span')
+    text.textContent = line
+    bubble.replaceChildren(name, text)
+    bubble.dataset.who = who.toLowerCase()
     bubble.hidden = false
     window.clearTimeout(bubbleTimer)
     bubbleTimer = window.setTimeout(() => {

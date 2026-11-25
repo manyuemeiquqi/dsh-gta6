@@ -7,13 +7,27 @@
   z-index: 60;
   right: 26px;
   bottom: 124px;
-  height: clamp(112px, 9vw, 152px);
+  height: clamp(124px, 9.6vw, 164px);
   cursor: grab;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
-  filter: drop-shadow(0 10px 26px rgba(10, 4, 20, 0.42));
-  transition: filter 220ms var(--vice-ease), opacity 260ms var(--vice-ease);
+  transition: opacity 260ms var(--vice-ease);
+}
+
+/* A soft pad under the figures: their feet are cropped out of the source, so
+   without it they read as pasted on the glass rather than standing there. */
+.vice-pet::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -7px;
+  height: 13px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(8, 3, 16, 0.46), transparent 72%);
+  filter: blur(3px);
+  pointer-events: none;
 }
 
 .vice-pet-figure {
@@ -22,17 +36,23 @@
   width: auto;
   pointer-events: none;
   transform-origin: 50% 100%;
+  /* The first shadow is a rose halo tracing the silhouette, so the cut-out
+     picks up the theme's neon instead of sitting on the shell as a pasted
+     photo. The second is the ordinary ambient drop. */
+  filter:
+    drop-shadow(0 0 7px rgba(255, 95, 146, 0.34))
+    drop-shadow(0 10px 24px rgba(10, 4, 20, 0.42));
   animation: vice-pet-idle 5.2s ease-in-out infinite;
 }
 
 .vice-pet.is-dragging {
   cursor: grabbing;
-  filter: drop-shadow(0 16px 34px rgba(10, 4, 20, 0.55));
 }
 
 .vice-pet.is-dragging .vice-pet-figure {
   animation: none;
   transform: rotate(-1.5deg) scale(0.98);
+  filter: drop-shadow(0 16px 34px rgba(10, 4, 20, 0.55));
 }
 
 /* ---------- states ---------- */
@@ -81,19 +101,45 @@
 .vice-pet-bubble {
   position: absolute;
   right: 0;
-  bottom: calc(100% + 6px);
+  bottom: calc(100% + 10px);
+  display: grid;
+  gap: 3px;
   max-width: 210px;
-  padding: 7px 11px;
+  padding: 8px 12px 9px;
   border: 1px solid rgba(255, 95, 146, 0.3);
-  border-radius: 10px 10px 2px 10px;
+  border-radius: 10px 10px 3px 10px;
   color: var(--dsw-alias-label-primary);
   background: var(--dsw-alias-bg-layer-1);
   box-shadow: 0 10px 24px rgba(10, 4, 20, 0.28);
-  font: 500 11px/1.5 ui-sans-serif, system-ui, sans-serif;
+  font: 500 11px/1.45 ui-sans-serif, system-ui, sans-serif;
   letter-spacing: 0.01em;
   white-space: nowrap;
   pointer-events: none;
   animation: vice-pet-bubble-in 180ms var(--vice-ease);
+}
+
+/* The tail points down at the pair, so it is clear who is talking. */
+.vice-pet-bubble::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  bottom: -5px;
+  width: 9px;
+  height: 9px;
+  background: var(--dsw-alias-bg-layer-1);
+  border-right: 1px solid rgba(255, 95, 146, 0.3);
+  border-bottom: 1px solid rgba(255, 95, 146, 0.3);
+  transform: rotate(45deg);
+}
+
+.vice-pet-who {
+  color: var(--vice-hot);
+  font: 700 8px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.2em;
+}
+
+.vice-pet-bubble[data-who='lucia'] .vice-pet-who {
+  color: var(--vice-gold);
 }
 
 .vice-pet-bubble[hidden] {
@@ -105,8 +151,23 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ---------- motion preference ---------- */
+/* The cut-out is a dark, high-contrast render. On the light shell it sat like a
+   smudge, so it gets a lift and a warmer pad to hold its own. */
+@media (prefers-color-scheme: light) {
+  .vice-pet-figure {
+    filter: drop-shadow(0 10px 22px rgba(44, 14, 44, 0.32)) brightness(1.06) saturate(1.04);
+  }
 
+  .vice-pet.is-dragging .vice-pet-figure {
+    filter: drop-shadow(0 16px 30px rgba(44, 14, 44, 0.4)) brightness(1.06) saturate(1.04);
+  }
+
+  .vice-pet::after {
+    background: radial-gradient(ellipse at center, rgba(54, 18, 54, 0.26), transparent 72%);
+  }
+}
+
+/* ---------- motion preference ---------- */
 @media (prefers-reduced-motion: reduce) {
   .vice-pet-figure,
   .vice-pet[data-state='working'] .vice-pet-figure,

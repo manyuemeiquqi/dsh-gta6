@@ -376,12 +376,12 @@
   var BUBBLE_MS = 3600;
   var DRAG_THRESHOLD = 5;
   var LINES = [
-    "LEONIDA · 今晚去海豚馆？",
-    "奥兰多海滩，日落前出发。",
-    "这单干完，我们就走。",
-    "别回头，直接上车。",
-    "VICE CITY 从不等谁。",
-    "VCPD 还有 30 秒到。"
+    { who: "JASON", line: "车没熄火，走。" },
+    { who: "JASON", line: "我数到三，一起动手。" },
+    { who: "JASON", line: "别急，先看清楚。" },
+    { who: "LUCIA", line: "这次换我开车。" },
+    { who: "LUCIA", line: "天快亮了，动作快点。" },
+    { who: "LUCIA", line: "Ocean Beach，老地方见。" }
   ];
   function createPet({ body, assets }) {
     let host;
@@ -464,7 +464,14 @@
       let index = Math.floor(Math.random() * LINES.length);
       if (LINES.length > 1 && index === lastLine) index = (index + 1) % LINES.length;
       lastLine = index;
-      bubble.textContent = LINES[index];
+      const { who, line } = LINES[index];
+      const name = document.createElement("b");
+      name.className = "vice-pet-who";
+      name.textContent = who;
+      const text = document.createElement("span");
+      text.textContent = line;
+      bubble.replaceChildren(name, text);
+      bubble.dataset.who = who.toLowerCase();
       bubble.hidden = false;
       window.clearTimeout(bubbleTimer);
       bubbleTimer = window.setTimeout(() => {
@@ -577,7 +584,7 @@
   }
 
   // src/client/features/pet/styles.css
-  var styles_default6 = "/* Desktop pet: Jason and Lucia in a fixed layer over the conversation.\n   The cut-out art is a single image, so the animation is transform-only:\n   it stays crisp at any size and costs nothing to load beyond one PNG. */\n\n.vice-pet {\n  position: fixed;\n  z-index: 60;\n  right: 26px;\n  bottom: 124px;\n  height: clamp(112px, 9vw, 152px);\n  cursor: grab;\n  touch-action: none;\n  user-select: none;\n  -webkit-user-select: none;\n  filter: drop-shadow(0 10px 26px rgba(10, 4, 20, 0.42));\n  transition: filter 220ms var(--vice-ease), opacity 260ms var(--vice-ease);\n}\n\n.vice-pet-figure {\n  display: block;\n  height: 100%;\n  width: auto;\n  pointer-events: none;\n  transform-origin: 50% 100%;\n  animation: vice-pet-idle 5.2s ease-in-out infinite;\n}\n\n.vice-pet.is-dragging {\n  cursor: grabbing;\n  filter: drop-shadow(0 16px 34px rgba(10, 4, 20, 0.55));\n}\n\n.vice-pet.is-dragging .vice-pet-figure {\n  animation: none;\n  transform: rotate(-1.5deg) scale(0.98);\n}\n\n/* ---------- states ---------- */\n\n.vice-pet[data-state='working'] .vice-pet-figure {\n  animation: vice-pet-work 720ms ease-in-out infinite;\n}\n\n.vice-pet[data-state='done'] .vice-pet-figure {\n  animation: vice-pet-hop 720ms cubic-bezier(.3, .7, .35, 1) 2;\n}\n\n.vice-pet[data-state='sleep'] {\n  opacity: 0.62;\n}\n\n.vice-pet[data-state='sleep'] .vice-pet-figure {\n  animation: vice-pet-sleep 7s ease-in-out infinite;\n}\n\n@keyframes vice-pet-idle {\n  0%, 100% { transform: translateY(0) rotate(-0.8deg); }\n  50% { transform: translateY(-3px) rotate(0.8deg); }\n}\n\n@keyframes vice-pet-work {\n  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }\n  50% { transform: translateY(-7px) rotate(-1.6deg) scale(1.02); }\n}\n\n@keyframes vice-pet-hop {\n  0% { transform: translateY(0) scale(1); }\n  32% { transform: translateY(-14px) scale(1.03); }\n  62% { transform: translateY(0) scale(0.98); }\n  80% { transform: translateY(-4px) scale(1.01); }\n  100% { transform: translateY(0) scale(1); }\n}\n\n@keyframes vice-pet-sleep {\n  0%, 100% { transform: translateY(0) rotate(2.4deg); }\n  50% { transform: translateY(2px) rotate(3.2deg); }\n}\n\n/* ---------- speech ---------- */\n\n.vice-pet-bubble {\n  position: absolute;\n  right: 0;\n  bottom: calc(100% + 6px);\n  max-width: 210px;\n  padding: 7px 11px;\n  border: 1px solid rgba(255, 95, 146, 0.3);\n  border-radius: 10px 10px 2px 10px;\n  color: var(--dsw-alias-label-primary);\n  background: var(--dsw-alias-bg-layer-1);\n  box-shadow: 0 10px 24px rgba(10, 4, 20, 0.28);\n  font: 500 11px/1.5 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.01em;\n  white-space: nowrap;\n  pointer-events: none;\n  animation: vice-pet-bubble-in 180ms var(--vice-ease);\n}\n\n.vice-pet-bubble[hidden] {\n  display: none;\n}\n\n@keyframes vice-pet-bubble-in {\n  from { opacity: 0; transform: translateY(4px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n\n/* ---------- motion preference ---------- */\n\n@media (prefers-reduced-motion: reduce) {\n  .vice-pet-figure,\n  .vice-pet[data-state='working'] .vice-pet-figure,\n  .vice-pet[data-state='done'] .vice-pet-figure,\n  .vice-pet[data-state='sleep'] .vice-pet-figure {\n    animation: none;\n  }\n\n  .vice-pet-bubble {\n    animation: none;\n  }\n}\n\n@media (max-width: 720px) {\n  .vice-pet {\n    height: 96px;\n    right: 14px;\n    bottom: 112px;\n  }\n}\n";
+  var styles_default6 = "/* Desktop pet: Jason and Lucia in a fixed layer over the conversation.\n   The cut-out art is a single image, so the animation is transform-only:\n   it stays crisp at any size and costs nothing to load beyond one PNG. */\n\n.vice-pet {\n  position: fixed;\n  z-index: 60;\n  right: 26px;\n  bottom: 124px;\n  height: clamp(124px, 9.6vw, 164px);\n  cursor: grab;\n  touch-action: none;\n  user-select: none;\n  -webkit-user-select: none;\n  transition: opacity 260ms var(--vice-ease);\n}\n\n/* A soft pad under the figures: their feet are cropped out of the source, so\n   without it they read as pasted on the glass rather than standing there. */\n.vice-pet::after {\n  content: '';\n  position: absolute;\n  left: 10%;\n  right: 10%;\n  bottom: -7px;\n  height: 13px;\n  border-radius: 50%;\n  background: radial-gradient(ellipse at center, rgba(8, 3, 16, 0.46), transparent 72%);\n  filter: blur(3px);\n  pointer-events: none;\n}\n\n.vice-pet-figure {\n  display: block;\n  height: 100%;\n  width: auto;\n  pointer-events: none;\n  transform-origin: 50% 100%;\n  /* The first shadow is a rose halo tracing the silhouette, so the cut-out\n     picks up the theme's neon instead of sitting on the shell as a pasted\n     photo. The second is the ordinary ambient drop. */\n  filter:\n    drop-shadow(0 0 7px rgba(255, 95, 146, 0.34))\n    drop-shadow(0 10px 24px rgba(10, 4, 20, 0.42));\n  animation: vice-pet-idle 5.2s ease-in-out infinite;\n}\n\n.vice-pet.is-dragging {\n  cursor: grabbing;\n}\n\n.vice-pet.is-dragging .vice-pet-figure {\n  animation: none;\n  transform: rotate(-1.5deg) scale(0.98);\n  filter: drop-shadow(0 16px 34px rgba(10, 4, 20, 0.55));\n}\n\n/* ---------- states ---------- */\n\n.vice-pet[data-state='working'] .vice-pet-figure {\n  animation: vice-pet-work 720ms ease-in-out infinite;\n}\n\n.vice-pet[data-state='done'] .vice-pet-figure {\n  animation: vice-pet-hop 720ms cubic-bezier(.3, .7, .35, 1) 2;\n}\n\n.vice-pet[data-state='sleep'] {\n  opacity: 0.62;\n}\n\n.vice-pet[data-state='sleep'] .vice-pet-figure {\n  animation: vice-pet-sleep 7s ease-in-out infinite;\n}\n\n@keyframes vice-pet-idle {\n  0%, 100% { transform: translateY(0) rotate(-0.8deg); }\n  50% { transform: translateY(-3px) rotate(0.8deg); }\n}\n\n@keyframes vice-pet-work {\n  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }\n  50% { transform: translateY(-7px) rotate(-1.6deg) scale(1.02); }\n}\n\n@keyframes vice-pet-hop {\n  0% { transform: translateY(0) scale(1); }\n  32% { transform: translateY(-14px) scale(1.03); }\n  62% { transform: translateY(0) scale(0.98); }\n  80% { transform: translateY(-4px) scale(1.01); }\n  100% { transform: translateY(0) scale(1); }\n}\n\n@keyframes vice-pet-sleep {\n  0%, 100% { transform: translateY(0) rotate(2.4deg); }\n  50% { transform: translateY(2px) rotate(3.2deg); }\n}\n\n/* ---------- speech ---------- */\n\n.vice-pet-bubble {\n  position: absolute;\n  right: 0;\n  bottom: calc(100% + 10px);\n  display: grid;\n  gap: 3px;\n  max-width: 210px;\n  padding: 8px 12px 9px;\n  border: 1px solid rgba(255, 95, 146, 0.3);\n  border-radius: 10px 10px 3px 10px;\n  color: var(--dsw-alias-label-primary);\n  background: var(--dsw-alias-bg-layer-1);\n  box-shadow: 0 10px 24px rgba(10, 4, 20, 0.28);\n  font: 500 11px/1.45 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.01em;\n  white-space: nowrap;\n  pointer-events: none;\n  animation: vice-pet-bubble-in 180ms var(--vice-ease);\n}\n\n/* The tail points down at the pair, so it is clear who is talking. */\n.vice-pet-bubble::after {\n  content: '';\n  position: absolute;\n  right: 16px;\n  bottom: -5px;\n  width: 9px;\n  height: 9px;\n  background: var(--dsw-alias-bg-layer-1);\n  border-right: 1px solid rgba(255, 95, 146, 0.3);\n  border-bottom: 1px solid rgba(255, 95, 146, 0.3);\n  transform: rotate(45deg);\n}\n\n.vice-pet-who {\n  color: var(--vice-hot);\n  font: 700 8px/1 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.2em;\n}\n\n.vice-pet-bubble[data-who='lucia'] .vice-pet-who {\n  color: var(--vice-gold);\n}\n\n.vice-pet-bubble[hidden] {\n  display: none;\n}\n\n@keyframes vice-pet-bubble-in {\n  from { opacity: 0; transform: translateY(4px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n\n/* The cut-out is a dark, high-contrast render. On the light shell it sat like a\n   smudge, so it gets a lift and a warmer pad to hold its own. */\n@media (prefers-color-scheme: light) {\n  .vice-pet-figure {\n    filter: drop-shadow(0 10px 22px rgba(44, 14, 44, 0.32)) brightness(1.06) saturate(1.04);\n  }\n\n  .vice-pet.is-dragging .vice-pet-figure {\n    filter: drop-shadow(0 16px 30px rgba(44, 14, 44, 0.4)) brightness(1.06) saturate(1.04);\n  }\n\n  .vice-pet::after {\n    background: radial-gradient(ellipse at center, rgba(54, 18, 54, 0.26), transparent 72%);\n  }\n}\n\n/* ---------- motion preference ---------- */\n@media (prefers-reduced-motion: reduce) {\n  .vice-pet-figure,\n  .vice-pet[data-state='working'] .vice-pet-figure,\n  .vice-pet[data-state='done'] .vice-pet-figure,\n  .vice-pet[data-state='sleep'] .vice-pet-figure {\n    animation: none;\n  }\n\n  .vice-pet-bubble {\n    animation: none;\n  }\n}\n\n@media (max-width: 720px) {\n  .vice-pet {\n    height: 96px;\n    right: 14px;\n    bottom: 112px;\n  }\n}\n";
 
   // src/client/features/scene/art.js
   function sceneArtHtml(assets) {
@@ -677,7 +684,7 @@
     beachNight: "plugins/dsh-theme-vice/assets/vice-beach-night.webp",
     street: "plugins/dsh-theme-vice/assets/leonida-street.webp",
     nightlife: "plugins/dsh-theme-vice/assets/nightlife.webp",
-    pet: "plugins/dsh-theme-vice/assets/pet-duo-16546addc352.png"
+    pet: "plugins/dsh-theme-vice/assets/pet-pair-be1f458fd5da.png"
   });
   var DEFAULTS = Object.freeze({
     enabled: "1",
