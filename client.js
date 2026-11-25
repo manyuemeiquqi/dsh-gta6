@@ -521,6 +521,14 @@
       if (drag) return;
       event.preventDefault();
     }
+    function onResize() {
+      if (!position) return;
+      const clamped = clampPosition(position.x, position.y);
+      if (clamped.x === position.x && clamped.y === position.y) return;
+      position = clamped;
+      applyPosition();
+      savePosition(position);
+    }
     function mount() {
       if (host) return;
       host = document.createElement("div");
@@ -544,6 +552,7 @@
       host.addEventListener("pointerup", onPointerUp);
       host.addEventListener("pointercancel", onPointerUp);
       host.addEventListener("click", onClick);
+      window.addEventListener("resize", onResize);
       observer = new MutationObserver(() => applyRunning(readRunning()));
       observer.observe(body, { childList: true, subtree: true, attributes: true, attributeFilter: ["aria-label"] });
       running = readRunning();
@@ -563,6 +572,7 @@
       host.removeEventListener("pointerup", onPointerUp);
       host.removeEventListener("pointercancel", onPointerUp);
       host.removeEventListener("click", onClick);
+      window.removeEventListener("resize", onResize);
       host.remove();
       host = void 0;
       figure = void 0;
