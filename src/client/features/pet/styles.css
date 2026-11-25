@@ -79,6 +79,32 @@
     drop-shadow(0 16px 32px rgba(10, 4, 20, 0.55));
 }
 
+/* ---------- posture by workload ----------
+   Posture is driven by the session's real token total, not a timer: the heavier
+   the session, the more the pair slumps. Declared before the run states so a
+   run or a doze still overrides it. */
+
+.vice-pet[data-load='fresh'] .vice-pet-layer.is-active {
+  animation-duration: 4.6s;
+}
+
+.vice-pet[data-load='weary'] .vice-pet-layer.is-active {
+  animation-name: vice-pet-weary;
+  animation-duration: 7.6s;
+  filter:
+    drop-shadow(0 0 5px rgba(255, 95, 146, 0.2))
+    drop-shadow(0 10px 22px rgba(10, 4, 20, 0.36));
+}
+
+.vice-pet[data-load='weary'] .vice-pet-bubble {
+  border-color: rgba(255, 95, 146, 0.2);
+}
+
+@keyframes vice-pet-weary {
+  0%, 100% { transform: translateY(3px) rotate(3.2deg); }
+  50% { transform: translateY(5px) rotate(4deg); }
+}
+
 /* ---------- states ---------- */
 
 .vice-pet[data-state='working'] .vice-pet-layer.is-active {

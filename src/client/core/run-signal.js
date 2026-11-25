@@ -1,31 +1,37 @@
 /**
- * Agent run signal — one observer, many subscribers.
+ * Agent run signal — one source, many subscribers.
  *
- * The harness exposes no public "the agent is working" flag. The stop control
- * is the only reliable signal, and its label is localised, hence matching on
- * either language.
+ * Preferred source is the harness's own session entry: `sessions.list` carries
+ * a `running` flag per session, which is the truth rather than an inference.
+ * When no session is on screen (the root page, or the list has not loaded yet)
+ * it falls back to the stop control, which is the only DOM-level hint available.
  *
- * Two features want this state (the wanted stars and the pet), and both used to
- * observe the whole document independently. During a streaming reply the page
- * mutates hundreds of times, so that meant hundreds of full-document button
- * scans, twice over. This module keeps a single observer and a single scan,
- * debounced, and fans the result out.
+ * Two features want this state (the wanted stars and the pet), so one observer
+ * and one debounced scan are shared instead of duplicated: during a streaming
+ * reply the page mutates hundreds of times.
  */
 
 const STOP_LABELS = new Set(['停止生成', 'Stop generating'])
 const SETTLE_MS = 260
 
-export function createRunSignal({ body }) {
+export function createRunSignal({ body, sessionState }) {
   const listeners = new Set()
   let observer
   let timer
   let scheduled = false
   let running = false
   let started = false
+  let unsubscribeSession = () => {}
 
-  function read() {
+  function readStopControl() {
     return [...document.querySelectorAll('button')]
       .some(button => STOP_LABELS.has(button.getAttribute('aria-label') || ''))
+  }
+
+  function read() {
+    const session = sessionState?.current?.()
+    if (session && typeof session.running === 'boolean') return session.running
+    return readStopControl()
   }
 
   function publish() {
@@ -48,6 +54,7 @@ export function createRunSignal({ body }) {
       if (started) return
       started = true
       running = read()
+      unsubscribeSession = sessionState ? sessionState.subscribe(schedule) : () => {}
       observer = new MutationObserver(schedule)
       observer.observe(body, {
         childList: true,
@@ -73,6 +80,8 @@ export function createRunSignal({ body }) {
       scheduled = false
       observer?.disconnect()
       observer = undefined
+      unsubscribeSession()
+      unsubscribeSession = () => {}
       listeners.clear()
       running = false
       started = false

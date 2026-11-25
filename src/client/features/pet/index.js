@@ -38,12 +38,14 @@ const LINES = [
   { who: 'LUCIA', line: 'Ocean Beach，老地方见。' },
 ]
 
-export function createPet({ body, assets, signal, openPanel }) {
+export function createPet({ body, assets, signal, sessionState, openPanel }) {
   let host
   let stage
   let layers = []
   let bubble
   let unsubscribe = () => {}
+  let unsubscribeSession = () => {}
+  let load = 'fresh'
   let bubbleTimer
   let clickTimer
   let chatterTimer
@@ -116,6 +118,21 @@ export function createPet({ body, assets, signal, openPanel }) {
     if (index === pose || layers.length < 2) return
     pose = index
     layers.forEach((layer, i) => layer.classList.toggle('is-active', i === index))
+  }
+
+  /**
+   * Posture follows real workload rather than a clock: the heavier the session,
+   * the more the pair slumps. Nothing is displayed as a number — the corner
+   * should read at a glance, and the panel is where actual figures live.
+   */
+  function applyLoad() {
+    if (!host) return
+    const session = sessionState?.current?.()
+    const total = session ? session.inputTokens + session.outputTokens : 0
+    const next = total >= 220_000 ? 'weary' : total >= 60_000 ? 'steady' : 'fresh'
+    if (next === load && host.dataset.load === next) return
+    load = next
+    host.dataset.load = next
   }
 
   function setState(next) {
@@ -309,11 +326,15 @@ export function createPet({ body, assets, signal, openPanel }) {
     else armSleep()
     armPoseTurn()
     armChatter()
+    applyLoad()
+    if (sessionState) unsubscribeSession = sessionState.subscribe(applyLoad)
   }
 
   function unmount() {
     unsubscribe()
     unsubscribe = () => {}
+    unsubscribeSession()
+    unsubscribeSession = () => {}
     window.clearTimeout(bubbleTimer)
     window.clearTimeout(clickTimer)
     window.clearTimeout(chatterTimer)

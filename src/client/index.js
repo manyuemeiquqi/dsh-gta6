@@ -50,7 +50,7 @@ window.__ModuleLoader__.load({
       let sidebarRight
       ctx.inject(['sidebarRight'], child => { sidebarRight = child.sidebarRight })
       const unregisterBrand = registerBrandMark()
-      const runSignal = createRunSignal({ body })
+      const runSignal = createRunSignal({ body, sessionState })
       const wanted = createWantedMeter({ body, signal: runSignal })
       const intro = createIntro({ assets: ASSETS })
       const motion = createMotion(body)
@@ -58,6 +58,7 @@ window.__ModuleLoader__.load({
         body,
         assets: ASSETS,
         signal: runSignal,
+        sessionState,
         openPanel: () => sidebarRight?.openTab('vice-coast'),
       })
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
