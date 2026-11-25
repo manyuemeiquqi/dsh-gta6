@@ -122,6 +122,76 @@
     };
   }
 
+  // src/client/core/session-state.js
+  var REGION_SELECTOR = "[data-conversation-session]";
+  function createSessionState({ ctx }) {
+    const listeners = /* @__PURE__ */ new Set();
+    let snapshot;
+    let watched;
+    let observer;
+    let sessionId;
+    function emit() {
+      for (const listener of listeners) listener();
+    }
+    function attach() {
+      const element = document.querySelector(REGION_SELECTOR);
+      if (!element || element === watched) return;
+      observer?.disconnect();
+      watched = element;
+      sessionId = element.getAttribute("data-conversation-session") || void 0;
+      if (!sessionId) return;
+      observer = new MutationObserver(() => {
+        const next = watched.getAttribute("data-conversation-session") || void 0;
+        if (next === sessionId) return;
+        sessionId = next;
+        emit();
+      });
+      observer.observe(watched, { attributes: true, attributeFilter: ["data-conversation-session"] });
+    }
+    function current() {
+      attach();
+      if (!sessionId || !snapshot) return null;
+      const entry = snapshot.byId?.[sessionId];
+      if (!entry) return null;
+      const values = entry.projectionValues || {};
+      const usage = values.tokenUsage || {};
+      const model = values.modelSelection?.lastUsed || values.modelSelection?.next || null;
+      return {
+        title: entry.displayTitle || values.title || "",
+        running: entry.running === true,
+        agentPreset: values.agentPreset || "",
+        model: model?.model || "",
+        effort: model?.reasoningEffort || "",
+        inputTokens: usage.uncachedInputTokens ?? 0,
+        outputTokens: usage.outputTokens ?? 0,
+        cacheReadTokens: usage.cacheReadTokens ?? 0
+      };
+    }
+    ctx.inject(["sessions"], (child) => {
+      const list = child.sessions.list;
+      snapshot = list.getSnapshot();
+      emit();
+      const unsubscribe = list.subscribe(() => {
+        snapshot = list.getSnapshot();
+        emit();
+      });
+      ctx.effect(() => () => unsubscribe());
+    });
+    return {
+      current,
+      subscribe(listener) {
+        listeners.add(listener);
+        return () => listeners.delete(listener);
+      },
+      dispose() {
+        observer?.disconnect();
+        observer = void 0;
+        watched = void 0;
+        listeners.clear();
+      }
+    };
+  }
+
   // src/client/core/styles.js
   function installStyles(pluginId, chunks) {
     const sheet = document.createElement("style");
@@ -301,7 +371,14 @@
   var styles_default4 = ".vice-reveal {\n  opacity: 0;\n  transform: translateY(8px);\n}\n\n.vice-reveal.vice-visible {\n  opacity: 1;\n  transform: none;\n  transition:\n    opacity 420ms cubic-bezier(.22, .7, .28, 1),\n    transform 420ms cubic-bezier(.22, .7, .28, 1);\n}\n\n@media (prefers-reduced-motion: reduce) {\n  .vice-reveal,\n  .vice-reveal.vice-visible {\n    opacity: 1;\n    transform: none;\n    transition: none;\n  }\n}\n";
 
   // src/client/features/panel/index.js
-  function registerVicePanel({ ctx, React, store, assets }) {
+  function formatTokens(value) {
+    const n = Number(value);
+    if (!Number.isFinite(n) || n <= 0) return "0";
+    if (n >= 1e6) return `${(n / 1e6).toFixed(1)}M`;
+    if (n >= 1e3) return `${(n / 1e3).toFixed(1)}K`;
+    return String(Math.round(n));
+  }
+  function registerVicePanel({ ctx, React, store, assets, sessionState }) {
     let unregister = () => {
     };
     ctx.inject(["sidebarRightTabs", "sidebarRight"], (child) => {
@@ -324,7 +401,12 @@
       function Panel() {
         const [, refresh] = React.useReducer((value) => value + 1, 0);
         React.useEffect(() => store.subscribe(refresh), [store]);
+        React.useEffect(() => sessionState.subscribe(refresh), [sessionState]);
         if (store.getState().values.enabled !== "1") return null;
+        const session = sessionState.current();
+        const total = session ? session.inputTokens + session.outputTokens : 0;
+        const model = session?.model ? session.model.toUpperCase() : "—";
+        const detail = session ? [session.effort.toUpperCase(), session.agentPreset.toUpperCase()].filter(Boolean).join(" · ") : "NO SESSION";
         return h(
           "div",
           { className: "vice-panel" },
@@ -368,15 +450,15 @@
             h(
               "div",
               { className: "vice-panel-radio" },
-              h("span", null, "RADIO"),
-              h("strong", null, "98.6 FM · NON STOP POP")
+              h("span", null, "SESSION"),
+              h("strong", { title: session?.title || "" }, session?.title || "—")
             ),
             h(
               "div",
               { className: "vice-panel-speed", "aria-hidden": true },
               h("span", { className: "vice-panel-speed-needle" }),
-              h("b", null, "186"),
-              h("i", null, "MPH")
+              h("b", null, formatTokens(total)),
+              h("i", null, "TOK")
             )
           ),
           h("div", { className: "vice-checker", "aria-hidden": true }),
@@ -403,15 +485,15 @@
             h(
               "div",
               null,
-              h("b", null, "VCPD"),
-              h("i", null, "HEAT · LEVEL 6")
+              h("b", null, model),
+              h("i", null, detail)
             )
           ),
           h(
             "div",
             { className: "vice-panel-footer" },
             h("img", { src: assets.logo, alt: "Grand Theft Auto VI", className: "vice-panel-logo" }),
-            h("span", null, "AWAIT YOUR NEXT MOVE")
+            h("span", null, session?.running ? "RUN IN PROGRESS" : "AWAIT YOUR NEXT MOVE")
           )
         );
       }
@@ -1026,7 +1108,8 @@
         ]);
         const theme = createThemeController({ ctx, body });
         const scene = createScene({ body, assets: ASSETS });
-        const unregisterPanel = registerVicePanel({ ctx, React, store, assets: ASSETS });
+        const sessionState = createSessionState({ ctx });
+        const unregisterPanel = registerVicePanel({ ctx, React, store, assets: ASSETS, sessionState });
         const unregisterBrand = registerBrandMark();
         const runSignal = createRunSignal({ body });
         const wanted = createWantedMeter({ body, signal: runSignal });
@@ -1061,6 +1144,7 @@
           theme.dispose();
           unregisterBrand();
           unregisterPanel();
+          sessionState.dispose();
           store.dispose();
           removeStyles();
         }, "vice: feature lifecycle");

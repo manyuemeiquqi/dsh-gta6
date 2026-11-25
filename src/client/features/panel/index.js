@@ -1,6 +1,14 @@
 import { radarSvg } from '../../core/art.js'
 
-export function registerVicePanel({ ctx, React, store, assets }) {
+function formatTokens(value) {
+  const n = Number(value)
+  if (!Number.isFinite(n) || n <= 0) return '0'
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
+  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`
+  return String(Math.round(n))
+}
+
+export function registerVicePanel({ ctx, React, store, assets, sessionState }) {
   let unregister = () => {}
 
   ctx.inject(['sidebarRightTabs', 'sidebarRight'], child => {
@@ -25,7 +33,15 @@ export function registerVicePanel({ ctx, React, store, assets }) {
     function Panel() {
       const [, refresh] = React.useReducer(value => value + 1, 0)
       React.useEffect(() => store.subscribe(refresh), [store])
+      React.useEffect(() => sessionState.subscribe(refresh), [sessionState])
       if (store.getState().values.enabled !== '1') return null
+
+      const session = sessionState.current()
+      const total = session ? session.inputTokens + session.outputTokens : 0
+      const model = session?.model ? session.model.toUpperCase() : '—'
+      const detail = session
+        ? [session.effort.toUpperCase(), session.agentPreset.toUpperCase()].filter(Boolean).join(' · ')
+        : 'NO SESSION'
 
       return h('div', { className: 'vice-panel' },
         h('div', { className: 'vice-panel-top' },
@@ -48,12 +64,12 @@ export function registerVicePanel({ ctx, React, store, assets }) {
         h('div', { className: 'vice-panel-meter' },
           h('div', { className: 'vice-panel-radar', dangerouslySetInnerHTML: { __html: radarSvg('#ff5f92') } }),
           h('div', { className: 'vice-panel-radio' },
-            h('span', null, 'RADIO'),
-            h('strong', null, '98.6 FM · NON STOP POP')),
+            h('span', null, 'SESSION'),
+            h('strong', { title: session?.title || '' }, session?.title || '—')),
           h('div', { className: 'vice-panel-speed', 'aria-hidden': true },
             h('span', { className: 'vice-panel-speed-needle' }),
-            h('b', null, '186'),
-            h('i', null, 'MPH'))),
+            h('b', null, formatTokens(total)),
+            h('i', null, 'TOK'))),
         h('div', { className: 'vice-checker', 'aria-hidden': true }),
         h('div', { className: 'vice-panel-strip' },
           h('figure', null,
@@ -65,11 +81,11 @@ export function registerVicePanel({ ctx, React, store, assets }) {
         h('div', { className: 'vice-panel-crime' },
           h('span', { className: 'vice-panel-siren' }),
           h('div', null,
-            h('b', null, 'VCPD'),
-            h('i', null, 'HEAT · LEVEL 6'))),
+            h('b', null, model),
+            h('i', null, detail))),
         h('div', { className: 'vice-panel-footer' },
           h('img', { src: assets.logo, alt: 'Grand Theft Auto VI', className: 'vice-panel-logo' }),
-          h('span', null, 'AWAIT YOUR NEXT MOVE')))
+          h('span', null, session?.running ? 'RUN IN PROGRESS' : 'AWAIT YOUR NEXT MOVE')))
     }
 
     child.slots.inject('sidebar.right.pane.tab', function* () {

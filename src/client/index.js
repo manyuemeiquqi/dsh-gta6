@@ -1,5 +1,6 @@
 import { createConfigStore } from './core/config-store.js'
 import { createRunSignal } from './core/run-signal.js'
+import { createSessionState } from './core/session-state.js'
 import { installStyles } from './core/styles.js'
 import { registerBrandMark } from './features/brand/index.js'
 import brandStyles from './features/brand/styles.css'
@@ -44,7 +45,8 @@ window.__ModuleLoader__.load({
       ])
       const theme = createThemeController({ ctx, body })
       const scene = createScene({ body, assets: ASSETS })
-      const unregisterPanel = registerVicePanel({ ctx, React, store, assets: ASSETS })
+      const sessionState = createSessionState({ ctx })
+      const unregisterPanel = registerVicePanel({ ctx, React, store, assets: ASSETS, sessionState })
       const unregisterBrand = registerBrandMark()
       const runSignal = createRunSignal({ body })
       const wanted = createWantedMeter({ body, signal: runSignal })
@@ -85,6 +87,7 @@ window.__ModuleLoader__.load({
         theme.dispose()
         unregisterBrand()
         unregisterPanel()
+        sessionState.dispose()
         store.dispose()
         removeStyles()
       }, 'vice: feature lifecycle')
