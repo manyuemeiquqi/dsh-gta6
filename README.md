@@ -1,93 +1,136 @@
 # dsh-gta6
 
-DeepSeek Harness 的 Vice City 主题：官方 GTA VI 主视觉、通缉星级、右栏画报、开场动画。
+**给 DeepSeek Harness 的 Vice City 主题。** 用 Rockstar 官方 GTA VI 主视觉重做了界面里几个最常被看到的位置，
+外加一只会跟着 Agent 状态变化的桌面宠物。
 
-配色、排版与交互全部由 CSS 与手写 SVG 实现，运行时无第三方依赖。
+[![npm](https://img.shields.io/npm/v/dsh-gta6?style=flat-square&color=ff5f92)](https://www.npmjs.com/package/dsh-gta6)
+[![license](https://img.shields.io/npm/l/dsh-gta6?style=flat-square)](LICENSE)
+[![dsh](https://img.shields.io/badge/DSH-0.2.x-5fe0ea?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
 
-> 素材归属见 [NOTICE.md](NOTICE.md)。界面美术来自 Rockstar 官方宣传物料，著作权归
-> Rockstar Games 与 Take-Two Interactive，不在 MIT 许可范围内。
+![dsh-gta6 深色界面](https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/docs/shots/overview-dark.jpg)
 
-## 效果
+<sub>浅色配色同样完整：</sub>
 
-**会话**
+![dsh-gta6 浅色界面](https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/docs/shots/overview-light.jpg)
 
-- 顶部标题区换成官方主视觉横幅，替代默认的「探索未至之境」字样
-- 用户消息做成简报卡：霓虹描边与右缘信号条
-- 代码块使用改写的 Shiki 配色，行内代码保持可读对比度
-- 工具调用行按动作着色：思考紫、读取青、搜索蓝、编辑绿、命令琥珀、规划玫红
-- Agent 运行中，工具行色带扫光
+---
 
-**通缉星级**
+## 它做了什么
 
-右侧边栏顶部与状态条上的六颗星，跟随 Agent 真实状态：开始生成时亮到 6 星，结束即归零。
-判定只读宿主自己的「停止生成」控件，不扫描消息内容。
+不是换一套配色那种主题。它改的是几个「每次用都会看到」的位置：
 
-**右栏画报**
+| | |
+|---|---|
+| **通缉星级** | 六颗星跟着 Agent 真实的运行状态亮起，不是装饰 |
+| **右栏仪表盘** | 会话标题、累计 token、模型与推理档位，全部来自宿主真实数据 |
+| **工具调用行** | 按动作着色：思考紫、读取青、搜索蓝、编辑绿、命令琥珀、规划玫红 |
+| **桌面宠物** | Jason 与 Lucia，可拖动、会犯困、会跟着任务变疲惫 |
+| **主视觉横幅** | 会话顶部换成官方主视觉，替代默认标题 |
+| **开场动画** | 五块碎片拼合、标识放大、扫描线掠过 |
 
-「Vice City」标签页：主视觉卡片、雷达与电台、速度表、格子旗分隔、VCPD 警灯、
-载具与海滩画报。Agent 运行中警灯闪烁、速度表指针摆动。
+### 通缉星级跟随真实状态
 
-**桌面宠物**
+GTA 里最有辨识度的语言，恰好能对上 Agent 的状态：街道安静，直到开始干活。
 
-右下角的 Jason 与 Lucia，取自 Rockstar 官方主视觉插画（不是实拍截图——插画的轮廓和表情在小尺寸下
-才立得住）。空闲时轻轻摇晃并每隔一会儿在两张姿态间切换，Agent 开始工作时来回浮动，结束瞬间跳两下，
-久无操作会犯困；鼠标移上去会抬头看你。可以拖动到任意位置，靠近屏幕边缘会自动吸附，位置记在本地；
-点一下会说一句台词。
+![右侧面板](https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/docs/shots/panel.jpg)
 
-**开场动画**
+星级读的是**宿主自己的会话状态**，不扫描页面文字，也不猜。Agent 开始工作时六星亮起，
+结束瞬间归零；右栏的速度表指针跟着摆动，VCPD 警灯开始闪。
+
+### 右栏是一块真的仪表盘
+
+右侧的「Vice City」标签页不是贴图。它订阅宿主的 `sessions` 服务，显示**当前会话**的标题、
+累计 token 用量、模型名和推理档位——切换会话，它就跟着变。
+
+### 桌面宠物
+
+Jason 与 Lucia，从官方主视觉插画里抠出来的（不是实拍截图——插画的轮廓在小尺寸下才立得住）。
+
+- **姿态跟着工作量**：会话越重，两人越往下塌
+- **状态跟着运行**：干活时浮动换姿势，结束时跳两下
+- **会困**：白天安静 45 秒犯困，夜里 9 秒就撑不住
+- **会说话**：点一下说一句，两人语气不同；闲时也会自己嘀咕
+- **随手挪**：拖动到任意位置，靠近屏幕边缘自动吸附，位置记在本地
+- **双击**打开右栏画报
+
+### 开场动画
+
+![开场动画](https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/docs/shots/intro.jpg)
 
 首次加载时五块主视觉碎片拼合、标识放大、扫描线扫过，约 3 秒后消散。
 
-**其他**
-
-- 浅色 / 深色各一套配色，跟随系统
-- 侧栏标识替换为 VI 标识与字标
-- 全部动效遵循 `prefers-reduced-motion`，系统开启减少动态效果时自动静止
-
-## 环境要求
-
-- DeepSeek Harness `>= 0.2.0 < 0.3.0`
-- Node.js `>= 24.9.0`（仅构建期需要）
+---
 
 ## 安装
+
+```bash
+dsh plugin --profile <profile> add dsh-gta6
+```
+
+从 GitHub 装：
 
 ```bash
 dsh plugin --profile <profile> add github:manyuemeiquqi/dsh-gta6
 ```
 
-装好后在 profile 的 `package.json` 里确认已列入 bundles：
+**从应用内市场安装**：`设置 → 插件 → 自定义插件索引` 添加下面这个地址，然后切到「发现」：
+
+```
+https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/market/index.json
+```
+
+装好后确认 profile 的 `package.json` 里已列入 bundles：
 
 ```json
 {
-  "dependencies": { "dsh-gta6": "github:manyuemeiquqi/dsh-gta6" },
+  "dependencies": { "dsh-gta6": "^0.1.0" },
   "dsh": {
     "profile": {
-      "bundles": [
-        "@deepseek-ai/dsh-base",
-        "@deepseek-ai/dsh-web-app",
-        "dsh-gta6"
-      ]
+      "bundles": ["@deepseek-ai/dsh-base", "@deepseek-ai/dsh-web-app", "dsh-gta6"]
     }
   }
 }
 ```
 
-改过代码后重新 `npm run build` 并重载插件；只重载页面不会清掉已缓存的模块。
+> 改过代码后要重新 `npm run build` 并重载插件；只刷新页面不会清掉已缓存的模块。
+
+---
 
 ## 配置
 
-设置 → 插件 → Vice City 主题：
+`设置 → 插件 → GTA VI · Vice City`：
 
 | 键 | 默认 | 说明 |
 | --- | --- | --- |
-| `enabled` | `1` | 启用配色替换与界面装饰 |
-| `background` | `1` | 显示主视觉横幅、右栏画报与空状态场景 |
+| `enabled` | `1` | 总开关：配色与全部界面装饰 |
+| `background` | `1` | 主视觉横幅、右栏画报与空状态场景 |
 | `opacity` | `72` | 背景不透明度（0–100） |
 | `blur` | `0` | 背景模糊（0–24px） |
 | `glow` | `1` | 标题、边框与按钮的霓虹光晕 |
 | `motion` | `1` | 消息进场动画与工具行扫光 |
 | `intro` | `1` | 开场动画 |
-| `pet` | `1` | 右下角桌面宠物（Jason 与 Lucia） |
+| `pet` | `1` | 桌面宠物 |
+
+全部动效遵循 `prefers-reduced-motion`：系统开启「减少动态效果」时自动静止。
+
+---
+
+## 兼容性
+
+- DeepSeek Harness `>= 0.2.0 < 0.3.0`
+- Node.js `>= 24.9.0`（仅构建期需要）
+
+宿主仍在预览阶段，插件 API 可能继续变化。选择器优先挂宿主的 `data-*` 语义标记
+（`data-process-activity`、`data-message-bubble` 等），不绑哈希类名，但发版后仍可能需要跟进。
+
+---
+
+## 素材与授权
+
+界面美术来自 Rockstar Games 官方发布的 GTA VI 宣传物料，**著作权归 Rockstar 与 Take-Two**，
+不在本项目 MIT 许可范围内。逐项来源、原创部分与授权说明见 [NOTICE.md](NOTICE.md)。
+
+本插件与 Rockstar Games、Take-Two Interactive、DeepSeek 均无隶属关系，未获其背书。
 
 ## 开发
 
@@ -97,9 +140,7 @@ npm run build   # 生成 index.js、client.js
 npm run check   # build + 语法检查
 ```
 
-`index.js` 与 `client.js` 是构建产物，随仓库一起提交，不要手改。
-
-## 目录
+`index.js` 与 `client.js` 是构建产物，随仓库提交，不要手改。
 
 ```text
 src/
@@ -108,31 +149,21 @@ src/
   client/
     index.js                # 客户端入口，只负责组装与生命周期
     core/
-      art.js                # 原创 SVG：棕榈、天际线、雷达、星点、颗粒
-      config-store.js       # 配置订阅与乐观写入
-      styles.js             # 样式注入
+      run-signal.js         # 运行状态：一个 observer，多订阅者
+      session-state.js      # 会话数据：标题 / token / 模型
+      art.js                # 原创 SVG：棕榈、天际线、雷达、星点
     features/
-      theme/                # token 覆盖、外壳表面、排版
-      conversation/         # 正文、代码块、行内代码、用户气泡
-      tools/                # 工具调用行按动作着色
-      wanted/               # 通缉星级与运行状态判定
-      panel/                # 右栏 Vice City 画报
-      pet/                  # 桌面宠物（拖动、状态联动、台词）
-      brand/                # 侧栏标识替换
-      scene/                # 主视觉横幅与空状态场景
-      intro/                # 开场动画
-      motion/               # 进场动效
-scripts/build.mjs           # esbuild 打包（IIFE，CSS 走 text loader）
-lib/assets/                 # 官方宣传素材，见 NOTICE.md
+      theme/ conversation/ tools/ wanted/ panel/ pet/ brand/ scene/ intro/ motion/
+market/index.json           # 应用内市场索引（format 1）
+docs/shots/                 # README 截图
 ```
 
-## 约定
+**约定**
 
 - CSS 一律带 `vice-` 命名空间或 `body[data-vice-*]` 作用域，不污染全局元素。
-- 选择器优先挂宿主的 `data-*` 语义标记（`data-process-activity`、`data-message-bubble`
-  等），不绑哈希类名——那份类名每次发版都变。
-- 需要加内边距又要保持布局时，用 `padding` + 等量负 `margin` 抵消，不改动原有盒模型。
+- 选择器挂 `data-*` 语义标记，不绑哈希类名。
+- 需要加内边距又要保持布局时，用 `padding` + 等量负 `margin` 抵消。
 - 每个 feature 的清理函数必须完整释放监听器、Observer 与注入的样式。
-- 不扫描页面文字推断状态；只读宿主自己的控件与本插件的配置。
+- 不扫描页面文字推断状态；只读宿主自己的服务与控件。
 
 许可证见 [LICENSE](LICENSE)。
