@@ -1,12 +1,18 @@
 /* Desktop pet: Jason and Lucia in a fixed layer over the conversation.
-   The cut-out art is a single image, so the animation is transform-only:
-   it stays crisp at any size and costs nothing to load beyond one PNG. */
+   The art is two cut-out stills, so the animation is transform-only: it stays
+   crisp at any size and costs nothing beyond the two PNGs.
+
+   The box is a fixed size and each pose is anchored to its bottom-right corner,
+   because the two poses have very different aspect ratios — a landscape lean
+   and a portrait car shot — and letting them size the box would make the
+   corner jump every time the pose turns over. */
 
 .vice-pet {
   position: fixed;
   z-index: 60;
   right: 26px;
   bottom: 124px;
+  width: 220px;
   height: clamp(124px, 9.6vw, 164px);
   cursor: grab;
   touch-action: none;
@@ -15,13 +21,13 @@
   transition: opacity 260ms var(--vice-ease);
 }
 
-/* A soft pad under the figures: their feet are cropped out of the source, so
+/* A soft pad under the pair: their feet are cropped out of the source, so
    without it they read as pasted on the glass rather than standing there. */
 .vice-pet::after {
   content: '';
   position: absolute;
-  left: 10%;
-  right: 10%;
+  left: 12%;
+  right: 12%;
   bottom: -7px;
   height: 13px;
   border-radius: 50%;
@@ -30,11 +36,22 @@
   pointer-events: none;
 }
 
-.vice-pet-figure {
-  display: block;
+.vice-pet-stage {
+  position: relative;
+  width: 100%;
   height: 100%;
+}
+
+.vice-pet-layer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  max-width: 100%;
+  max-height: 100%;
   width: auto;
+  height: auto;
   pointer-events: none;
+  opacity: 0;
   transform-origin: 50% 100%;
   /* The first shadow is a rose halo tracing the silhouette, so the cut-out
      picks up the theme's neon instead of sitting on the shell as a pasted
@@ -42,6 +59,11 @@
   filter:
     drop-shadow(0 0 7px rgba(255, 95, 146, 0.34))
     drop-shadow(0 10px 24px rgba(10, 4, 20, 0.42));
+  transition: opacity 420ms var(--vice-ease);
+}
+
+.vice-pet-layer.is-active {
+  opacity: 1;
   animation: vice-pet-idle 5.2s ease-in-out infinite;
 }
 
@@ -49,19 +71,21 @@
   cursor: grabbing;
 }
 
-.vice-pet.is-dragging .vice-pet-figure {
+.vice-pet.is-dragging .vice-pet-layer.is-active {
   animation: none;
   transform: rotate(-1.5deg) scale(0.98);
-  filter: drop-shadow(0 16px 34px rgba(10, 4, 20, 0.55));
+  filter:
+    drop-shadow(0 0 9px rgba(255, 95, 146, 0.4))
+    drop-shadow(0 16px 32px rgba(10, 4, 20, 0.55));
 }
 
 /* ---------- states ---------- */
 
-.vice-pet[data-state='working'] .vice-pet-figure {
+.vice-pet[data-state='working'] .vice-pet-layer.is-active {
   animation: vice-pet-work 720ms ease-in-out infinite;
 }
 
-.vice-pet[data-state='done'] .vice-pet-figure {
+.vice-pet[data-state='done'] .vice-pet-layer.is-active {
   animation: vice-pet-hop 720ms cubic-bezier(.3, .7, .35, 1) 2;
 }
 
@@ -69,8 +93,20 @@
   opacity: 0.62;
 }
 
-.vice-pet[data-state='sleep'] .vice-pet-figure {
+.vice-pet[data-state='sleep'] .vice-pet-layer.is-active {
   animation: vice-pet-sleep 7s ease-in-out infinite;
+}
+
+/* Hover: they look up at you. The idle animation is paused first, or it would
+   keep overwriting the transform. */
+@media (hover: hover) {
+  .vice-pet:hover .vice-pet-layer.is-active {
+    animation: none;
+    transform: translateY(-4px) scale(1.04);
+    filter:
+      drop-shadow(0 0 10px rgba(255, 95, 146, 0.44))
+      drop-shadow(0 14px 28px rgba(10, 4, 20, 0.5));
+  }
 }
 
 @keyframes vice-pet-idle {
@@ -154,12 +190,11 @@
 /* The cut-out is a dark, high-contrast render. On the light shell it sat like a
    smudge, so it gets a lift and a warmer pad to hold its own. */
 @media (prefers-color-scheme: light) {
-  .vice-pet-figure {
-    filter: drop-shadow(0 10px 22px rgba(44, 14, 44, 0.32)) brightness(1.06) saturate(1.04);
-  }
-
-  .vice-pet.is-dragging .vice-pet-figure {
-    filter: drop-shadow(0 16px 30px rgba(44, 14, 44, 0.4)) brightness(1.06) saturate(1.04);
+  .vice-pet-layer {
+    filter:
+      drop-shadow(0 0 6px rgba(255, 95, 146, 0.22))
+      drop-shadow(0 10px 22px rgba(44, 14, 44, 0.32))
+      brightness(1.06) saturate(1.04);
   }
 
   .vice-pet::after {
@@ -168,12 +203,15 @@
 }
 
 /* ---------- motion preference ---------- */
+
 @media (prefers-reduced-motion: reduce) {
-  .vice-pet-figure,
-  .vice-pet[data-state='working'] .vice-pet-figure,
-  .vice-pet[data-state='done'] .vice-pet-figure,
-  .vice-pet[data-state='sleep'] .vice-pet-figure {
+  .vice-pet-layer.is-active,
+  .vice-pet[data-state='working'] .vice-pet-layer.is-active,
+  .vice-pet[data-state='done'] .vice-pet-layer.is-active,
+  .vice-pet[data-state='sleep'] .vice-pet-layer.is-active,
+  .vice-pet:hover .vice-pet-layer.is-active {
     animation: none;
+    transform: none;
   }
 
   .vice-pet-bubble {
@@ -183,6 +221,7 @@
 
 @media (max-width: 720px) {
   .vice-pet {
+    width: 160px;
     height: 96px;
     right: 14px;
     bottom: 112px;

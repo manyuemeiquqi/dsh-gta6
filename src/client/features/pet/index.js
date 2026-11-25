@@ -1,10 +1,11 @@
 /**
- * Desktop pet: Jason and Lucia, cut from Rockstar's official 4K key art.
+ * Desktop pet: Jason and Lucia, cut from Rockstar's official 4K press shots.
  *
  * They live in a fixed layer over the conversation, idle on their own, react
- * when the agent starts working, and hop once when it finishes. The pet is
- * draggable and remembers where it was put; that position is the only thing
- * kept in localStorage, since it is a per-viewer convenience.
+ * when the agent starts working, and hop once when it finishes. Two poses take
+ * turns so the corner does not wear out, and the pair is draggable with edge
+ * snapping; that position is the only thing kept in localStorage, since it is
+ * a per-viewer convenience.
  *
  * State comes from the same signal the wanted stars use — the harness's own
  * stop control — so the two never disagree.
@@ -15,6 +16,9 @@ const SLEEP_AFTER_MS = 45_000
 const DONE_MS = 1300
 const BUBBLE_MS = 3600
 const DRAG_THRESHOLD = 5
+const SNAP_MARGIN = 30
+const EDGE = 26
+const POSE_TURN_MS = 26_000
 
 // Two voices, not one. Jason answers in short, flat sentences; Lucia is the
 // one pushing the schedule. Every line sits between 8 and 12 characters so the
@@ -30,14 +34,17 @@ const LINES = [
 
 export function createPet({ body, assets }) {
   let host
-  let figure
+  let stage
+  let layers = []
   let bubble
   let observer
   let bubbleTimer
   let sleepTimer
   let doneTimer
+  let poseTimer
   let running = false
   let state = 'idle'
+  let pose = 0
   let position = readPosition()
   let drag = null
   let lastLine = -1
@@ -71,6 +78,23 @@ export function createPet({ body, assets }) {
     }
   }
 
+  /** Pull the pair to whichever edge they were dropped nearest. */
+  function snapPosition(next) {
+    const width = host.offsetWidth || 160
+    const height = host.offsetHeight || 170
+    const rightEdge = window.innerWidth - width - EDGE
+    const bottomEdge = window.innerHeight - height - EDGE
+    const snapped = { ...next }
+
+    if (Math.abs(next.x - EDGE) < SNAP_MARGIN) snapped.x = EDGE
+    else if (Math.abs(next.x - rightEdge) < SNAP_MARGIN) snapped.x = rightEdge
+
+    if (Math.abs(next.y - EDGE) < SNAP_MARGIN) snapped.y = EDGE
+    else if (Math.abs(next.y - bottomEdge) < SNAP_MARGIN) snapped.y = bottomEdge
+
+    return snapped
+  }
+
   function applyPosition() {
     if (!position) return
     position = clampPosition(position.x, position.y)
@@ -80,12 +104,21 @@ export function createPet({ body, assets }) {
     host.style.bottom = 'auto'
   }
 
+  function showPose(index) {
+    if (index === pose || layers.length < 2) return
+    pose = index
+    layers.forEach((layer, i) => layer.classList.toggle('is-active', i === index))
+  }
+
   function setState(next) {
     if (next === state || !host) return
     state = next
     host.dataset.state = next
     window.clearTimeout(doneTimer)
     if (next === 'done') doneTimer = window.setTimeout(() => setState(running ? 'working' : 'idle'), DONE_MS)
+    // The pair shifts pose when the work starts, and settles back when it ends.
+    if (next === 'working') showPose(1)
+    else if (next === 'done') showPose(0)
   }
 
   function armSleep() {
@@ -93,6 +126,14 @@ export function createPet({ body, assets }) {
     sleepTimer = window.setTimeout(() => {
       if (!running) setState('sleep')
     }, SLEEP_AFTER_MS)
+  }
+
+  function armPoseTurn() {
+    window.clearTimeout(poseTimer)
+    poseTimer = window.setTimeout(() => {
+      if (state === 'idle') showPose(pose === 0 ? 1 : 0)
+      armPoseTurn()
+    }, POSE_TURN_MS)
   }
 
   function applyRunning(next) {
@@ -171,17 +212,15 @@ export function createPet({ body, assets }) {
     const moved = drag.moved
     drag = null
     if (moved) {
-      if (position) savePosition(position)
+      if (position) {
+        position = snapPosition(position)
+        applyPosition()
+        savePosition(position)
+      }
       armSleep()
     } else {
       say()
     }
-  }
-
-  function onClick(event) {
-    // A drag already handled the pointer; keep the synthetic click quiet.
-    if (drag) return
-    event.preventDefault()
   }
 
   function onResize() {
@@ -193,12 +232,17 @@ export function createPet({ body, assets }) {
     savePosition(position)
   }
 
+  function onClick(event) {
+    // A drag already handled the pointer; keep the synthetic click quiet.
+    if (drag) return
+    event.preventDefault()
+  }
+
   function mount() {
     if (host) return
 
     host = document.createElement('div')
     host.className = 'vice-pet'
-    host.dataset.state = state
     host.setAttribute('role', 'img')
     host.setAttribute('aria-label', 'Jason 与 Lucia')
 
@@ -206,13 +250,21 @@ export function createPet({ body, assets }) {
     bubble.className = 'vice-pet-bubble'
     bubble.hidden = true
 
-    figure = document.createElement('img')
-    figure.className = 'vice-pet-figure'
-    figure.src = assets.pet
-    figure.alt = ''
-    figure.draggable = false
+    stage = document.createElement('div')
+    stage.className = 'vice-pet-stage'
 
-    host.append(bubble, figure)
+    layers = [assets.pet, assets.petAlt].filter(Boolean).map((src, index) => {
+      const layer = document.createElement('img')
+      layer.className = 'vice-pet-layer'
+      layer.src = src
+      layer.alt = ''
+      layer.draggable = false
+      if (index === 0) layer.classList.add('is-active')
+      stage.appendChild(layer)
+      return layer
+    })
+
+    host.append(bubble, stage)
     body.appendChild(host)
 
     applyPosition()
@@ -228,8 +280,11 @@ export function createPet({ body, assets }) {
 
     running = readRunning()
     state = running ? 'working' : 'idle'
+    pose = 0
     host.dataset.state = state
-    if (!running) armSleep()
+    if (running) showPose(1)
+    else armSleep()
+    armPoseTurn()
   }
 
   function unmount() {
@@ -238,6 +293,7 @@ export function createPet({ body, assets }) {
     window.clearTimeout(bubbleTimer)
     window.clearTimeout(sleepTimer)
     window.clearTimeout(doneTimer)
+    window.clearTimeout(poseTimer)
     if (!host) return
     host.removeEventListener('pointerdown', onPointerDown)
     host.removeEventListener('pointermove', onPointerMove)
@@ -247,11 +303,13 @@ export function createPet({ body, assets }) {
     window.removeEventListener('resize', onResize)
     host.remove()
     host = undefined
-    figure = undefined
+    stage = undefined
+    layers = []
     bubble = undefined
     drag = null
     running = false
     state = 'idle'
+    pose = 0
   }
 
   return {
