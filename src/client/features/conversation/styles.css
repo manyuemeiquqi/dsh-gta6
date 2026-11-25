@@ -1,0 +1,126 @@
+/* Conversation surfaces: markdown body, code blocks, and inline code.
+   Highlights are driven by the shiki CSS variables the renderer already emits. */
+
+body[data-vice-enabled='1'] {
+  /* Shiki token colors, tuned to the sunset palette. */
+  --shiki-token-keyword: #ff6b9d;
+  --shiki-token-function: #ffc46b;
+  --shiki-token-constant: #6fe3ec;
+  --shiki-token-string: #a6e88f;
+  --shiki-token-string-expression: #a6e88f;
+  --shiki-token-comment: #8b7f9e;
+  --shiki-token-parameter: #ffd9a8;
+  --shiki-token-variable: #f3e6ff;
+  --shiki-token-variable-other: #f3e6ff;
+  --shiki-token-punctuation: #c9bcd8;
+  --shiki-token-operator: #ff9fbf;
+  --shiki-token-builtin: #6fe3ec;
+  --shiki-token-class: #ffc46b;
+  --shiki-token-type: #6fe3ec;
+  --shiki-token-property: #ffd9a8;
+  --shiki-token-number: #ffa07a;
+}
+
+/* ---------- markdown body ---------- */
+
+body[data-vice-enabled='1'] [data-text-interaction-source] {
+  line-height: 1.68;
+}
+
+body[data-vice-enabled='1'] [data-text-interaction-source] a {
+  color: var(--dsw-alias-link);
+  text-underline-offset: 3px;
+}
+
+body[data-vice-enabled='1'] [data-text-interaction-source] blockquote {
+  border-left: 2px solid var(--dsw-alias-border-selected);
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(90deg, rgba(255, 95, 146, 0.06), transparent 70%);
+  padding-inline-start: 14px;
+}
+
+body[data-vice-enabled='1'] [data-text-interaction-source] hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 95, 146, 0.36),
+    rgba(255, 179, 92, 0.28),
+    transparent);
+}
+
+/* ---------- code blocks ---------- */
+
+body[data-vice-enabled='1'] pre.shiki {
+  position: relative;
+  border: 1px solid var(--dsw-alias-border-l1);
+  border-radius: 10px;
+  box-shadow: 0 8px 26px rgba(10, 4, 20, 0.16);
+}
+
+/* A neon hairline along the top edge of every fence. */
+body[data-vice-enabled='1'] pre.shiki::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  border-radius: 10px 10px 0 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 95, 146, 0.42), transparent);
+  pointer-events: none;
+}
+
+body[data-vice-enabled='1'] pre.shiki code {
+  font-variant-ligatures: none;
+  tab-size: 2;
+}
+
+/* Line numbers stay quiet so the code itself carries the color. */
+body[data-vice-enabled='1'] pre.shiki .line-number {
+  color: var(--dsw-alias-label-tertiary);
+  opacity: 0.55;
+}
+
+/* ---------- inline code ---------- */
+
+body[data-vice-enabled='1'] [data-text-interaction-source] :not(pre) > code {
+  border: 1px solid rgba(255, 95, 146, 0.14);
+  border-radius: 4px;
+  padding: 1px 5px;
+  background: var(--dsw-alias-markdown-inline-code);
+  color: var(--vice-rose);
+  font-size: 0.94em;
+}
+
+/* ---------- tables ---------- */
+
+body[data-vice-enabled='1'] [data-text-interaction-source] table {
+  border-collapse: collapse;
+  border: 1px solid var(--dsw-alias-border-l1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+body[data-vice-enabled='1'] [data-text-interaction-source] th {
+  background: var(--dsw-alias-bg-layer-2);
+  color: var(--dsw-alias-label-primary);
+  font-weight: 600;
+}
+
+body[data-vice-enabled='1'] [data-text-interaction-source] th,
+body[data-vice-enabled='1'] [data-text-interaction-source] td {
+  border-color: var(--dsw-alias-border-l1);
+  padding: 7px 12px;
+}
+
+body[data-vice-enabled='1'] [data-text-interaction-source] tbody tr:nth-child(even) {
+  background: rgba(127, 96, 128, 0.05);
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-vice-enabled='1'] pre.shiki,
+  body[data-vice-enabled='1'] [data-text-interaction-source] * {
+    transition: none !important;
+  }
+}

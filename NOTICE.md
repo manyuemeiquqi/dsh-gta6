@@ -1,22 +1,37 @@
 # 素材与归属说明
 
-## 视觉素材
+## 官方美术素材
 
-本插件不附带任何图片、视频、音频或字体文件。界面上看到的所有图形都由以下方式在运行时生成：
+本插件的视觉素材来自 Rockstar Games 官方发布的 GTA VI 宣传物料，经授权在本项目中使用。
 
-- **CSS 渐变与遮罩**：太阳、天空、地平线、透视网格、光晕
-- **手写 SVG**：棕榈剪影、城市天际线、装饰星点（`src/client/core/art.js`）
-- **SVG 滤镜**：颗粒噪点，由 `feTurbulence` 在浏览器内实时生成
+| 文件 | 内容 |
+| --- | --- |
+| `poster_full-25ce00b5d601.jpg` | 官方主视觉（宣传图拼贴） |
+| `poster_logo-8eb6649ac961.png` | 官方 VI 标识（透明底，已裁去留白） |
+| `jason-lucia-rooftop.webp` | Jason 与 Lucia 屋顶场景 |
+| `vice-city.webp` | 「VISIT LEONIDA」Vice City 明信片 |
+| `cheetah.webp` | Grotti Cheetah 宣传截图 |
+| `vice-beach-night.webp` | Vice Beach 夜景截图 |
+| `leonida-street.webp` | Leonida 街头人物截图 |
+| `nightlife.webp` | Vice City 夜生活截图（未在界面中使用） |
 
-这些几何与配色为本项目原创，随代码一起以 MIT 许可证发布。
+原始来源：<https://www.rockstargames.com/VI>，逐项来源见 `lib/assets/NOTICE.txt`。
 
-## 风格说明
+这些素材的著作权归 Rockstar Games 与 Take-Two Interactive 所有，不在本项目的 MIT 许可证覆盖范围内。
 
-主题采用 1980 年代迈阿密霓虹 / 日落风格（"synthwave" 一类通用的视觉语言）。
-该风格本身属于公有领域的视觉惯例，不来源于任何单一作品。
+## 原创部分
 
-本插件与 Rockstar Games、Take-Two Interactive 或 DeepSeek 均无关联，未获其背书或赞助，
-也不包含任何游戏代码、角色形象、宣传素材或音乐。
+以下内容为本项目原创，随代码一起以 MIT 许可证发布：
+
+- 全部代码、配置与构建脚本
+- 界面结构、排版与配色方案
+- 运行时绘制的几何图形：雷达盘、通缉星级、装饰星点（`src/client/core/art.js`）
+- SVG 颗粒噪点滤镜
+- 启动动画的分镜、时间轴与过渡设计
+
+## 风格与归属
+
+本插件与 Rockstar Games、Take-Two Interactive 或 DeepSeek 均无隶属关系，未获其背书或赞助。
 
 ## 依赖
 

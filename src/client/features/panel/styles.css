@@ -1,17 +1,17 @@
-/* Right-sidebar postcard panel. Uses the theme's own SVG art, no images. */
+/* Right-sidebar panel: official artwork, radar, radio strip, wanted stars. */
 
 .vice-panel {
   container-type: inline-size;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   min-height: 100%;
   padding: 18px;
   overflow: auto;
   color: var(--dsw-alias-label-primary);
   background:
-    linear-gradient(180deg, rgba(255, 95, 146, 0.05), transparent 42%),
+    linear-gradient(180deg, rgba(255, 95, 146, 0.06), transparent 38%),
     var(--dsw-alias-bg-base);
 }
 
@@ -49,7 +49,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 14px;
-  margin: 8px 0 2px;
+  margin: 6px 0 2px;
 }
 
 .vice-panel-heading p {
@@ -66,26 +66,27 @@
   letter-spacing: -0.055em;
 }
 
-.vice-stars {
+.vice-wanted-panel {
   display: grid;
   justify-items: end;
   gap: 7px;
   color: var(--vice-gold);
 }
 
-.vice-stars span {
+.vice-wanted-panel span {
   font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;
   letter-spacing: 0.16em;
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
-.vice-stars b {
-  font: 13px/1 Georgia, serif;
-  letter-spacing: 2px;
-  opacity: 0.7;
+.vice-wanted-panel b {
+  font: 14px/1 Georgia, serif;
+  letter-spacing: 3px;
+  filter: drop-shadow(0 0 8px rgba(255, 179, 92, 0.5));
 }
 
-/* The hero card reuses the scene frame geometry at a wider aspect. */
+/* ---------- hero card ---------- */
+
 .vice-panel-card {
   position: relative;
   overflow: hidden;
@@ -93,23 +94,198 @@
   border: 1px solid rgba(255, 95, 146, 0.24);
   border-radius: 10px;
   background: #160e26;
-  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.28);
-  isolation: isolate;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.3);
 }
 
-.vice-panel-card .vice-frame {
+.vice-panel-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+.vice-panel-card-shade {
   position: absolute;
   inset: 0;
-  aspect-ratio: auto;
-  max-height: none;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
+  background: linear-gradient(180deg, transparent 40%, rgba(10, 5, 20, 0.88) 100%);
 }
 
-.vice-panel-card .vice-caption strong {
-  font-size: 20px;
+.vice-panel-card > span {
+  position: absolute;
+  right: 16px;
+  bottom: 13px;
+  color: #ffe4bf;
+  font: 700 13px/1 Georgia, serif;
+  letter-spacing: 0.16em;
+  text-shadow: 0 2px 12px #301629;
 }
+
+/* ---------- radar + radio ---------- */
+
+.vice-panel-meter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--dsw-alias-border-l1);
+  border-radius: 10px;
+  background: var(--dsw-alias-bg-layer-1);
+}
+
+.vice-panel-radar {
+  flex: 0 0 auto;
+  width: 56px;
+  aspect-ratio: 1;
+}
+
+.vice-panel-radar svg { display: block; width: 100%; height: 100%; }
+
+.vice-panel-radio {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.vice-panel-radio span {
+  color: var(--dsw-alias-label-tertiary);
+  font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.22em;
+}
+
+.vice-panel-radio strong {
+  overflow: hidden;
+  color: var(--vice-rose);
+  font: 600 10px/1.3 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- speedometer ---------- */
+
+.vice-panel-speed {
+  position: relative;
+  flex: 0 0 auto;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  width: 58px;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 179, 92, 0.28);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 62%, rgba(255, 179, 92, 0.12), transparent 62%),
+    rgba(10, 5, 20, 0.4);
+}
+
+.vice-panel-speed b {
+  color: var(--vice-gold);
+  font: 700 15px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.vice-panel-speed i {
+  margin-top: 2px;
+  color: var(--dsw-alias-label-tertiary);
+  font: 600 6px/1 ui-sans-serif, system-ui, sans-serif;
+  font-style: normal;
+  letter-spacing: 0.16em;
+}
+
+/* The needle swings when the agent is working, like a revving engine. */
+.vice-panel-speed-needle {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: 1px;
+  height: 21px;
+  background: linear-gradient(0deg, var(--vice-hot), transparent);
+  transform-origin: bottom center;
+  transform: rotate(-118deg);
+  transition: transform 420ms cubic-bezier(.22, .7, .28, 1);
+}
+
+body[data-vice-wanted] .vice-panel-speed-needle {
+  animation: vice-speed-rev 900ms ease-in-out infinite alternate;
+}
+
+@keyframes vice-speed-rev {
+  from { transform: rotate(-118deg); }
+  to { transform: rotate(96deg); }
+}
+
+/* ---------- checkered divider ---------- */
+
+.vice-checker {
+  height: 8px;
+  border-radius: 2px;
+  background-image:
+    repeating-conic-gradient(
+      rgba(255, 255, 255, 0.26) 0% 25%,
+      transparent 0% 50%
+    );
+  background-size: 16px 16px;
+  opacity: 0.5;
+}
+
+/* ---------- crime / VCPD ---------- */
+
+.vice-panel-crime {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid rgba(255, 95, 146, 0.18);
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(255, 95, 146, 0.08), transparent 70%);
+}
+
+.vice-panel-siren {
+  position: relative;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 12px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #d63447 0 50%, #2f6fd6 50% 100%);
+  opacity: 0.45;
+  transition: opacity 220ms ease;
+}
+
+body[data-vice-wanted] .vice-panel-siren {
+  opacity: 1;
+  animation: vice-siren 700ms steps(1, end) infinite;
+}
+
+@keyframes vice-siren {
+  0%, 49% { filter: brightness(1.35) drop-shadow(0 0 10px #d63447); }
+  50%, 100% { filter: brightness(1.35) drop-shadow(0 0 10px #2f6fd6); }
+}
+
+.vice-panel-crime div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.vice-panel-crime b {
+  color: var(--dsw-alias-label-primary);
+  font: 700 10px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.2em;
+}
+
+.vice-panel-crime i {
+  color: var(--dsw-alias-label-tertiary);
+  font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;
+  font-style: normal;
+  letter-spacing: 0.14em;
+}
+
+body[data-vice-wanted] .vice-panel-crime i {
+  color: #ff8a8a;
+}
+
+/* ---------- image strip ---------- */
 
 .vice-panel-strip {
   display: grid;
@@ -117,8 +293,9 @@
   gap: 10px;
 }
 
-.vice-panel-tile {
+.vice-panel-strip figure {
   position: relative;
+  margin: 0;
   overflow: hidden;
   aspect-ratio: 1.5;
   border: 1px solid var(--dsw-alias-border-l1);
@@ -126,60 +303,57 @@
   background: var(--dsw-alias-bg-layer-2);
 }
 
-.vice-panel-tile::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0.85;
+.vice-panel-strip img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
 }
 
-.vice-panel-tile.is-cyan::before {
-  background:
-    radial-gradient(circle at 70% 22%, rgba(95, 224, 234, 0.42), transparent 58%),
-    linear-gradient(168deg, #0b2b3a, #14244a 55%, #2a1a44);
-}
-
-.vice-panel-tile.is-rose::before {
-  background:
-    radial-gradient(circle at 30% 26%, rgba(255, 179, 92, 0.42), transparent 58%),
-    linear-gradient(168deg, #3a1230, #4a1740 55%, #1d0f2b);
-}
-
-.vice-panel-tile span {
+.vice-panel-strip figcaption {
   position: absolute;
   inset: auto 0 0;
-  padding: 16px 10px 9px;
-  color: var(--dsw-alias-label-primary-foreground);
-  background: linear-gradient(transparent, rgba(10, 5, 20, 0.72));
+  padding: 16px 9px 8px;
+  color: #ffe2c0;
+  background: linear-gradient(transparent, rgba(10, 5, 20, 0.88));
   font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;
   letter-spacing: 0.14em;
 }
+
+/* ---------- footer ---------- */
 
 .vice-panel-footer {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  padding: 8px 0 10px;
+  padding: 6px 0 12px;
   color: var(--dsw-alias-label-tertiary);
 }
 
-.vice-panel-footer i {
-  width: 5px;
-  height: 5px;
-  background: var(--vice-hot);
-  box-shadow: 0 0 10px var(--vice-hot);
-  transform: rotate(45deg);
+.vice-panel-logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
 }
 
 .vice-panel-footer span {
   font: 600 8px/1.5 ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
+  text-align: center;
+}
+
+.vice-guide-icon {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 @container (max-width: 340px) {
   .vice-panel-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
-  .vice-stars { justify-items: start; }
+  .vice-wanted-panel { justify-items: start; }
   .vice-panel-heading h1 { font-size: 34px; }
   .vice-panel-strip { grid-template-columns: 1fr; }
 }
@@ -187,12 +361,3 @@
 @media (prefers-reduced-motion: reduce) {
   .vice-panel * { animation: none !important; }
 }
-
-.vice-guide-icon {
-  display: inline-flex;
-  width: 24px;
-  height: 24px;
-  color: var(--vice-hot);
-}
-
-.vice-guide-icon svg { width: 100%; height: 100%; }

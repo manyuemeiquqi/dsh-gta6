@@ -1,4 +1,4 @@
-/* The empty-state sunset postcard. All geometry is CSS or inline SVG. */
+/* Empty-state postcard built from official artwork plus GTA-style UI motifs. */
 
 body.vice-art-enabled [class*='_composerHero'] {
   display: grid;
@@ -35,7 +35,51 @@ body.vice-art-enabled [class*='_composerHero'] [class*='_headline']::before {
   color: var(--vice-rose);
   font: 600 10px/1.2 ui-sans-serif, system-ui, sans-serif;
   letter-spacing: 0.32em;
-  -webkit-text-stroke: 0;
+}
+
+/* ---------- headline banner ----------
+   The hero headline is a locale string, not a slot, so it is replaced visually.
+   What takes its place is not recreated type: it is the official key art itself,
+   cropped to a wide band so the real wordmark and the cast read at size.
+   Disabling the theme removes this sheet and the original copy returns. */
+
+body[data-vice-enabled='1'] [class*='_headline'] {
+  display: block;
+  width: 100%;
+}
+
+body[data-vice-enabled='1'] [class*='_headline'] [class*='_fishHitbox'] {
+  display: none;
+}
+
+body[data-vice-enabled='1'] [class*='_titleGroup'] {
+  display: block;
+  position: relative;
+  width: min(100%, 640px);
+}
+
+body[data-vice-enabled='1'] [class*='_titleGroup'] > span:first-child {
+  display: block;
+  font-size: 0;
+  letter-spacing: 0;
+}
+
+/* The band: official key art, cropped so the wordmark reads whole. */
+body[data-vice-enabled='1'] [class*='_titleGroup'] > span:first-child::after {
+  content: '';
+  display: block;
+  aspect-ratio: 2 / 1;
+  border: 1px solid rgba(255, 95, 146, 0.22);
+  border-radius: 10px;
+  background: var(--vice-poster) center center / cover no-repeat;
+  box-shadow:
+    0 18px 48px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 179, 92, 0.05) inset;
+}
+
+/* The badge has no place over the artwork; its copy is suppressed entirely. */
+body[data-vice-enabled='1'] [class*='_previewBadge'] {
+  display: none;
 }
 
 body.vice-art-enabled [class*='_composerHero'] [class*='_heroWorkspaceRow'] {
@@ -114,90 +158,67 @@ body.vice-art-enabled [class*='_composerHero'] [data-composer-placeholder='true'
   isolation: isolate;
 }
 
-.vice-sky {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, #1b1038 0%, #3a1650 26%, #7c1f5c 52%, #d2405f 72%, #ff8a4c 88%, #ffcf6b 100%);
-}
-
-.vice-sun {
-  position: absolute;
-  left: 50%;
-  top: 16%;
-  width: 58%;
-  aspect-ratio: 1;
-  translate: -50% 0;
-  border-radius: 50%;
-  background: linear-gradient(180deg, #fff3c4 0%, #ffcf6b 30%, #ff8a4c 58%, #ff4d7e 82%, #c8348f 100%);
-  filter: drop-shadow(0 0 42px rgba(255, 110, 90, 0.42));
-  -webkit-mask-image: repeating-linear-gradient(180deg, #000 0 7px, transparent 7px 9px);
-  mask-image: repeating-linear-gradient(180deg, #000 0 7px, transparent 7px 9px);
-  opacity: var(--vice-opacity, 0.72);
-}
-
-.vice-skyline {
-  position: absolute;
-  inset: auto 0 34%;
-  height: 16%;
-  opacity: 0.92;
-  filter: drop-shadow(0 -1px 12px rgba(255, 120, 120, 0.45));
-}
-
-.vice-skyline svg {
+.vice-shot {
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: 28% 40%;
+  filter: brightness(calc(0.62 + var(--vice-opacity, 0.72) * 0.38)) saturate(0.92);
 }
 
-.vice-grid {
+.vice-shade {
   position: absolute;
-  inset: auto 0 0;
-  height: 40%;
+  inset: 0;
   background:
-    repeating-linear-gradient(90deg, rgba(255, 138, 180, 0.55) 0 1px, transparent 1px 38px),
-    repeating-linear-gradient(0deg, rgba(255, 150, 190, 0.42) 0 1px, transparent 1px 26px);
-  transform: perspective(260px) rotateX(66deg);
-  transform-origin: bottom center;
-  -webkit-mask-image: linear-gradient(0deg, #000 34%, transparent 94%);
-  mask-image: linear-gradient(0deg, #000 34%, transparent 94%);
-}
-
-.vice-palms {
-  position: absolute;
-  inset: auto 0 26%;
-  height: 46%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  filter: drop-shadow(0 6px 18px rgba(10, 4, 20, 0.55));
-}
-
-.vice-palms svg {
-  height: 100%;
-  width: auto;
-  opacity: 0.95;
-}
-
-.vice-palms svg:first-child { align-self: flex-end; height: 88%; margin-left: 2%; }
-.vice-palms svg:last-child { height: 100%; margin-right: 3%; }
-
-.vice-grain {
-  position: absolute;
-  inset: 0;
-  background-image: var(--vice-grain);
-  opacity: 0.22;
-  mix-blend-mode: overlay;
+    linear-gradient(180deg, rgba(10, 5, 20, 0.45) 0%, transparent 34%, rgba(10, 5, 20, 0.88) 100%),
+    linear-gradient(90deg, rgba(10, 5, 20, 0.5), transparent 42%);
+  backdrop-filter: blur(var(--vice-blur, 0px));
   pointer-events: none;
 }
 
-.vice-frame::after {
-  content: '';
+/* ---------- wanted level ---------- */
+
+.vice-wanted {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 46%, rgba(12, 6, 22, 0.86) 100%);
-  pointer-events: none;
+  z-index: 2;
+  top: 14px;
+  right: 16px;
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
+
+.vice-wanted span {
+  color: rgba(255, 224, 224, 0.82);
+  font: 700 8px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.2em;
+}
+
+.vice-wanted b {
+  color: var(--vice-gold);
+  font: 15px/1 Georgia, serif;
+  letter-spacing: 3px;
+  filter: drop-shadow(0 0 8px rgba(255, 179, 92, 0.55));
+}
+
+/* ---------- radar ---------- */
+
+.vice-radar {
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  left: 14px;
+  width: clamp(58px, 7vw, 84px);
+  aspect-ratio: 1;
+  opacity: 0.92;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
+}
+
+.vice-radar svg { display: block; width: 100%; height: 100%; }
+
+/* ---------- caption ---------- */
 
 .vice-caption {
   position: absolute;
@@ -210,6 +231,7 @@ body.vice-art-enabled [class*='_composerHero'] [data-composer-placeholder='true'
   color: #fff2e7;
   font: 500 clamp(20px, 1.8vw, 28px)/1.15 Georgia, 'Times New Roman', serif;
   letter-spacing: 0.02em;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);
 }
 
 .vice-caption span {
@@ -217,7 +239,7 @@ body.vice-art-enabled [class*='_composerHero'] [data-composer-placeholder='true'
   justify-content: space-between;
   gap: 8px;
   margin-top: 9px;
-  color: rgba(255, 205, 205, 0.72);
+  color: rgba(255, 205, 205, 0.78);
   font: 600 8px/1.2 ui-sans-serif, system-ui, sans-serif;
   letter-spacing: 0.16em;
 }

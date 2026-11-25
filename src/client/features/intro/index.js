@@ -1,4 +1,9 @@
-export function createIntro() {
+import { GRAIN_URI } from '../../core/art.js'
+
+const SHARD_COUNT = 5
+const LIFE_MS = 3000
+
+export function createIntro({ assets }) {
   let shown = false
   let element
   let timer
@@ -7,18 +12,25 @@ export function createIntro() {
     if (shown || document.querySelector('.vice-intro')) return
     shown = true
 
+    const shards = Array.from({ length: SHARD_COUNT }, (_, index) => `
+      <span class="vice-intro-shard"
+        style="--vice-shard-left:${index * 20}%;
+               --vice-shard-position:${index * 25}%;
+               --vice-shard-delay:${240 + index * 70}ms"></span>`).join('')
+
     element = document.createElement('div')
     element.className = 'vice-intro'
     element.setAttribute('aria-hidden', 'true')
+    element.style.setProperty('--vice-poster', `url("${assets.poster}")`)
+    element.style.setProperty('--vice-grain', `url("${GRAIN_URI}")`)
     element.innerHTML = `
-      <div class="vice-intro-sky"></div>
-      <div class="vice-intro-sun"></div>
-      <div class="vice-intro-horizon"></div>
-      <div class="vice-intro-grid"></div>
-      <div class="vice-intro-copy">
-        <span class="vice-intro-kicker">SUNSET STRIP · 1986</span>
-        <span class="vice-intro-title">NEON COAST</span>
+      <div class="vice-intro-stage">
+        <div class="vice-intro-shards">${shards}</div>
+        <img class="vice-intro-logo" src="${assets.logo}" alt="">
+        <div class="vice-intro-flare"></div>
+        <div class="vice-intro-grain"></div>
       </div>
+      <div class="vice-intro-line"></div>
     `
     document.body.appendChild(element)
 
@@ -26,7 +38,7 @@ export function createIntro() {
       element?.remove()
       element = undefined
       timer = undefined
-    }, 2800)
+    }, LIFE_MS)
   }
 
   return {

@@ -1,22 +1,23 @@
-import { GRAIN_URI, palmSvg, skylineSvg } from '../../core/art.js'
-
-const INK = '#150c24'
+import { radarSvg } from '../../core/art.js'
 
 /**
- * Compose the postcard frame's inner markup: sky, sun, skyline, grid, palms, grain.
+ * Compose the postcard frame: official artwork, wanted-level stars, radar, and
+ * a location caption.
+ * @param {Record<string, string>} assets - plugin asset references.
  * @returns {string} HTML for `.vice-frame`'s children.
  */
-export function sceneArtHtml() {
+export function sceneArtHtml(assets) {
   return `
-    <div class="vice-sky"></div>
-    <div class="vice-sun"></div>
-    <div class="vice-skyline">${skylineSvg(INK)}</div>
-    <div class="vice-grid"></div>
-    <div class="vice-palms">${palmSvg(INK)}${palmSvg(INK, true)}</div>
-    <div class="vice-grain" style="--vice-grain:url('${GRAIN_URI}')"></div>
+    <img class="vice-shot" src="${assets.rooftop}" alt="">
+    <div class="vice-shade"></div>
+    <div class="vice-wanted">
+      <span>WANTED</span>
+      <b>★★★★★★</b>
+    </div>
+    <div class="vice-radar">${radarSvg('#ff5f92')}</div>
     <div class="vice-caption">
-      <strong>Sunset Strip</strong>
-      <span>NEON COAST<i>★ ★ ★ ★ ★</i></span>
+      <strong>Vice City</strong>
+      <span>LEONIDA · 1986<i>★ ★ ★ ★ ★</i></span>
     </div>
   `
 }

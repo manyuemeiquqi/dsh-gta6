@@ -1,0 +1,43 @@
+GTA VI artwork attribution
+
+Source page: https://www.rockstargames.com/VI
+Retrieved: 2026-11-19
+
+poster_full-25ce00b5d601.jpg
+https://www.rockstargames.com/VI/_next/static/media/poster_full.0az_iud2g3y4j.jpg?akim=1&imdensity=1&imwidth=1920
+Downloaded image resized only to 1920 x 1080 and compressed for the interface.
+
+poster_logo-7d1377d64795.png
+https://www.rockstargames.com/VI/_next/static/media/poster_logo.0m-7c805zusl7.png?akim=1&imdensity=1&imwidth=1024
+Original transparent image, unmodified.
+
+cheetah.webp
+https://www.rockstargames.com/VI/_next/static/media/ULTIMATE_EDITION_GROTTI_CHEETAH_01.0a.wy3s_ogjey.jpg
+Official Grotti Cheetah promotional screenshot, resized to 1600 x 900 and
+compressed for the interface. Source: GTA VI Downloads / Screenshots.
+
+vice-city.webp
+https://www.rockstargames.com/VI/_next/static/media/Vice_City_Postcard_landscape.0v2njmlk2n-qm.jpg
+Official Vice City postcard artwork, resized to 1600 x 900 and compressed
+for the interface. Source: GTA VI Downloads / Artwork & Wallpapers.
+
+city-night.webp
+https://www.rockstargames.com/VI/_next/static/media/Vice_City_04.06evqutgh7624.jpg
+Official Vice City promotional screenshot, resized and compressed for the
+native theme panel.
+
+city-overhead.webp
+https://www.rockstargames.com/VI/_next/static/media/Vice_City_07.0b3mhak4k78oh.jpg
+Official Vice City promotional screenshot, resized and compressed for the
+native theme panel.
+
+aircraft.webp
+https://www.rockstargames.com/VI/_next/static/media/Vice_City_06.0_tdmr3u9w84x.jpg
+Official aircraft promotional screenshot, resized and compressed for the
+native theme panel.
+
+These images are official promotional artwork, not hand-drawn or AI-generated.
+Rockstar Games and Take-Two Interactive retain all rights in the artwork and
+GTA VI marks. These images are not covered by the plugin's code license.
+This unofficial theme is not affiliated with, endorsed by, or sponsored by
+Rockstar Games or Take-Two Interactive. No game or executable is included.

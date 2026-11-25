@@ -1,4 +1,5 @@
 import { BODY_DATA_KEYS, BODY_STYLE_KEYS, PLUGIN_ID } from '../../../shared/constants.js'
+import { ASSETS } from '../../../shared/constants.js'
 import { palette } from './palette.js'
 
 function datasetName(key) {
@@ -30,6 +31,8 @@ export function createThemeController({ ctx, body }) {
       if (values.enabled === '1') {
         body.style.setProperty('--vice-opacity', String(Number(values.opacity) / 100))
         body.style.setProperty('--vice-blur', `${Number(values.blur)}px`)
+        body.style.setProperty('--vice-logo', `url("${ASSETS.logo}")`)
+        body.style.setProperty('--vice-poster', `url("${ASSETS.poster}")`)
       } else {
         for (const key of BODY_STYLE_KEYS) body.style.removeProperty(`--vice-${key}`)
       }

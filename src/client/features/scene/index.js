@@ -2,7 +2,7 @@ import { sceneArtHtml } from './art.js'
 
 const HERO_SELECTOR = '[class*="_composerHero"]'
 
-export function createScene({ body }) {
+export function createScene({ body, assets }) {
   let scene
   let observer
   let scheduled = 0
@@ -20,9 +20,9 @@ export function createScene({ body }) {
     scene.className = 'vice-scene'
     scene.setAttribute('aria-hidden', 'true')
     scene.innerHTML = `
-      <div class="vice-eyebrow"><i></i> NEON COAST <span>SUNSET STRIP · 1986</span></div>
-      <div class="vice-frame">${sceneArtHtml()}</div>
-      <div class="vice-scene-footer"><span>WELCOME TO</span><strong>NEON COAST</strong><i></i></div>
+      <div class="vice-eyebrow"><i></i> GRAND THEFT AUTO VI <span>LEONIDA · 2026</span></div>
+      <div class="vice-frame">${sceneArtHtml(assets)}</div>
+      <div class="vice-scene-footer"><span>WELCOME TO</span><strong>VICE CITY</strong><i></i></div>
     `
     hero.appendChild(scene)
   }

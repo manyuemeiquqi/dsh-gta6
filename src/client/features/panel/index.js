@@ -1,8 +1,6 @@
-import { sceneArtHtml } from '../scene/art.js'
+import { radarSvg } from '../../core/art.js'
 
-const MARK = `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 15h16" stroke="currentColor" stroke-width="1.6"/></svg>`
-
-export function registerVicePanel({ ctx, React, store }) {
+export function registerVicePanel({ ctx, React, store, assets }) {
   let unregister = () => {}
 
   ctx.inject(['sidebarRightTabs', 'sidebarRight'], child => {
@@ -14,13 +12,13 @@ export function registerVicePanel({ ctx, React, store }) {
       id: 'vice-coast',
       kind: 'vice-coast',
       priority: 'extension',
-      title: () => 'Neon Coast',
+      title: () => 'Vice City',
       guide: [{
         id: 'neon-coast',
         order: 10,
-        title: () => 'Neon Coast',
-        description: () => 'A sunset postcard for your workspace.',
-        icon: () => h('span', { className: 'vice-guide-icon', dangerouslySetInnerHTML: { __html: MARK } }),
+        title: () => 'Vice City',
+        description: () => 'Leonida, neon nights, and your next move.',
+        icon: () => h('img', { src: assets.logo, alt: '', className: 'vice-guide-icon' }),
       }],
     })
 
@@ -31,25 +29,47 @@ export function registerVicePanel({ ctx, React, store }) {
 
       return h('div', { className: 'vice-panel' },
         h('div', { className: 'vice-panel-top' },
-          h('span', null, 'SUNSET STRIP · 1986'),
+          h('span', null, 'GRAND THEFT AUTO VI'),
           h('button', {
             type: 'button',
             className: 'vice-panel-back',
             onClick: () => sidebar.openTab('guide', { replaceTab: true }),
-          }, '工具 / TOOLS')),
+          }, '工具 / LEONIDA')),
         h('div', { className: 'vice-panel-heading' },
           h('div', null,
             h('p', null, 'WELCOME TO'),
-            h('h1', null, 'Neon Coast')),
-          h('div', { className: 'vice-stars', 'aria-label': 'Decorative rating' },
-            h('span', null, 'VIBE'), h('b', null, '★★★★★'))),
+            h('h1', null, 'Vice City')),
+          h('div', { className: 'vice-wanted-panel', 'aria-label': 'Wanted level decoration' },
+            h('span', null, 'WANTED'), h('b', null, '★★★★★★'))),
         h('div', { className: 'vice-panel-card' },
-          h('div', { className: 'vice-frame', dangerouslySetInnerHTML: { __html: sceneArtHtml() } })),
+          h('img', { src: assets.postcard, alt: 'Vice City postcard artwork' }),
+          h('div', { className: 'vice-panel-card-shade' }),
+          h('span', null, 'VISIT LEONIDA')),
+        h('div', { className: 'vice-panel-meter' },
+          h('div', { className: 'vice-panel-radar', dangerouslySetInnerHTML: { __html: radarSvg('#ff5f92') } }),
+          h('div', { className: 'vice-panel-radio' },
+            h('span', null, 'RADIO'),
+            h('strong', null, '98.6 FM · NON STOP POP')),
+          h('div', { className: 'vice-panel-speed', 'aria-hidden': true },
+            h('span', { className: 'vice-panel-speed-needle' }),
+            h('b', null, '186'),
+            h('i', null, 'MPH'))),
+        h('div', { className: 'vice-checker', 'aria-hidden': true }),
         h('div', { className: 'vice-panel-strip' },
-          h('div', { className: 'vice-panel-tile is-cyan' }, h('span', null, 'MIDNIGHT DRIVE')),
-          h('div', { className: 'vice-panel-tile is-rose' }, h('span', null, 'GOLDEN HOUR'))),
+          h('figure', null,
+            h('img', { src: assets.cheetah, alt: 'Grotti Cheetah in Vice City' }),
+            h('figcaption', null, 'GROTTI CHEETAH')),
+          h('figure', null,
+            h('img', { src: assets.beachNight, alt: 'Vice Beach at night' }),
+            h('figcaption', null, 'VICE BEACH · 917'))),
+        h('div', { className: 'vice-panel-crime' },
+          h('span', { className: 'vice-panel-siren' }),
+          h('div', null,
+            h('b', null, 'VCPD'),
+            h('i', null, 'HEAT · LEVEL 6'))),
         h('div', { className: 'vice-panel-footer' },
-          h('i', null), h('span', null, 'ENJOY THE VIEW'), h('i', null)))
+          h('img', { src: assets.logo, alt: 'Grand Theft Auto VI', className: 'vice-panel-logo' }),
+          h('span', null, 'AWAIT YOUR NEXT MOVE')))
     }
 
     child.slots.inject('sidebar.right.pane.tab', function* () {

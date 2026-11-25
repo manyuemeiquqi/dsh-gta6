@@ -1,0 +1,79 @@
+/* Wanted level read by the artwork. `body[data-vice-wanted]` carries 0 or 6. */
+
+.vice-wanted,
+.vice-wanted-panel {
+  --vice-wanted-on: 0;
+}
+
+body[data-vice-wanted] .vice-wanted,
+body[data-vice-wanted] .vice-wanted-panel {
+  --vice-wanted-on: 1;
+}
+
+/* Six stars, lit one after another while the agent works. */
+.vice-wanted b,
+.vice-wanted-panel b {
+  position: relative;
+  display: inline-block;
+  letter-spacing: 3px;
+  color: rgba(255, 179, 92, 0.26);
+  transition: color 220ms ease, filter 220ms ease, transform 220ms ease;
+}
+
+body[data-vice-wanted] .vice-wanted b,
+body[data-vice-wanted] .vice-wanted-panel b {
+  color: transparent;
+  background: linear-gradient(90deg,
+    #ffd36b 0%, #ffb35c 18%, #ff8a4c 34%, #ff5f92 52%, #ff8a4c 68%, #ffb35c 84%, #ffd36b 100%);
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 9px rgba(255, 140, 90, 0.75));
+  animation: vice-wanted-sweep 2.4s linear infinite;
+}
+
+/* Unlit stars stay as a faint outline so the meter always reads as six. */
+body[data-vice-wanted] .vice-wanted b::before,
+body[data-vice-wanted] .vice-wanted-panel b::before {
+  content: '★★★★★★';
+  position: absolute;
+  inset: 0;
+  color: rgba(255, 179, 92, 0.24);
+  -webkit-text-fill-color: rgba(255, 179, 92, 0.24);
+  z-index: -1;
+}
+
+@keyframes vice-wanted-sweep {
+  from { background-position: 160% 0; }
+  to { background-position: -60% 0; }
+}
+
+/* The label above the stars flickers on while wanted. */
+.vice-wanted span,
+.vice-wanted-panel span {
+  transition: color 220ms ease, opacity 220ms ease;
+}
+
+body[data-vice-wanted] .vice-wanted span,
+body[data-vice-wanted] .vice-wanted-panel span {
+  color: #ff8a8a;
+  opacity: 1;
+  animation: vice-wanted-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes vice-wanted-pulse {
+  0%, 100% { opacity: 0.72; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-vice-wanted] .vice-wanted b,
+  body[data-vice-wanted] .vice-wanted-panel b,
+  body[data-vice-wanted] .vice-wanted span,
+  body[data-vice-wanted] .vice-wanted-panel span {
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: var(--vice-gold);
+    color: var(--vice-gold);
+  }
+}

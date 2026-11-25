@@ -1,0 +1,56 @@
+/* Brand marks: official VI artwork standing in for the built-in glyphs. */
+
+.vice-brand-mark {
+  display: block;
+  height: clamp(30px, 2.8vw, 44px);
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  object-position: left center;
+  filter: drop-shadow(0 3px 14px rgba(255, 95, 146, 0.32));
+}
+
+/* ---------- sidebar brand ----------
+   These two seats are already taken by the official brand plugin (a single
+   slot keeps its first registrant), so the swap is done visually: the built-in
+   glyph is hidden and the VI artwork is painted in its place. */
+
+body[data-vice-enabled='1'] [data-slot='sidebar.brand.mark'] {
+  display: inline-flex;
+  align-items: center;
+}
+
+body[data-vice-enabled='1'] [data-slot='sidebar.brand.mark'] > * {
+  display: none !important;
+}
+
+body[data-vice-enabled='1'] [data-slot='sidebar.brand.mark']::after {
+  content: '';
+  display: block;
+  width: 26px;
+  height: 22px;
+  background: var(--vice-logo) left center / contain no-repeat;
+}
+
+body[data-vice-enabled='1'] [data-slot='sidebar.brand.name'] {
+  display: inline-flex;
+  align-items: center;
+}
+
+body[data-vice-enabled='1'] [data-slot='sidebar.brand.name'] > * {
+  display: none !important;
+}
+
+body[data-vice-enabled='1'] [data-slot='sidebar.brand.name']::after {
+  content: 'GRAND THEFT AUTO VI';
+  color: var(--dsw-alias-label-primary);
+  font: 700 11px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vice-brand-mark {
+    animation: none !important;
+  }
+}

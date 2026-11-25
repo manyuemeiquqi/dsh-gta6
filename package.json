@@ -15,6 +15,7 @@
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
+    "./assets/*": "./lib/assets/*",
     "./package.json": "./package.json"
   },
   "files": [
@@ -23,6 +24,10 @@
     "index.js",
     "client.js",
     "cordis.patch.yml",
+    "lib/assets/*.jpg",
+    "lib/assets/*.png",
+    "lib/assets/*.webp",
+    "lib/assets/NOTICE.txt",
     "src/client",
     "src/host/index.cjs",
     "src/shared",

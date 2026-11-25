@@ -1,5 +1,8 @@
 import { createConfigStore } from './core/config-store.js'
 import { installStyles } from './core/styles.js'
+import { registerBrandMark } from './features/brand/index.js'
+import brandStyles from './features/brand/styles.css'
+import conversationStyles from './features/conversation/styles.css'
 import { createIntro } from './features/intro/index.js'
 import introStyles from './features/intro/styles.css'
 import { createMotion } from './features/motion/index.js'
@@ -10,7 +13,9 @@ import { createScene } from './features/scene/index.js'
 import sceneStyles from './features/scene/styles.css'
 import { createThemeController } from './features/theme/index.js'
 import themeStyles from './features/theme/styles.css'
-import { CONFIG_FORM_ID, DEFAULTS, PLUGIN_ID } from '../shared/constants.js'
+import { createWantedMeter } from './features/wanted/index.js'
+import wantedStyles from './features/wanted/styles.css'
+import { ASSETS, CONFIG_FORM_ID, DEFAULTS, PLUGIN_ID } from '../shared/constants.js'
 
 window.__ModuleLoader__.load({
   id: PLUGIN_ID,
@@ -23,19 +28,25 @@ window.__ModuleLoader__.load({
       const store = createConfigStore(form, DEFAULTS)
       const removeStyles = installStyles(PLUGIN_ID, [
         themeStyles,
+        conversationStyles,
+        brandStyles,
         sceneStyles,
         panelStyles,
+        wantedStyles,
         introStyles,
         motionStyles,
       ])
       const theme = createThemeController({ ctx, body })
-      const scene = createScene({ body })
-      const unregisterPanel = registerVicePanel({ ctx, React, store })
-      const intro = createIntro()
+      const scene = createScene({ body, assets: ASSETS })
+      const unregisterPanel = registerVicePanel({ ctx, React, store, assets: ASSETS })
+      const unregisterBrand = registerBrandMark()
+      const wanted = createWantedMeter({ body })
+      const intro = createIntro({ assets: ASSETS })
       const motion = createMotion(body)
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
       scene.start()
+      wanted.start()
 
       function sync() {
         const { values } = store.getState()
@@ -57,8 +68,10 @@ window.__ModuleLoader__.load({
         reducedMotion.removeEventListener?.('change', sync)
         motion.dispose()
         intro.dispose()
+        wanted.dispose()
         scene.dispose()
         theme.dispose()
+        unregisterBrand()
         unregisterPanel()
         store.dispose()
         removeStyles()

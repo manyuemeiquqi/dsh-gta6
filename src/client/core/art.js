@@ -57,3 +57,21 @@ export function skylineSvg(color) {
 export function sparkSvg(color) {
   return `<svg viewBox="0 0 12 12" aria-hidden="true"><path fill="${color}" d="M6 0 L7.4 4.6 L12 6 L7.4 7.4 L6 12 L4.6 7.4 L0 6 L4.6 4.6 Z"/></svg>`
 }
+
+/**
+ * A radar/minimap disc: rings, crosshair, sweep wedge, and a road polyline.
+ * @param {string} color - stroke color for the sweep and roads.
+ * @returns {string} SVG markup with a 0 0 120 120 viewBox.
+ */
+export function radarSvg(color) {
+  return `<svg viewBox="0 0 120 120" aria-hidden="true">
+<circle cx="60" cy="60" r="56" fill="rgba(6,4,12,.55)" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/>
+<circle cx="60" cy="60" r="38" fill="none" stroke="rgba(255,255,255,.12)"/>
+<circle cx="60" cy="60" r="20" fill="none" stroke="rgba(255,255,255,.09)"/>
+<path d="M60 4 V116 M4 60 H116" stroke="rgba(255,255,255,.10)"/>
+<path d="M60 60 L104 22 A56 56 0 0 1 112 46 Z" fill="${color}" opacity=".26"/>
+<path d="M16 96 L44 74 L62 82 L88 52 L106 60" fill="none" stroke="${color}" stroke-width="2.4" stroke-linejoin="round" opacity=".85"/>
+<path d="M28 18 L48 40 L40 62" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.8" stroke-linejoin="round"/>
+<circle cx="60" cy="60" r="3" fill="${color}"/>
+</svg>`
+}
