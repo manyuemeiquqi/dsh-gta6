@@ -49,6 +49,13 @@ body[data-vice-enabled='1'] [data-slot='sidebar.brand.name']::after {
   white-space: nowrap;
 }
 
+/* The collapsed rail needs no handling: the harness removes the whole name slot
+   from the DOM at 56px, so the nowrap wordmark never overflows. */
+
+body[data-vice-enabled='1'] [data-slot='sidebar.brand.mark']::after {
+  flex: 0 0 auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .vice-brand-mark {
     animation: none !important;

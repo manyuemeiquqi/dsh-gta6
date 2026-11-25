@@ -1,0 +1,151 @@
+/* Tool-call rows.
+   The harness tags every process step with `data-process-activity`, so the
+   colour and the running animation are keyed off semantics rather than the
+   hashed class names, which change between releases.
+
+   The title button ships with `padding: 0`, so the accent rail is drawn in
+   added padding that a matching negative margin cancels out: content does not
+   move, only the band around it grows. */
+
+body[data-vice-enabled='1'] {
+  --vice-act-thinking: #a78bfa;
+  --vice-act-read: #6fe3ec;
+  --vice-act-search: #7fb8ff;
+  --vice-act-edit: #a6e88f;
+  --vice-act-command: #ffb35c;
+  --vice-act-plan: #ff5f92;
+  --vice-act-context: #b9a8d8;
+  /* Default accent for any activity the harness adds later; the per-activity
+     rules below win because they sit on a descendant, not because of weight. */
+  --vice-act: var(--vice-act-context);
+}
+
+/* ---------- per-activity accent ---------- */
+
+body[data-vice-enabled='1'] [data-process-activity='thinking'] { --vice-act: var(--vice-act-thinking); }
+body[data-vice-enabled='1'] [data-process-activity='read'],
+body[data-vice-enabled='1'] [data-process-activity='readImage'] { --vice-act: var(--vice-act-read); }
+body[data-vice-enabled='1'] [data-process-activity='search'],
+body[data-vice-enabled='1'] [data-process-activity='webSearch'],
+body[data-vice-enabled='1'] [data-process-activity='webFetch'] { --vice-act: var(--vice-act-search); }
+body[data-vice-enabled='1'] [data-process-activity='edit'],
+body[data-vice-enabled='1'] [data-process-activity='write'],
+body[data-vice-enabled='1'] [data-process-activity='code'] { --vice-act: var(--vice-act-edit); }
+body[data-vice-enabled='1'] [data-process-activity='commands'],
+body[data-vice-enabled='1'] [data-process-activity='tools'] { --vice-act: var(--vice-act-command); }
+body[data-vice-enabled='1'] [data-process-activity='subagents'],
+body[data-vice-enabled='1'] [data-process-activity='plan'],
+body[data-vice-enabled='1'] [data-process-activity='questions'] { --vice-act: var(--vice-act-plan); }
+body[data-vice-enabled='1'] [data-process-activity='context'] { --vice-act: var(--vice-act-context); }
+
+/* ---------- the step row ---------- */
+
+body[data-vice-enabled='1'] [data-process-activity] {
+  padding-inline: 10px;
+  margin-inline: -10px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--vice-act) 12%, transparent), transparent 62%);
+  box-shadow: inset 2px 0 0 color-mix(in srgb, var(--vice-act) 62%, transparent);
+  transition: background 180ms var(--vice-ease), box-shadow 180ms var(--vice-ease);
+}
+
+body[data-vice-enabled='1'] [data-process-activity]:hover {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--vice-act) 20%, transparent), transparent 72%);
+  box-shadow: inset 2px 0 0 var(--vice-act);
+}
+
+body[data-vice-enabled='1'] [data-process-activity]:focus-visible {
+  outline: none;
+  box-shadow: inset 2px 0 0 var(--vice-act), 0 0 0 1px color-mix(in srgb, var(--vice-act) 45%, transparent);
+}
+
+/* The glyph carries the accent; the label stays on the readable token. */
+body[data-vice-enabled='1'] [data-step-process-icon] {
+  color: var(--vice-act, var(--vice-act-context));
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--vice-act, var(--vice-act-context)) 45%, transparent));
+}
+
+body[data-vice-enabled='1'] [data-process-activity] [class*='_label'] {
+  letter-spacing: -0.005em;
+}
+
+/* Running: the rail sweeps like a patrol light. */
+body[data-vice-enabled='1'][data-vice-wanted] [data-process-activity] {
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--vice-act) 26%, transparent),
+    transparent 70%);
+  background-size: 220% 100%;
+  animation: vice-activity-sweep 1.6s linear infinite;
+}
+
+@keyframes vice-activity-sweep {
+  from { background-position: 130% 0; }
+  to { background-position: -30% 0; }
+}
+
+/* ---------- expanded body ---------- */
+
+body[data-vice-enabled='1'] [data-step-process-body] {
+  margin-inline-start: 2px;
+  border-inline-start: 1px solid color-mix(in srgb, var(--vice-act, var(--vice-act-context)) 26%, transparent);
+}
+
+body[data-vice-enabled='1'] [data-step-process-body] [data-step-process-content] {
+  padding-inline-start: 12px;
+}
+
+/* ---------- turn summary ---------- */
+
+body[data-vice-enabled='1'] [data-turn-process] {
+  padding-inline: 10px;
+  margin-inline: -10px;
+  border-radius: 6px;
+  color: var(--dsw-alias-label-secondary);
+  background: linear-gradient(90deg, rgba(255, 179, 92, 0.09), transparent 58%);
+  box-shadow: inset 2px 0 0 rgba(255, 179, 92, 0.45);
+  transition: background 180ms var(--vice-ease), box-shadow 180ms var(--vice-ease);
+}
+
+body[data-vice-enabled='1'] [data-turn-process]:hover {
+  background: linear-gradient(90deg, rgba(255, 179, 92, 0.15), transparent 66%);
+  box-shadow: inset 2px 0 0 var(--vice-gold);
+}
+
+body[data-vice-enabled='1'] [data-turn-process]:focus-visible {
+  outline: none;
+  box-shadow: inset 2px 0 0 var(--vice-gold), 0 0 0 1px rgba(255, 179, 92, 0.4);
+}
+
+body[data-vice-enabled='1'] [data-turn-process] [class*='_label'] {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+body[data-vice-enabled='1'] [data-turn-process] [class*='_durationNumber'] {
+  color: var(--vice-gold);
+}
+
+/* ---------- generic disclosure rows (tool payloads, subagent work) ---------- */
+
+body[data-vice-enabled='1'] [data-disclosure-row][data-expandable] {
+  border-radius: 6px;
+  transition: background 160ms var(--vice-ease);
+}
+
+body[data-vice-enabled='1'] [data-disclosure-row][data-expandable]:hover {
+  background: rgba(255, 95, 146, 0.07);
+}
+
+body[data-vice-enabled='1'] [data-disclosure-row][data-expandable]:focus-visible {
+  outline: none;
+  background: rgba(255, 95, 146, 0.1);
+  box-shadow: 0 0 0 1px rgba(255, 95, 146, 0.35);
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-vice-enabled='1'][data-vice-wanted] [data-process-activity] {
+    animation: none;
+  }
+}

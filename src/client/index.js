@@ -13,6 +13,7 @@ import { createScene } from './features/scene/index.js'
 import sceneStyles from './features/scene/styles.css'
 import { createThemeController } from './features/theme/index.js'
 import themeStyles from './features/theme/styles.css'
+import toolsStyles from './features/tools/styles.css'
 import { createWantedMeter } from './features/wanted/index.js'
 import wantedStyles from './features/wanted/styles.css'
 import { ASSETS, CONFIG_FORM_ID, DEFAULTS, PLUGIN_ID } from '../shared/constants.js'
@@ -29,6 +30,7 @@ window.__ModuleLoader__.load({
       const removeStyles = installStyles(PLUGIN_ID, [
         themeStyles,
         conversationStyles,
+        toolsStyles,
         brandStyles,
         sceneStyles,
         panelStyles,

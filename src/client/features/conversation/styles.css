@@ -83,11 +83,13 @@ body[data-vice-enabled='1'] pre.shiki .line-number {
 /* ---------- inline code ---------- */
 
 body[data-vice-enabled='1'] [data-text-interaction-source] :not(pre) > code {
-  border: 1px solid rgba(255, 95, 146, 0.14);
+  border: 1px solid rgba(255, 95, 146, 0.10);
   border-radius: 4px;
   padding: 1px 5px;
   background: var(--dsw-alias-markdown-inline-code);
-  color: var(--vice-rose);
+  /* Rose-on-pink read as a smudge; the tint carries the theme and the ink keeps
+     the readable label colour. */
+  color: var(--dsw-alias-label-primary);
   font-size: 0.94em;
 }
 
