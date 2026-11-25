@@ -10,6 +10,7 @@ export const ASSETS = Object.freeze({
   beachNight: 'plugins/dsh-theme-vice/assets/vice-beach-night.webp',
   street: 'plugins/dsh-theme-vice/assets/leonida-street.webp',
   nightlife: 'plugins/dsh-theme-vice/assets/nightlife.webp',
+  pet: 'plugins/dsh-theme-vice/assets/pet-duo-16546addc352.png',
 })
 
 export const DEFAULTS = Object.freeze({
@@ -20,7 +21,8 @@ export const DEFAULTS = Object.freeze({
   glow: '1',
   motion: '1',
   intro: '1',
+  pet: '1',
 })
 
-export const BODY_DATA_KEYS = Object.freeze(['enabled', 'background', 'glow', 'motion'])
+export const BODY_DATA_KEYS = Object.freeze(['enabled', 'background', 'glow', 'motion', 'pet'])
 export const BODY_STYLE_KEYS = Object.freeze(['opacity', 'blur'])

@@ -30,6 +30,7 @@ const Config = z?.object({
   glow: toggle('启用霓虹光晕').description('为标题、边框与按钮添加霓虹光晕'),
   motion: toggle('启用界面动效').description('消息进入动画与工具行扫光；遵循系统减少动态效果设置'),
   intro: toggle('启用开场动画').description('首次加载时播放的 VI 开场动画'),
+  pet: toggle('显示桌面宠物').description('右下角的 Jason 与 Lucia，可拖动；跟随 Agent 状态变化'),
 })
 
 function apply() {}

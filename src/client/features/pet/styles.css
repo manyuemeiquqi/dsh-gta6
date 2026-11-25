@@ -1,0 +1,129 @@
+/* Desktop pet: Jason and Lucia in a fixed layer over the conversation.
+   The cut-out art is a single image, so the animation is transform-only:
+   it stays crisp at any size and costs nothing to load beyond one PNG. */
+
+.vice-pet {
+  position: fixed;
+  z-index: 60;
+  right: 26px;
+  bottom: 124px;
+  height: clamp(112px, 9vw, 152px);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  filter: drop-shadow(0 10px 26px rgba(10, 4, 20, 0.42));
+  transition: filter 220ms var(--vice-ease), opacity 260ms var(--vice-ease);
+}
+
+.vice-pet-figure {
+  display: block;
+  height: 100%;
+  width: auto;
+  pointer-events: none;
+  transform-origin: 50% 100%;
+  animation: vice-pet-idle 5.2s ease-in-out infinite;
+}
+
+.vice-pet.is-dragging {
+  cursor: grabbing;
+  filter: drop-shadow(0 16px 34px rgba(10, 4, 20, 0.55));
+}
+
+.vice-pet.is-dragging .vice-pet-figure {
+  animation: none;
+  transform: rotate(-1.5deg) scale(0.98);
+}
+
+/* ---------- states ---------- */
+
+.vice-pet[data-state='working'] .vice-pet-figure {
+  animation: vice-pet-work 720ms ease-in-out infinite;
+}
+
+.vice-pet[data-state='done'] .vice-pet-figure {
+  animation: vice-pet-hop 720ms cubic-bezier(.3, .7, .35, 1) 2;
+}
+
+.vice-pet[data-state='sleep'] {
+  opacity: 0.62;
+}
+
+.vice-pet[data-state='sleep'] .vice-pet-figure {
+  animation: vice-pet-sleep 7s ease-in-out infinite;
+}
+
+@keyframes vice-pet-idle {
+  0%, 100% { transform: translateY(0) rotate(-0.8deg); }
+  50% { transform: translateY(-3px) rotate(0.8deg); }
+}
+
+@keyframes vice-pet-work {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(-7px) rotate(-1.6deg) scale(1.02); }
+}
+
+@keyframes vice-pet-hop {
+  0% { transform: translateY(0) scale(1); }
+  32% { transform: translateY(-14px) scale(1.03); }
+  62% { transform: translateY(0) scale(0.98); }
+  80% { transform: translateY(-4px) scale(1.01); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes vice-pet-sleep {
+  0%, 100% { transform: translateY(0) rotate(2.4deg); }
+  50% { transform: translateY(2px) rotate(3.2deg); }
+}
+
+/* ---------- speech ---------- */
+
+.vice-pet-bubble {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 6px);
+  max-width: 210px;
+  padding: 7px 11px;
+  border: 1px solid rgba(255, 95, 146, 0.3);
+  border-radius: 10px 10px 2px 10px;
+  color: var(--dsw-alias-label-primary);
+  background: var(--dsw-alias-bg-layer-1);
+  box-shadow: 0 10px 24px rgba(10, 4, 20, 0.28);
+  font: 500 11px/1.5 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: vice-pet-bubble-in 180ms var(--vice-ease);
+}
+
+.vice-pet-bubble[hidden] {
+  display: none;
+}
+
+@keyframes vice-pet-bubble-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- motion preference ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .vice-pet-figure,
+  .vice-pet[data-state='working'] .vice-pet-figure,
+  .vice-pet[data-state='done'] .vice-pet-figure,
+  .vice-pet[data-state='sleep'] .vice-pet-figure {
+    animation: none;
+  }
+
+  .vice-pet-bubble {
+    animation: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .vice-pet {
+    height: 96px;
+    right: 14px;
+    bottom: 112px;
+  }
+}

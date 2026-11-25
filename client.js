@@ -369,6 +369,216 @@
   // src/client/features/panel/styles.css
   var styles_default5 = "/* Right-sidebar panel: official artwork, radar, radio strip, wanted stars. */\n\n.vice-panel {\n  container-type: inline-size;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  gap: 14px;\n  min-height: 100%;\n  padding: 18px;\n  overflow: auto;\n  color: var(--dsw-alias-label-primary);\n  background:\n    linear-gradient(180deg, rgba(255, 95, 146, 0.06), transparent 38%),\n    var(--dsw-alias-bg-base);\n}\n\n.vice-panel-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 12px;\n  color: var(--dsw-alias-label-tertiary);\n  font: 600 8px/1.4 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.16em;\n}\n\n.vice-panel-back {\n  padding: 6px 9px;\n  border: 1px solid var(--dsw-alias-border-l2);\n  border-radius: 4px;\n  color: var(--dsw-alias-label-secondary);\n  background: transparent;\n  font: inherit;\n  letter-spacing: 0.14em;\n  cursor: pointer;\n  transition: color 160ms ease, border-color 160ms ease;\n}\n\n.vice-panel-back:hover,\n.vice-panel-back:focus-visible {\n  color: var(--vice-rose);\n  border-color: var(--dsw-alias-border-selected);\n  outline: none;\n}\n\n.vice-panel-heading {\n  display: flex;\n  align-items: flex-end;\n  justify-content: space-between;\n  gap: 14px;\n  margin: 6px 0 2px;\n}\n\n.vice-panel-heading p {\n  margin: 0 0 6px;\n  color: var(--vice-rose);\n  font: 600 9px/1 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.3em;\n}\n\n.vice-panel-heading h1 {\n  margin: 0;\n  color: var(--dsw-alias-label-primary);\n  font: 700 40px/0.95 Georgia, 'Times New Roman', serif;\n  letter-spacing: -0.055em;\n}\n\n.vice-wanted-panel {\n  display: grid;\n  justify-items: end;\n  gap: 7px;\n  color: var(--vice-gold);\n}\n\n.vice-wanted-panel span {\n  font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.16em;\n  opacity: 0.8;\n}\n\n.vice-wanted-panel b {\n  font: 14px/1 Georgia, serif;\n  letter-spacing: 3px;\n  filter: drop-shadow(0 0 8px rgba(255, 179, 92, 0.5));\n}\n\n/* ---------- hero card ---------- */\n\n.vice-panel-card {\n  position: relative;\n  overflow: hidden;\n  aspect-ratio: 1.7;\n  border: 1px solid rgba(255, 95, 146, 0.24);\n  border-radius: 10px;\n  background: #160e26;\n  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.3);\n}\n\n.vice-panel-card img {\n  display: block;\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  object-position: center 40%;\n}\n\n.vice-panel-card-shade {\n  position: absolute;\n  inset: 0;\n  background: linear-gradient(180deg, transparent 40%, rgba(10, 5, 20, 0.88) 100%);\n}\n\n.vice-panel-card > span {\n  position: absolute;\n  right: 16px;\n  bottom: 13px;\n  color: #ffe4bf;\n  font: 700 13px/1 Georgia, serif;\n  letter-spacing: 0.16em;\n  text-shadow: 0 2px 12px #301629;\n}\n\n/* ---------- radar + radio ---------- */\n\n.vice-panel-meter {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 10px 12px;\n  border: 1px solid var(--dsw-alias-border-l1);\n  border-radius: 10px;\n  background: var(--dsw-alias-bg-layer-1);\n}\n\n.vice-panel-radar {\n  flex: 0 0 auto;\n  width: 56px;\n  aspect-ratio: 1;\n}\n\n.vice-panel-radar svg { display: block; width: 100%; height: 100%; }\n\n.vice-panel-radio {\n  display: grid;\n  gap: 5px;\n  min-width: 0;\n}\n\n.vice-panel-radio span {\n  color: var(--dsw-alias-label-tertiary);\n  font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.22em;\n}\n\n.vice-panel-radio strong {\n  overflow: hidden;\n  color: var(--vice-rose);\n  font: 600 10px/1.3 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.08em;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n/* ---------- speedometer ---------- */\n\n.vice-panel-speed {\n  position: relative;\n  flex: 0 0 auto;\n  display: grid;\n  justify-items: center;\n  align-content: center;\n  width: 58px;\n  aspect-ratio: 1;\n  border: 1px solid rgba(255, 179, 92, 0.28);\n  border-radius: 50%;\n  background:\n    radial-gradient(circle at 50% 62%, rgba(255, 179, 92, 0.12), transparent 62%),\n    rgba(10, 5, 20, 0.4);\n}\n\n.vice-panel-speed b {\n  color: var(--vice-gold);\n  font: 700 15px/1 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.02em;\n}\n\n.vice-panel-speed i {\n  margin-top: 2px;\n  color: var(--dsw-alias-label-tertiary);\n  font: 600 6px/1 ui-sans-serif, system-ui, sans-serif;\n  font-style: normal;\n  letter-spacing: 0.16em;\n}\n\n/* The needle swings when the agent is working, like a revving engine. */\n.vice-panel-speed-needle {\n  position: absolute;\n  bottom: 50%;\n  left: 50%;\n  width: 1px;\n  height: 21px;\n  background: linear-gradient(0deg, var(--vice-hot), transparent);\n  transform-origin: bottom center;\n  transform: rotate(-118deg);\n  transition: transform 420ms cubic-bezier(.22, .7, .28, 1);\n}\n\nbody[data-vice-wanted] .vice-panel-speed-needle {\n  animation: vice-speed-rev 900ms ease-in-out infinite alternate;\n}\n\n@keyframes vice-speed-rev {\n  from { transform: rotate(-118deg); }\n  to { transform: rotate(96deg); }\n}\n\n/* ---------- checkered divider ---------- */\n\n.vice-checker {\n  height: 8px;\n  border-radius: 2px;\n  background-image:\n    repeating-conic-gradient(\n      rgba(255, 255, 255, 0.26) 0% 25%,\n      transparent 0% 50%\n    );\n  background-size: 16px 16px;\n  opacity: 0.5;\n}\n\n/* ---------- crime / VCPD ---------- */\n\n.vice-panel-crime {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 9px 12px;\n  border: 1px solid rgba(255, 95, 146, 0.18);\n  border-radius: 10px;\n  background: linear-gradient(90deg, rgba(255, 95, 146, 0.08), transparent 70%);\n}\n\n.vice-panel-siren {\n  position: relative;\n  flex: 0 0 auto;\n  width: 30px;\n  height: 12px;\n  border-radius: 3px;\n  background: linear-gradient(90deg, #d63447 0 50%, #2f6fd6 50% 100%);\n  opacity: 0.45;\n  transition: opacity 220ms ease;\n}\n\nbody[data-vice-wanted] .vice-panel-siren {\n  opacity: 1;\n  animation: vice-siren 700ms steps(1, end) infinite;\n}\n\n@keyframes vice-siren {\n  0%, 49% { filter: brightness(1.35) drop-shadow(0 0 10px #d63447); }\n  50%, 100% { filter: brightness(1.35) drop-shadow(0 0 10px #2f6fd6); }\n}\n\n.vice-panel-crime div {\n  display: grid;\n  gap: 4px;\n  min-width: 0;\n}\n\n.vice-panel-crime b {\n  color: var(--dsw-alias-label-primary);\n  font: 700 10px/1 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.2em;\n}\n\n.vice-panel-crime i {\n  color: var(--dsw-alias-label-tertiary);\n  font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;\n  font-style: normal;\n  letter-spacing: 0.14em;\n}\n\nbody[data-vice-wanted] .vice-panel-crime i {\n  color: #ff8a8a;\n}\n\n/* ---------- image strip ---------- */\n\n.vice-panel-strip {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 10px;\n}\n\n.vice-panel-strip figure {\n  position: relative;\n  margin: 0;\n  overflow: hidden;\n  aspect-ratio: 1.5;\n  border: 1px solid var(--dsw-alias-border-l1);\n  border-radius: 9px;\n  background: var(--dsw-alias-bg-layer-2);\n}\n\n.vice-panel-strip img {\n  display: block;\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  opacity: 0.9;\n}\n\n.vice-panel-strip figcaption {\n  position: absolute;\n  inset: auto 0 0;\n  padding: 16px 9px 8px;\n  color: #ffe2c0;\n  background: linear-gradient(transparent, rgba(10, 5, 20, 0.88));\n  font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.14em;\n}\n\n/* ---------- footer ---------- */\n\n.vice-panel-footer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 12px;\n  padding: 6px 0 12px;\n  color: var(--dsw-alias-label-tertiary);\n}\n\n.vice-panel-logo {\n  width: 46px;\n  height: 46px;\n  object-fit: contain;\n}\n\n.vice-panel-footer span {\n  font: 600 8px/1.5 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.16em;\n  text-align: center;\n}\n\n.vice-guide-icon {\n  display: inline-flex;\n  width: 24px;\n  height: 24px;\n  object-fit: contain;\n}\n\n@container (max-width: 340px) {\n  .vice-panel-heading { align-items: flex-start; flex-direction: column; gap: 12px; }\n  .vice-wanted-panel { justify-items: start; }\n  .vice-panel-heading h1 { font-size: 34px; }\n  .vice-panel-strip { grid-template-columns: 1fr; }\n}\n\n@media (prefers-reduced-motion: reduce) {\n  .vice-panel * { animation: none !important; }\n}\n";
 
+  // src/client/features/pet/index.js
+  var STORAGE_KEY = "dsh-theme-vice:pet";
+  var SLEEP_AFTER_MS = 45e3;
+  var DONE_MS = 1300;
+  var BUBBLE_MS = 3600;
+  var DRAG_THRESHOLD = 5;
+  var LINES = [
+    "LEONIDA · 今晚去海豚馆？",
+    "奥兰多海滩，日落前出发。",
+    "这单干完，我们就走。",
+    "别回头，直接上车。",
+    "VICE CITY 从不等谁。",
+    "VCPD 还有 30 秒到。"
+  ];
+  function createPet({ body, assets }) {
+    let host;
+    let figure;
+    let bubble;
+    let observer;
+    let bubbleTimer;
+    let sleepTimer;
+    let doneTimer;
+    let running = false;
+    let state = "idle";
+    let position = readPosition();
+    let drag = null;
+    let lastLine = -1;
+    function readPosition() {
+      try {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!Number.isFinite(parsed?.x) || !Number.isFinite(parsed?.y)) return null;
+        return { x: parsed.x, y: parsed.y };
+      } catch {
+        return null;
+      }
+    }
+    function savePosition(next) {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      } catch {
+      }
+    }
+    function clampPosition(x, y) {
+      const width = host.offsetWidth || 160;
+      const height = host.offsetHeight || 170;
+      return {
+        x: Math.min(Math.max(0, x), Math.max(0, window.innerWidth - width)),
+        y: Math.min(Math.max(0, y), Math.max(0, window.innerHeight - height))
+      };
+    }
+    function applyPosition() {
+      if (!position) return;
+      position = clampPosition(position.x, position.y);
+      host.style.left = `${position.x}px`;
+      host.style.top = `${position.y}px`;
+      host.style.right = "auto";
+      host.style.bottom = "auto";
+    }
+    function setState(next) {
+      if (next === state || !host) return;
+      state = next;
+      host.dataset.state = next;
+      window.clearTimeout(doneTimer);
+      if (next === "done") doneTimer = window.setTimeout(() => setState(running ? "working" : "idle"), DONE_MS);
+    }
+    function armSleep() {
+      window.clearTimeout(sleepTimer);
+      sleepTimer = window.setTimeout(() => {
+        if (!running) setState("sleep");
+      }, SLEEP_AFTER_MS);
+    }
+    function applyRunning(next) {
+      if (next === running) return;
+      running = next;
+      if (running) {
+        window.clearTimeout(sleepTimer);
+        setState("working");
+      } else {
+        setState("done");
+        armSleep();
+      }
+    }
+    function readRunning() {
+      return [...document.querySelectorAll("button")].some((button) => {
+        const label = button.getAttribute("aria-label") || "";
+        return label === "停止生成" || label === "Stop generating";
+      });
+    }
+    function say() {
+      if (!bubble) return;
+      let index = Math.floor(Math.random() * LINES.length);
+      if (LINES.length > 1 && index === lastLine) index = (index + 1) % LINES.length;
+      lastLine = index;
+      bubble.textContent = LINES[index];
+      bubble.hidden = false;
+      window.clearTimeout(bubbleTimer);
+      bubbleTimer = window.setTimeout(() => {
+        if (bubble) bubble.hidden = true;
+      }, BUBBLE_MS);
+    }
+    function onPointerDown(event) {
+      if (event.button !== 0) return;
+      const rect = host.getBoundingClientRect();
+      drag = {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+        originX: rect.left,
+        originY: rect.top,
+        moved: false
+      };
+      host.setPointerCapture?.(event.pointerId);
+      host.classList.add("is-dragging");
+      window.clearTimeout(sleepTimer);
+      if (state === "sleep") setState("idle");
+      event.preventDefault();
+    }
+    function onPointerMove(event) {
+      if (!drag || event.pointerId !== drag.pointerId) return;
+      const dx = event.clientX - drag.startX;
+      const dy = event.clientY - drag.startY;
+      if (!drag.moved && Math.hypot(dx, dy) > DRAG_THRESHOLD) drag.moved = true;
+      if (!drag.moved) return;
+      position = clampPosition(drag.originX + dx, drag.originY + dy);
+      applyPosition();
+    }
+    function onPointerUp(event) {
+      if (!drag || event.pointerId !== drag.pointerId) return;
+      host.releasePointerCapture?.(event.pointerId);
+      host.classList.remove("is-dragging");
+      const moved = drag.moved;
+      drag = null;
+      if (moved) {
+        if (position) savePosition(position);
+        armSleep();
+      } else {
+        say();
+      }
+    }
+    function onClick(event) {
+      if (drag) return;
+      event.preventDefault();
+    }
+    function mount() {
+      if (host) return;
+      host = document.createElement("div");
+      host.className = "vice-pet";
+      host.dataset.state = state;
+      host.setAttribute("role", "img");
+      host.setAttribute("aria-label", "Jason 与 Lucia");
+      bubble = document.createElement("div");
+      bubble.className = "vice-pet-bubble";
+      bubble.hidden = true;
+      figure = document.createElement("img");
+      figure.className = "vice-pet-figure";
+      figure.src = assets.pet;
+      figure.alt = "";
+      figure.draggable = false;
+      host.append(bubble, figure);
+      body.appendChild(host);
+      applyPosition();
+      host.addEventListener("pointerdown", onPointerDown);
+      host.addEventListener("pointermove", onPointerMove);
+      host.addEventListener("pointerup", onPointerUp);
+      host.addEventListener("pointercancel", onPointerUp);
+      host.addEventListener("click", onClick);
+      observer = new MutationObserver(() => applyRunning(readRunning()));
+      observer.observe(body, { childList: true, subtree: true, attributes: true, attributeFilter: ["aria-label"] });
+      running = readRunning();
+      state = running ? "working" : "idle";
+      host.dataset.state = state;
+      if (!running) armSleep();
+    }
+    function unmount() {
+      observer?.disconnect();
+      observer = void 0;
+      window.clearTimeout(bubbleTimer);
+      window.clearTimeout(sleepTimer);
+      window.clearTimeout(doneTimer);
+      if (!host) return;
+      host.removeEventListener("pointerdown", onPointerDown);
+      host.removeEventListener("pointermove", onPointerMove);
+      host.removeEventListener("pointerup", onPointerUp);
+      host.removeEventListener("pointercancel", onPointerUp);
+      host.removeEventListener("click", onClick);
+      host.remove();
+      host = void 0;
+      figure = void 0;
+      bubble = void 0;
+      drag = null;
+      running = false;
+      state = "idle";
+    }
+    return {
+      sync(values) {
+        const visible = values.enabled === "1" && values.pet === "1";
+        if (visible) mount();
+        else unmount();
+      },
+      dispose() {
+        unmount();
+      }
+    };
+  }
+
+  // src/client/features/pet/styles.css
+  var styles_default6 = "/* Desktop pet: Jason and Lucia in a fixed layer over the conversation.\n   The cut-out art is a single image, so the animation is transform-only:\n   it stays crisp at any size and costs nothing to load beyond one PNG. */\n\n.vice-pet {\n  position: fixed;\n  z-index: 60;\n  right: 26px;\n  bottom: 124px;\n  height: clamp(112px, 9vw, 152px);\n  cursor: grab;\n  touch-action: none;\n  user-select: none;\n  -webkit-user-select: none;\n  filter: drop-shadow(0 10px 26px rgba(10, 4, 20, 0.42));\n  transition: filter 220ms var(--vice-ease), opacity 260ms var(--vice-ease);\n}\n\n.vice-pet-figure {\n  display: block;\n  height: 100%;\n  width: auto;\n  pointer-events: none;\n  transform-origin: 50% 100%;\n  animation: vice-pet-idle 5.2s ease-in-out infinite;\n}\n\n.vice-pet.is-dragging {\n  cursor: grabbing;\n  filter: drop-shadow(0 16px 34px rgba(10, 4, 20, 0.55));\n}\n\n.vice-pet.is-dragging .vice-pet-figure {\n  animation: none;\n  transform: rotate(-1.5deg) scale(0.98);\n}\n\n/* ---------- states ---------- */\n\n.vice-pet[data-state='working'] .vice-pet-figure {\n  animation: vice-pet-work 720ms ease-in-out infinite;\n}\n\n.vice-pet[data-state='done'] .vice-pet-figure {\n  animation: vice-pet-hop 720ms cubic-bezier(.3, .7, .35, 1) 2;\n}\n\n.vice-pet[data-state='sleep'] {\n  opacity: 0.62;\n}\n\n.vice-pet[data-state='sleep'] .vice-pet-figure {\n  animation: vice-pet-sleep 7s ease-in-out infinite;\n}\n\n@keyframes vice-pet-idle {\n  0%, 100% { transform: translateY(0) rotate(-0.8deg); }\n  50% { transform: translateY(-3px) rotate(0.8deg); }\n}\n\n@keyframes vice-pet-work {\n  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }\n  50% { transform: translateY(-7px) rotate(-1.6deg) scale(1.02); }\n}\n\n@keyframes vice-pet-hop {\n  0% { transform: translateY(0) scale(1); }\n  32% { transform: translateY(-14px) scale(1.03); }\n  62% { transform: translateY(0) scale(0.98); }\n  80% { transform: translateY(-4px) scale(1.01); }\n  100% { transform: translateY(0) scale(1); }\n}\n\n@keyframes vice-pet-sleep {\n  0%, 100% { transform: translateY(0) rotate(2.4deg); }\n  50% { transform: translateY(2px) rotate(3.2deg); }\n}\n\n/* ---------- speech ---------- */\n\n.vice-pet-bubble {\n  position: absolute;\n  right: 0;\n  bottom: calc(100% + 6px);\n  max-width: 210px;\n  padding: 7px 11px;\n  border: 1px solid rgba(255, 95, 146, 0.3);\n  border-radius: 10px 10px 2px 10px;\n  color: var(--dsw-alias-label-primary);\n  background: var(--dsw-alias-bg-layer-1);\n  box-shadow: 0 10px 24px rgba(10, 4, 20, 0.28);\n  font: 500 11px/1.5 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.01em;\n  white-space: nowrap;\n  pointer-events: none;\n  animation: vice-pet-bubble-in 180ms var(--vice-ease);\n}\n\n.vice-pet-bubble[hidden] {\n  display: none;\n}\n\n@keyframes vice-pet-bubble-in {\n  from { opacity: 0; transform: translateY(4px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n\n/* ---------- motion preference ---------- */\n\n@media (prefers-reduced-motion: reduce) {\n  .vice-pet-figure,\n  .vice-pet[data-state='working'] .vice-pet-figure,\n  .vice-pet[data-state='done'] .vice-pet-figure,\n  .vice-pet[data-state='sleep'] .vice-pet-figure {\n    animation: none;\n  }\n\n  .vice-pet-bubble {\n    animation: none;\n  }\n}\n\n@media (max-width: 720px) {\n  .vice-pet {\n    height: 96px;\n    right: 14px;\n    bottom: 112px;\n  }\n}\n";
+
   // src/client/features/scene/art.js
   function sceneArtHtml(assets) {
     return `
@@ -453,7 +663,7 @@
   }
 
   // src/client/features/scene/styles.css
-  var styles_default6 = "/* Empty-state postcard built from official artwork plus GTA-style UI motifs. */\n\nbody.vice-art-enabled [class*='_composerHero'] {\n  display: grid;\n  grid-template-columns: minmax(300px, 1.1fr) minmax(300px, 0.9fr);\n  align-content: center;\n  column-gap: clamp(28px, 4.5vw, 76px);\n  width: min(1180px, calc(100% - 88px));\n  max-width: none;\n  min-height: 100%;\n  padding: 68px 0 50px;\n}\n\nbody.vice-art-enabled [class*='_composerHero'] > [class*='_root']:has([class*='_headline']) {\n  grid-column: 1;\n  grid-row: 1;\n  margin-bottom: 32px;\n}\n\nbody.vice-art-enabled [class*='_composerHero'] [class*='_headline'] {\n  position: relative;\n  justify-content: flex-start;\n  gap: 14px;\n  color: var(--dsw-alias-label-primary);\n  font-size: clamp(28px, 2.4vw, 40px);\n  font-weight: 550;\n  letter-spacing: -0.045em;\n}\n\nbody.vice-art-enabled [class*='_composerHero'] [class*='_headline']::before {\n  content: 'SUNSET VIBES · OPEN LATE';\n  position: absolute;\n  bottom: calc(100% + 20px);\n  left: 1px;\n  color: var(--vice-rose);\n  font: 600 10px/1.2 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.32em;\n}\n\n/* ---------- headline banner ----------\n   The hero headline is a locale string, not a slot, so it is replaced visually.\n   What takes its place is not recreated type: it is the official key art itself,\n   cropped to a wide band so the real wordmark and the cast read at size.\n   Disabling the theme removes this sheet and the original copy returns. */\n\nbody[data-vice-enabled='1'] [class*='_headline'] {\n  display: block;\n  width: 100%;\n}\n\nbody[data-vice-enabled='1'] [class*='_headline'] [class*='_fishHitbox'] {\n  display: none;\n}\n\nbody[data-vice-enabled='1'] [class*='_titleGroup'] {\n  display: block;\n  position: relative;\n  width: min(100%, 640px);\n}\n\nbody[data-vice-enabled='1'] [class*='_titleGroup'] > span:first-child {\n  display: block;\n  font-size: 0;\n  letter-spacing: 0;\n}\n\n/* The band: official key art, cropped so the wordmark reads whole. */\nbody[data-vice-enabled='1'] [class*='_titleGroup'] > span:first-child::after {\n  content: '';\n  display: block;\n  aspect-ratio: 2 / 1;\n  border: 1px solid rgba(255, 95, 146, 0.22);\n  border-radius: 10px;\n  background: var(--vice-poster) center center / cover no-repeat;\n  box-shadow:\n    0 18px 48px rgba(0, 0, 0, 0.3),\n    0 0 0 1px rgba(255, 179, 92, 0.05) inset;\n}\n\n/* The badge has no place over the artwork; its copy is suppressed entirely. */\nbody[data-vice-enabled='1'] [class*='_previewBadge'] {\n  display: none;\n}\n\nbody.vice-art-enabled [class*='_composerHero'] [class*='_heroWorkspaceRow'] {\n  grid-column: 1;\n  grid-row: 2;\n  min-width: 0;\n  margin-bottom: 14px;\n}\n\nbody.vice-art-enabled [class*='_composerHero'] > [data-slot='conversation.composer.bar'] {\n  grid-column: 1;\n  grid-row: 3;\n}\n\nbody.vice-art-enabled [class*='_composerHero'] [data-composer-card='true'] {\n  border: 1px solid var(--dsw-alias-border-l2);\n  border-radius: 16px;\n  background: var(--dsw-alias-bg-layer-1);\n  box-shadow: 0 18px 52px rgba(10, 4, 20, 0.24);\n}\n\nbody.vice-art-enabled [class*='_composerHero'] [data-composer-input='true'],\nbody.vice-art-enabled [class*='_composerHero'] [data-composer-placeholder='true'] {\n  color: var(--dsw-alias-label-primary-dimmed);\n}\n\n/* ---------- the postcard ---------- */\n\n.vice-scene {\n  grid-column: 2;\n  grid-row: 1 / 4;\n  display: flex;\n  flex-direction: column;\n  align-self: center;\n  min-width: 0;\n  pointer-events: none;\n  animation: vice-scene-in 900ms var(--vice-ease) both;\n}\n\n.vice-eyebrow {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  margin-bottom: 14px;\n  color: var(--vice-rose);\n  font: 600 9px/1.2 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.24em;\n}\n\n.vice-eyebrow i {\n  width: 5px;\n  height: 5px;\n  background: var(--vice-hot);\n  box-shadow: 0 0 10px var(--vice-hot);\n  transform: rotate(45deg);\n}\n\n.vice-eyebrow span {\n  margin-left: auto;\n  color: var(--dsw-alias-label-tertiary);\n  font-size: 8px;\n  letter-spacing: 0.1em;\n}\n\n.vice-frame {\n  position: relative;\n  overflow: hidden;\n  aspect-ratio: 3 / 4;\n  max-height: clamp(310px, 52vh, 570px);\n  border: 1px solid rgba(255, 95, 146, 0.26);\n  border-radius: 8px;\n  background: #160e26;\n  box-shadow:\n    0 26px 70px rgba(0, 0, 0, 0.34),\n    0 0 0 1px rgba(255, 179, 92, 0.06) inset;\n  isolation: isolate;\n}\n\n.vice-shot {\n  display: block;\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  object-position: 28% 40%;\n  filter: brightness(calc(0.62 + var(--vice-opacity, 0.72) * 0.38)) saturate(0.92);\n}\n\n.vice-shade {\n  position: absolute;\n  inset: 0;\n  background:\n    linear-gradient(180deg, rgba(10, 5, 20, 0.45) 0%, transparent 34%, rgba(10, 5, 20, 0.88) 100%),\n    linear-gradient(90deg, rgba(10, 5, 20, 0.5), transparent 42%);\n  backdrop-filter: blur(var(--vice-blur, 0px));\n  pointer-events: none;\n}\n\n/* ---------- wanted level ---------- */\n\n.vice-wanted {\n  position: absolute;\n  z-index: 2;\n  top: 14px;\n  right: 16px;\n  display: grid;\n  justify-items: end;\n  gap: 6px;\n  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);\n}\n\n.vice-wanted span {\n  color: rgba(255, 224, 224, 0.82);\n  font: 700 8px/1 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.2em;\n}\n\n.vice-wanted b {\n  color: var(--vice-gold);\n  font: 15px/1 Georgia, serif;\n  letter-spacing: 3px;\n  filter: drop-shadow(0 0 8px rgba(255, 179, 92, 0.55));\n}\n\n/* ---------- radar ---------- */\n\n.vice-radar {\n  position: absolute;\n  z-index: 2;\n  top: 14px;\n  left: 14px;\n  width: clamp(58px, 7vw, 84px);\n  aspect-ratio: 1;\n  opacity: 0.92;\n  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));\n}\n\n.vice-radar svg { display: block; width: 100%; height: 100%; }\n\n/* ---------- caption ---------- */\n\n.vice-caption {\n  position: absolute;\n  z-index: 2;\n  inset: auto 20px 20px;\n}\n\n.vice-caption strong {\n  display: block;\n  color: #fff2e7;\n  font: 500 clamp(20px, 1.8vw, 28px)/1.15 Georgia, 'Times New Roman', serif;\n  letter-spacing: 0.02em;\n  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);\n}\n\n.vice-caption span {\n  display: flex;\n  justify-content: space-between;\n  gap: 8px;\n  margin-top: 9px;\n  color: rgba(255, 205, 205, 0.78);\n  font: 600 8px/1.2 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.16em;\n}\n\n.vice-caption i {\n  color: var(--vice-gold);\n  font-style: normal;\n  letter-spacing: 2px;\n  opacity: 0.75;\n}\n\n.vice-scene-footer {\n  display: flex;\n  align-items: center;\n  gap: 9px;\n  margin-top: 15px;\n  color: var(--dsw-alias-label-tertiary);\n}\n\n.vice-scene-footer span {\n  font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.18em;\n}\n\n.vice-scene-footer strong {\n  color: var(--vice-rose);\n  font: 500 12px/1 Georgia, 'Times New Roman', serif;\n  letter-spacing: 0.09em;\n}\n\n.vice-scene-footer i {\n  flex: 1;\n  height: 1px;\n  background: linear-gradient(90deg, rgba(255, 95, 146, 0.5), transparent);\n}\n\nbody:not(.vice-art-enabled) .vice-scene {\n  display: none;\n}\n\n@keyframes vice-scene-in {\n  from { opacity: 0; transform: translateY(14px); }\n  to { opacity: 1; transform: none; }\n}\n\n@media (max-width: 1000px) {\n  body.vice-art-enabled [class*='_composerHero'] {\n    grid-template-columns: minmax(280px, 1fr) minmax(200px, 0.7fr);\n    column-gap: 28px;\n    width: min(860px, calc(100% - 56px));\n  }\n  .vice-frame { max-height: min(46vh, 460px); }\n}\n\n@media (max-width: 760px) {\n  body.vice-art-enabled [class*='_composerHero'] {\n    display: block;\n    width: min(620px, calc(100% - 40px));\n    padding: 90px 0 40px;\n  }\n  .vice-scene { display: none; }\n}\n";
+  var styles_default7 = "/* Empty-state postcard built from official artwork plus GTA-style UI motifs. */\n\nbody.vice-art-enabled [class*='_composerHero'] {\n  display: grid;\n  grid-template-columns: minmax(300px, 1.1fr) minmax(300px, 0.9fr);\n  align-content: center;\n  column-gap: clamp(28px, 4.5vw, 76px);\n  width: min(1180px, calc(100% - 88px));\n  max-width: none;\n  min-height: 100%;\n  padding: 68px 0 50px;\n}\n\nbody.vice-art-enabled [class*='_composerHero'] > [class*='_root']:has([class*='_headline']) {\n  grid-column: 1;\n  grid-row: 1;\n  margin-bottom: 32px;\n}\n\nbody.vice-art-enabled [class*='_composerHero'] [class*='_headline'] {\n  position: relative;\n  justify-content: flex-start;\n  gap: 14px;\n  color: var(--dsw-alias-label-primary);\n  font-size: clamp(28px, 2.4vw, 40px);\n  font-weight: 550;\n  letter-spacing: -0.045em;\n}\n\nbody.vice-art-enabled [class*='_composerHero'] [class*='_headline']::before {\n  content: 'SUNSET VIBES · OPEN LATE';\n  position: absolute;\n  bottom: calc(100% + 20px);\n  left: 1px;\n  color: var(--vice-rose);\n  font: 600 10px/1.2 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.32em;\n}\n\n/* ---------- headline banner ----------\n   The hero headline is a locale string, not a slot, so it is replaced visually.\n   What takes its place is not recreated type: it is the official key art itself,\n   cropped to a wide band so the real wordmark and the cast read at size.\n   Disabling the theme removes this sheet and the original copy returns. */\n\nbody[data-vice-enabled='1'] [class*='_headline'] {\n  display: block;\n  width: 100%;\n}\n\nbody[data-vice-enabled='1'] [class*='_headline'] [class*='_fishHitbox'] {\n  display: none;\n}\n\nbody[data-vice-enabled='1'] [class*='_titleGroup'] {\n  display: block;\n  position: relative;\n  width: min(100%, 640px);\n}\n\nbody[data-vice-enabled='1'] [class*='_titleGroup'] > span:first-child {\n  display: block;\n  font-size: 0;\n  letter-spacing: 0;\n}\n\n/* The band: official key art, cropped so the wordmark reads whole. */\nbody[data-vice-enabled='1'] [class*='_titleGroup'] > span:first-child::after {\n  content: '';\n  display: block;\n  aspect-ratio: 2 / 1;\n  border: 1px solid rgba(255, 95, 146, 0.22);\n  border-radius: 10px;\n  background: var(--vice-poster) center center / cover no-repeat;\n  box-shadow:\n    0 18px 48px rgba(0, 0, 0, 0.3),\n    0 0 0 1px rgba(255, 179, 92, 0.05) inset;\n}\n\n/* The badge has no place over the artwork; its copy is suppressed entirely. */\nbody[data-vice-enabled='1'] [class*='_previewBadge'] {\n  display: none;\n}\n\nbody.vice-art-enabled [class*='_composerHero'] [class*='_heroWorkspaceRow'] {\n  grid-column: 1;\n  grid-row: 2;\n  min-width: 0;\n  margin-bottom: 14px;\n}\n\nbody.vice-art-enabled [class*='_composerHero'] > [data-slot='conversation.composer.bar'] {\n  grid-column: 1;\n  grid-row: 3;\n}\n\nbody.vice-art-enabled [class*='_composerHero'] [data-composer-card='true'] {\n  border: 1px solid var(--dsw-alias-border-l2);\n  border-radius: 16px;\n  background: var(--dsw-alias-bg-layer-1);\n  box-shadow: 0 18px 52px rgba(10, 4, 20, 0.24);\n}\n\nbody.vice-art-enabled [class*='_composerHero'] [data-composer-input='true'],\nbody.vice-art-enabled [class*='_composerHero'] [data-composer-placeholder='true'] {\n  color: var(--dsw-alias-label-primary-dimmed);\n}\n\n/* ---------- the postcard ---------- */\n\n.vice-scene {\n  grid-column: 2;\n  grid-row: 1 / 4;\n  display: flex;\n  flex-direction: column;\n  align-self: center;\n  min-width: 0;\n  pointer-events: none;\n  animation: vice-scene-in 900ms var(--vice-ease) both;\n}\n\n.vice-eyebrow {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  margin-bottom: 14px;\n  color: var(--vice-rose);\n  font: 600 9px/1.2 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.24em;\n}\n\n.vice-eyebrow i {\n  width: 5px;\n  height: 5px;\n  background: var(--vice-hot);\n  box-shadow: 0 0 10px var(--vice-hot);\n  transform: rotate(45deg);\n}\n\n.vice-eyebrow span {\n  margin-left: auto;\n  color: var(--dsw-alias-label-tertiary);\n  font-size: 8px;\n  letter-spacing: 0.1em;\n}\n\n.vice-frame {\n  position: relative;\n  overflow: hidden;\n  aspect-ratio: 3 / 4;\n  max-height: clamp(310px, 52vh, 570px);\n  border: 1px solid rgba(255, 95, 146, 0.26);\n  border-radius: 8px;\n  background: #160e26;\n  box-shadow:\n    0 26px 70px rgba(0, 0, 0, 0.34),\n    0 0 0 1px rgba(255, 179, 92, 0.06) inset;\n  isolation: isolate;\n}\n\n.vice-shot {\n  display: block;\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  object-position: 28% 40%;\n  filter: brightness(calc(0.62 + var(--vice-opacity, 0.72) * 0.38)) saturate(0.92);\n}\n\n.vice-shade {\n  position: absolute;\n  inset: 0;\n  background:\n    linear-gradient(180deg, rgba(10, 5, 20, 0.45) 0%, transparent 34%, rgba(10, 5, 20, 0.88) 100%),\n    linear-gradient(90deg, rgba(10, 5, 20, 0.5), transparent 42%);\n  backdrop-filter: blur(var(--vice-blur, 0px));\n  pointer-events: none;\n}\n\n/* ---------- wanted level ---------- */\n\n.vice-wanted {\n  position: absolute;\n  z-index: 2;\n  top: 14px;\n  right: 16px;\n  display: grid;\n  justify-items: end;\n  gap: 6px;\n  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);\n}\n\n.vice-wanted span {\n  color: rgba(255, 224, 224, 0.82);\n  font: 700 8px/1 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.2em;\n}\n\n.vice-wanted b {\n  color: var(--vice-gold);\n  font: 15px/1 Georgia, serif;\n  letter-spacing: 3px;\n  filter: drop-shadow(0 0 8px rgba(255, 179, 92, 0.55));\n}\n\n/* ---------- radar ---------- */\n\n.vice-radar {\n  position: absolute;\n  z-index: 2;\n  top: 14px;\n  left: 14px;\n  width: clamp(58px, 7vw, 84px);\n  aspect-ratio: 1;\n  opacity: 0.92;\n  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));\n}\n\n.vice-radar svg { display: block; width: 100%; height: 100%; }\n\n/* ---------- caption ---------- */\n\n.vice-caption {\n  position: absolute;\n  z-index: 2;\n  inset: auto 20px 20px;\n}\n\n.vice-caption strong {\n  display: block;\n  color: #fff2e7;\n  font: 500 clamp(20px, 1.8vw, 28px)/1.15 Georgia, 'Times New Roman', serif;\n  letter-spacing: 0.02em;\n  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);\n}\n\n.vice-caption span {\n  display: flex;\n  justify-content: space-between;\n  gap: 8px;\n  margin-top: 9px;\n  color: rgba(255, 205, 205, 0.78);\n  font: 600 8px/1.2 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.16em;\n}\n\n.vice-caption i {\n  color: var(--vice-gold);\n  font-style: normal;\n  letter-spacing: 2px;\n  opacity: 0.75;\n}\n\n.vice-scene-footer {\n  display: flex;\n  align-items: center;\n  gap: 9px;\n  margin-top: 15px;\n  color: var(--dsw-alias-label-tertiary);\n}\n\n.vice-scene-footer span {\n  font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;\n  letter-spacing: 0.18em;\n}\n\n.vice-scene-footer strong {\n  color: var(--vice-rose);\n  font: 500 12px/1 Georgia, 'Times New Roman', serif;\n  letter-spacing: 0.09em;\n}\n\n.vice-scene-footer i {\n  flex: 1;\n  height: 1px;\n  background: linear-gradient(90deg, rgba(255, 95, 146, 0.5), transparent);\n}\n\nbody:not(.vice-art-enabled) .vice-scene {\n  display: none;\n}\n\n@keyframes vice-scene-in {\n  from { opacity: 0; transform: translateY(14px); }\n  to { opacity: 1; transform: none; }\n}\n\n@media (max-width: 1000px) {\n  body.vice-art-enabled [class*='_composerHero'] {\n    grid-template-columns: minmax(280px, 1fr) minmax(200px, 0.7fr);\n    column-gap: 28px;\n    width: min(860px, calc(100% - 56px));\n  }\n  .vice-frame { max-height: min(46vh, 460px); }\n}\n\n@media (max-width: 760px) {\n  body.vice-art-enabled [class*='_composerHero'] {\n    display: block;\n    width: min(620px, calc(100% - 40px));\n    padding: 90px 0 40px;\n  }\n  .vice-scene { display: none; }\n}\n";
 
   // src/shared/constants.js
   var PLUGIN_ID = "dsh-theme-vice";
@@ -466,7 +676,8 @@
     cheetah: "plugins/dsh-theme-vice/assets/cheetah.webp",
     beachNight: "plugins/dsh-theme-vice/assets/vice-beach-night.webp",
     street: "plugins/dsh-theme-vice/assets/leonida-street.webp",
-    nightlife: "plugins/dsh-theme-vice/assets/nightlife.webp"
+    nightlife: "plugins/dsh-theme-vice/assets/nightlife.webp",
+    pet: "plugins/dsh-theme-vice/assets/pet-duo-16546addc352.png"
   });
   var DEFAULTS = Object.freeze({
     enabled: "1",
@@ -475,9 +686,10 @@
     blur: "0",
     glow: "1",
     motion: "1",
-    intro: "1"
+    intro: "1",
+    pet: "1"
   });
-  var BODY_DATA_KEYS = Object.freeze(["enabled", "background", "glow", "motion"]);
+  var BODY_DATA_KEYS = Object.freeze(["enabled", "background", "glow", "motion", "pet"]);
   var BODY_STYLE_KEYS = Object.freeze(["opacity", "blur"]);
 
   // src/client/features/theme/palette.js
@@ -630,10 +842,10 @@
   }
 
   // src/client/features/theme/styles.css
-  var styles_default7 = "/* Shell surfaces and typography. Colors come from the installed token palette;\n   this sheet only adds structure and the neon trim. */\n\nbody[data-vice-enabled='1'] {\n  --vice-ink: #0a0713;\n  --vice-hot: #ff5f92;\n  --vice-gold: #ffb35c;\n  --vice-cyan: #5fe0ea;\n  --vice-rose: #ffa7c3;\n  --vice-ease: cubic-bezier(.22, .7, .28, 1);\n  --vice-hairline: var(--dsw-hairline-width, 1px);\n  --vice-headline-size: clamp(28px, 2.4vw, 40px);\n  background-color: var(--dsw-alias-bg-base);\n}\n\n/* ---------- shell columns ---------- */\n\nbody[data-vice-enabled='1'] [class*='_sidebarCol'] {\n  position: relative;\n  isolation: isolate;\n  background:\n    linear-gradient(168deg, rgba(255, 95, 146, 0.06), transparent 46%),\n    var(--dsw-alias-bg-base) !important;\n  border-right: 1px solid var(--dsw-alias-border-l1);\n}\n\nbody[data-vice-enabled='1'] [class*='_mainPanel'] {\n  position: relative;\n  background:\n    radial-gradient(circle at 92% -6%, rgba(255, 95, 146, 0.07), transparent 38%),\n    radial-gradient(circle at 6% 104%, rgba(95, 224, 234, 0.05), transparent 42%),\n    var(--dsw-alias-bg-base);\n}\n\n/* Neon hairline along the top of the conversation column. */\nbody[data-vice-enabled='1'] [class*='_mainPanel']::before {\n  content: '';\n  position: absolute;\n  z-index: 5;\n  inset: 0 0 auto;\n  height: var(--vice-hairline);\n  background: linear-gradient(90deg,\n    transparent,\n    rgba(255, 95, 146, 0.42),\n    rgba(255, 179, 92, 0.34),\n    rgba(95, 224, 234, 0.28),\n    transparent);\n  pointer-events: none;\n}\n\nbody[data-vice-enabled='1'] [class*='_rightbarCol'] {\n  position: relative;\n  border-left: 1px solid var(--dsw-alias-border-l1);\n  background:\n    radial-gradient(circle at 100% 0%, rgba(255, 95, 146, 0.07), transparent 40%),\n    var(--dsw-alias-bg-base);\n}\n\n/* ---------- typography ---------- */\n\nbody[data-vice-enabled='1'] [class*='_headline'] {\n  letter-spacing: -0.02em;\n}\n\nbody[data-vice-enabled='1'] [class*='_titleGroup'] {\n  letter-spacing: -0.025em;\n}\n\nbody[data-vice-glow='1'] [class*='_headline'] {\n  text-shadow: 0 0 22px rgba(255, 95, 146, 0.20);\n}\n\n/* ---------- composer ---------- */\n\nbody[data-vice-enabled='1'] [class*='_composerStack'] [class*='_root']:has(textarea) {\n  border-color: var(--dsw-alias-border-l2);\n  transition: border-color 180ms var(--vice-ease), box-shadow 180ms var(--vice-ease);\n}\n\nbody[data-vice-enabled='1'] [class*='_composerStack'] [class*='_root']:has(textarea):focus-within {\n  border-color: var(--dsw-alias-border-selected);\n  box-shadow: 0 0 0 3px rgba(255, 95, 146, 0.10);\n}\n\nbody[data-vice-glow='1'][data-vice-enabled='1'] [data-composer-card='true']:focus-within {\n  box-shadow:\n    0 0 0 1px rgba(255, 95, 146, 0.28),\n    0 0 34px rgba(255, 95, 146, 0.14),\n    0 18px 52px rgba(0, 0, 0, 0.22);\n}\n\n/* ---------- small accents ---------- */\n\nbody[data-vice-enabled='1'] [class*='_scrollbar'] {\n  background-image: linear-gradient(180deg, rgba(255, 95, 146, 0.25), rgba(95, 224, 234, 0.18));\n}\n\nbody[data-vice-glow='1'][data-vice-enabled='1'] button[class*='_primary'] {\n  box-shadow: 0 6px 22px rgba(255, 95, 146, 0.26);\n}\n\n/* Respect the reduced-motion preference everywhere in this theme. */\n@media (prefers-reduced-motion: reduce) {\n  body[data-vice-enabled='1'] * {\n    animation-duration: 1ms !important;\n    animation-iteration-count: 1 !important;\n    transition-duration: 1ms !important;\n  }\n}\n";
+  var styles_default8 = "/* Shell surfaces and typography. Colors come from the installed token palette;\n   this sheet only adds structure and the neon trim. */\n\nbody[data-vice-enabled='1'] {\n  --vice-ink: #0a0713;\n  --vice-hot: #ff5f92;\n  --vice-gold: #ffb35c;\n  --vice-cyan: #5fe0ea;\n  --vice-rose: #ffa7c3;\n  --vice-ease: cubic-bezier(.22, .7, .28, 1);\n  --vice-hairline: var(--dsw-hairline-width, 1px);\n  --vice-headline-size: clamp(28px, 2.4vw, 40px);\n  background-color: var(--dsw-alias-bg-base);\n}\n\n/* ---------- shell columns ---------- */\n\nbody[data-vice-enabled='1'] [class*='_sidebarCol'] {\n  position: relative;\n  isolation: isolate;\n  background:\n    linear-gradient(168deg, rgba(255, 95, 146, 0.06), transparent 46%),\n    var(--dsw-alias-bg-base) !important;\n  border-right: 1px solid var(--dsw-alias-border-l1);\n}\n\nbody[data-vice-enabled='1'] [class*='_mainPanel'] {\n  position: relative;\n  background:\n    radial-gradient(circle at 92% -6%, rgba(255, 95, 146, 0.07), transparent 38%),\n    radial-gradient(circle at 6% 104%, rgba(95, 224, 234, 0.05), transparent 42%),\n    var(--dsw-alias-bg-base);\n}\n\n/* Neon hairline along the top of the conversation column. */\nbody[data-vice-enabled='1'] [class*='_mainPanel']::before {\n  content: '';\n  position: absolute;\n  z-index: 5;\n  inset: 0 0 auto;\n  height: var(--vice-hairline);\n  background: linear-gradient(90deg,\n    transparent,\n    rgba(255, 95, 146, 0.42),\n    rgba(255, 179, 92, 0.34),\n    rgba(95, 224, 234, 0.28),\n    transparent);\n  pointer-events: none;\n}\n\nbody[data-vice-enabled='1'] [class*='_rightbarCol'] {\n  position: relative;\n  border-left: 1px solid var(--dsw-alias-border-l1);\n  background:\n    radial-gradient(circle at 100% 0%, rgba(255, 95, 146, 0.07), transparent 40%),\n    var(--dsw-alias-bg-base);\n}\n\n/* ---------- typography ---------- */\n\nbody[data-vice-enabled='1'] [class*='_headline'] {\n  letter-spacing: -0.02em;\n}\n\nbody[data-vice-enabled='1'] [class*='_titleGroup'] {\n  letter-spacing: -0.025em;\n}\n\nbody[data-vice-glow='1'] [class*='_headline'] {\n  text-shadow: 0 0 22px rgba(255, 95, 146, 0.20);\n}\n\n/* ---------- composer ---------- */\n\nbody[data-vice-enabled='1'] [class*='_composerStack'] [class*='_root']:has(textarea) {\n  border-color: var(--dsw-alias-border-l2);\n  transition: border-color 180ms var(--vice-ease), box-shadow 180ms var(--vice-ease);\n}\n\nbody[data-vice-enabled='1'] [class*='_composerStack'] [class*='_root']:has(textarea):focus-within {\n  border-color: var(--dsw-alias-border-selected);\n  box-shadow: 0 0 0 3px rgba(255, 95, 146, 0.10);\n}\n\nbody[data-vice-glow='1'][data-vice-enabled='1'] [data-composer-card='true']:focus-within {\n  box-shadow:\n    0 0 0 1px rgba(255, 95, 146, 0.28),\n    0 0 34px rgba(255, 95, 146, 0.14),\n    0 18px 52px rgba(0, 0, 0, 0.22);\n}\n\n/* ---------- small accents ---------- */\n\nbody[data-vice-enabled='1'] [class*='_scrollbar'] {\n  background-image: linear-gradient(180deg, rgba(255, 95, 146, 0.25), rgba(95, 224, 234, 0.18));\n}\n\nbody[data-vice-glow='1'][data-vice-enabled='1'] button[class*='_primary'] {\n  box-shadow: 0 6px 22px rgba(255, 95, 146, 0.26);\n}\n\n/* Respect the reduced-motion preference everywhere in this theme. */\n@media (prefers-reduced-motion: reduce) {\n  body[data-vice-enabled='1'] * {\n    animation-duration: 1ms !important;\n    animation-iteration-count: 1 !important;\n    transition-duration: 1ms !important;\n  }\n}\n";
 
   // src/client/features/tools/styles.css
-  var styles_default8 = "/* Tool-call rows.\n   The harness tags every process step with `data-process-activity`, so the\n   colour and the running animation are keyed off semantics rather than the\n   hashed class names, which change between releases.\n\n   The title button ships with `padding: 0`, so the accent rail is drawn in\n   added padding that a matching negative margin cancels out: content does not\n   move, only the band around it grows. */\n\nbody[data-vice-enabled='1'] {\n  --vice-act-thinking: #a78bfa;\n  --vice-act-read: #6fe3ec;\n  --vice-act-search: #7fb8ff;\n  --vice-act-edit: #a6e88f;\n  --vice-act-command: #ffb35c;\n  --vice-act-plan: #ff5f92;\n  --vice-act-context: #b9a8d8;\n  /* Default accent for any activity the harness adds later; the per-activity\n     rules below win because they sit on a descendant, not because of weight. */\n  --vice-act: var(--vice-act-context);\n}\n\n/* ---------- per-activity accent ---------- */\n\nbody[data-vice-enabled='1'] [data-process-activity='thinking'] { --vice-act: var(--vice-act-thinking); }\nbody[data-vice-enabled='1'] [data-process-activity='read'],\nbody[data-vice-enabled='1'] [data-process-activity='readImage'] { --vice-act: var(--vice-act-read); }\nbody[data-vice-enabled='1'] [data-process-activity='search'],\nbody[data-vice-enabled='1'] [data-process-activity='webSearch'],\nbody[data-vice-enabled='1'] [data-process-activity='webFetch'] { --vice-act: var(--vice-act-search); }\nbody[data-vice-enabled='1'] [data-process-activity='edit'],\nbody[data-vice-enabled='1'] [data-process-activity='write'],\nbody[data-vice-enabled='1'] [data-process-activity='code'] { --vice-act: var(--vice-act-edit); }\nbody[data-vice-enabled='1'] [data-process-activity='commands'],\nbody[data-vice-enabled='1'] [data-process-activity='tools'] { --vice-act: var(--vice-act-command); }\nbody[data-vice-enabled='1'] [data-process-activity='subagents'],\nbody[data-vice-enabled='1'] [data-process-activity='plan'],\nbody[data-vice-enabled='1'] [data-process-activity='questions'] { --vice-act: var(--vice-act-plan); }\nbody[data-vice-enabled='1'] [data-process-activity='context'] { --vice-act: var(--vice-act-context); }\n\n/* ---------- the step row ---------- */\n\nbody[data-vice-enabled='1'] [data-process-activity] {\n  padding-inline: 10px;\n  margin-inline: -10px;\n  border-radius: 6px;\n  background: linear-gradient(90deg, color-mix(in srgb, var(--vice-act) 12%, transparent), transparent 62%);\n  box-shadow: inset 2px 0 0 color-mix(in srgb, var(--vice-act) 62%, transparent);\n  transition: background 180ms var(--vice-ease), box-shadow 180ms var(--vice-ease);\n}\n\nbody[data-vice-enabled='1'] [data-process-activity]:hover {\n  background: linear-gradient(90deg, color-mix(in srgb, var(--vice-act) 20%, transparent), transparent 72%);\n  box-shadow: inset 2px 0 0 var(--vice-act);\n}\n\nbody[data-vice-enabled='1'] [data-process-activity]:focus-visible {\n  outline: none;\n  box-shadow: inset 2px 0 0 var(--vice-act), 0 0 0 1px color-mix(in srgb, var(--vice-act) 45%, transparent);\n}\n\n/* The glyph carries the accent; the label stays on the readable token. */\nbody[data-vice-enabled='1'] [data-step-process-icon] {\n  color: var(--vice-act, var(--vice-act-context));\n  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--vice-act, var(--vice-act-context)) 45%, transparent));\n}\n\nbody[data-vice-enabled='1'] [data-process-activity] [class*='_label'] {\n  letter-spacing: -0.005em;\n}\n\n/* Running: the rail sweeps like a patrol light. */\nbody[data-vice-enabled='1'][data-vice-wanted] [data-process-activity] {\n  background: linear-gradient(90deg,\n    color-mix(in srgb, var(--vice-act) 26%, transparent),\n    transparent 70%);\n  background-size: 220% 100%;\n  animation: vice-activity-sweep 1.6s linear infinite;\n}\n\n@keyframes vice-activity-sweep {\n  from { background-position: 130% 0; }\n  to { background-position: -30% 0; }\n}\n\n/* ---------- expanded body ---------- */\n\nbody[data-vice-enabled='1'] [data-step-process-body] {\n  margin-inline-start: 2px;\n  border-inline-start: 1px solid color-mix(in srgb, var(--vice-act, var(--vice-act-context)) 26%, transparent);\n}\n\nbody[data-vice-enabled='1'] [data-step-process-body] [data-step-process-content] {\n  padding-inline-start: 12px;\n}\n\n/* ---------- turn summary ---------- */\n\nbody[data-vice-enabled='1'] [data-turn-process] {\n  padding-inline: 10px;\n  margin-inline: -10px;\n  border-radius: 6px;\n  color: var(--dsw-alias-label-secondary);\n  background: linear-gradient(90deg, rgba(255, 179, 92, 0.09), transparent 58%);\n  box-shadow: inset 2px 0 0 rgba(255, 179, 92, 0.45);\n  transition: background 180ms var(--vice-ease), box-shadow 180ms var(--vice-ease);\n}\n\nbody[data-vice-enabled='1'] [data-turn-process]:hover {\n  background: linear-gradient(90deg, rgba(255, 179, 92, 0.15), transparent 66%);\n  box-shadow: inset 2px 0 0 var(--vice-gold);\n}\n\nbody[data-vice-enabled='1'] [data-turn-process]:focus-visible {\n  outline: none;\n  box-shadow: inset 2px 0 0 var(--vice-gold), 0 0 0 1px rgba(255, 179, 92, 0.4);\n}\n\nbody[data-vice-enabled='1'] [data-turn-process] [class*='_label'] {\n  font-variant-numeric: tabular-nums;\n  letter-spacing: 0.01em;\n}\n\nbody[data-vice-enabled='1'] [data-turn-process] [class*='_durationNumber'] {\n  color: var(--vice-gold);\n}\n\n/* ---------- generic disclosure rows (tool payloads, subagent work) ---------- */\n\nbody[data-vice-enabled='1'] [data-disclosure-row][data-expandable] {\n  border-radius: 6px;\n  transition: background 160ms var(--vice-ease);\n}\n\nbody[data-vice-enabled='1'] [data-disclosure-row][data-expandable]:hover {\n  background: rgba(255, 95, 146, 0.07);\n}\n\nbody[data-vice-enabled='1'] [data-disclosure-row][data-expandable]:focus-visible {\n  outline: none;\n  background: rgba(255, 95, 146, 0.1);\n  box-shadow: 0 0 0 1px rgba(255, 95, 146, 0.35);\n}\n\n/* ---------- reduced motion ---------- */\n\n@media (prefers-reduced-motion: reduce) {\n  body[data-vice-enabled='1'][data-vice-wanted] [data-process-activity] {\n    animation: none;\n  }\n}\n";
+  var styles_default9 = "/* Tool-call rows.\n   The harness tags every process step with `data-process-activity`, so the\n   colour and the running animation are keyed off semantics rather than the\n   hashed class names, which change between releases.\n\n   The title button ships with `padding: 0`, so the accent rail is drawn in\n   added padding that a matching negative margin cancels out: content does not\n   move, only the band around it grows. */\n\nbody[data-vice-enabled='1'] {\n  --vice-act-thinking: #a78bfa;\n  --vice-act-read: #6fe3ec;\n  --vice-act-search: #7fb8ff;\n  --vice-act-edit: #a6e88f;\n  --vice-act-command: #ffb35c;\n  --vice-act-plan: #ff5f92;\n  --vice-act-context: #b9a8d8;\n  /* Default accent for any activity the harness adds later; the per-activity\n     rules below win because they sit on a descendant, not because of weight. */\n  --vice-act: var(--vice-act-context);\n}\n\n/* ---------- per-activity accent ---------- */\n\nbody[data-vice-enabled='1'] [data-process-activity='thinking'] { --vice-act: var(--vice-act-thinking); }\nbody[data-vice-enabled='1'] [data-process-activity='read'],\nbody[data-vice-enabled='1'] [data-process-activity='readImage'] { --vice-act: var(--vice-act-read); }\nbody[data-vice-enabled='1'] [data-process-activity='search'],\nbody[data-vice-enabled='1'] [data-process-activity='webSearch'],\nbody[data-vice-enabled='1'] [data-process-activity='webFetch'] { --vice-act: var(--vice-act-search); }\nbody[data-vice-enabled='1'] [data-process-activity='edit'],\nbody[data-vice-enabled='1'] [data-process-activity='write'],\nbody[data-vice-enabled='1'] [data-process-activity='code'] { --vice-act: var(--vice-act-edit); }\nbody[data-vice-enabled='1'] [data-process-activity='commands'],\nbody[data-vice-enabled='1'] [data-process-activity='tools'] { --vice-act: var(--vice-act-command); }\nbody[data-vice-enabled='1'] [data-process-activity='subagents'],\nbody[data-vice-enabled='1'] [data-process-activity='plan'],\nbody[data-vice-enabled='1'] [data-process-activity='questions'] { --vice-act: var(--vice-act-plan); }\nbody[data-vice-enabled='1'] [data-process-activity='context'] { --vice-act: var(--vice-act-context); }\n\n/* ---------- the step row ---------- */\n\nbody[data-vice-enabled='1'] [data-process-activity] {\n  padding-inline: 10px;\n  margin-inline: -10px;\n  border-radius: 6px;\n  background: linear-gradient(90deg, color-mix(in srgb, var(--vice-act) 12%, transparent), transparent 62%);\n  box-shadow: inset 2px 0 0 color-mix(in srgb, var(--vice-act) 62%, transparent);\n  transition: background 180ms var(--vice-ease), box-shadow 180ms var(--vice-ease);\n}\n\nbody[data-vice-enabled='1'] [data-process-activity]:hover {\n  background: linear-gradient(90deg, color-mix(in srgb, var(--vice-act) 20%, transparent), transparent 72%);\n  box-shadow: inset 2px 0 0 var(--vice-act);\n}\n\nbody[data-vice-enabled='1'] [data-process-activity]:focus-visible {\n  outline: none;\n  box-shadow: inset 2px 0 0 var(--vice-act), 0 0 0 1px color-mix(in srgb, var(--vice-act) 45%, transparent);\n}\n\n/* The glyph carries the accent; the label stays on the readable token. */\nbody[data-vice-enabled='1'] [data-step-process-icon] {\n  color: var(--vice-act, var(--vice-act-context));\n  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--vice-act, var(--vice-act-context)) 45%, transparent));\n}\n\nbody[data-vice-enabled='1'] [data-process-activity] [class*='_label'] {\n  letter-spacing: -0.005em;\n}\n\n/* Running: the rail sweeps like a patrol light. */\nbody[data-vice-enabled='1'][data-vice-wanted] [data-process-activity] {\n  background: linear-gradient(90deg,\n    color-mix(in srgb, var(--vice-act) 26%, transparent),\n    transparent 70%);\n  background-size: 220% 100%;\n  animation: vice-activity-sweep 1.6s linear infinite;\n}\n\n@keyframes vice-activity-sweep {\n  from { background-position: 130% 0; }\n  to { background-position: -30% 0; }\n}\n\n/* ---------- expanded body ---------- */\n\nbody[data-vice-enabled='1'] [data-step-process-body] {\n  margin-inline-start: 2px;\n  border-inline-start: 1px solid color-mix(in srgb, var(--vice-act, var(--vice-act-context)) 26%, transparent);\n}\n\nbody[data-vice-enabled='1'] [data-step-process-body] [data-step-process-content] {\n  padding-inline-start: 12px;\n}\n\n/* ---------- turn summary ---------- */\n\nbody[data-vice-enabled='1'] [data-turn-process] {\n  padding-inline: 10px;\n  margin-inline: -10px;\n  border-radius: 6px;\n  color: var(--dsw-alias-label-secondary);\n  background: linear-gradient(90deg, rgba(255, 179, 92, 0.09), transparent 58%);\n  box-shadow: inset 2px 0 0 rgba(255, 179, 92, 0.45);\n  transition: background 180ms var(--vice-ease), box-shadow 180ms var(--vice-ease);\n}\n\nbody[data-vice-enabled='1'] [data-turn-process]:hover {\n  background: linear-gradient(90deg, rgba(255, 179, 92, 0.15), transparent 66%);\n  box-shadow: inset 2px 0 0 var(--vice-gold);\n}\n\nbody[data-vice-enabled='1'] [data-turn-process]:focus-visible {\n  outline: none;\n  box-shadow: inset 2px 0 0 var(--vice-gold), 0 0 0 1px rgba(255, 179, 92, 0.4);\n}\n\nbody[data-vice-enabled='1'] [data-turn-process] [class*='_label'] {\n  font-variant-numeric: tabular-nums;\n  letter-spacing: 0.01em;\n}\n\nbody[data-vice-enabled='1'] [data-turn-process] [class*='_durationNumber'] {\n  color: var(--vice-gold);\n}\n\n/* ---------- generic disclosure rows (tool payloads, subagent work) ---------- */\n\nbody[data-vice-enabled='1'] [data-disclosure-row][data-expandable] {\n  border-radius: 6px;\n  transition: background 160ms var(--vice-ease);\n}\n\nbody[data-vice-enabled='1'] [data-disclosure-row][data-expandable]:hover {\n  background: rgba(255, 95, 146, 0.07);\n}\n\nbody[data-vice-enabled='1'] [data-disclosure-row][data-expandable]:focus-visible {\n  outline: none;\n  background: rgba(255, 95, 146, 0.1);\n  box-shadow: 0 0 0 1px rgba(255, 95, 146, 0.35);\n}\n\n/* ---------- reduced motion ---------- */\n\n@media (prefers-reduced-motion: reduce) {\n  body[data-vice-enabled='1'][data-vice-wanted] [data-process-activity] {\n    animation: none;\n  }\n}\n";
 
   // src/client/features/wanted/index.js
   var STOP_LABEL = "停止生成";
@@ -683,7 +895,7 @@
   }
 
   // src/client/features/wanted/styles.css
-  var styles_default9 = "/* Wanted level read by the artwork. `body[data-vice-wanted]` carries 0 or 6. */\n\n.vice-wanted,\n.vice-wanted-panel {\n  --vice-wanted-on: 0;\n}\n\nbody[data-vice-wanted] .vice-wanted,\nbody[data-vice-wanted] .vice-wanted-panel {\n  --vice-wanted-on: 1;\n}\n\n/* Six stars, lit one after another while the agent works. */\n.vice-wanted b,\n.vice-wanted-panel b {\n  position: relative;\n  display: inline-block;\n  letter-spacing: 3px;\n  color: rgba(255, 179, 92, 0.26);\n  transition: color 220ms ease, filter 220ms ease, transform 220ms ease;\n}\n\nbody[data-vice-wanted] .vice-wanted b,\nbody[data-vice-wanted] .vice-wanted-panel b {\n  color: transparent;\n  background: linear-gradient(90deg,\n    #ffd36b 0%, #ffb35c 18%, #ff8a4c 34%, #ff5f92 52%, #ff8a4c 68%, #ffb35c 84%, #ffd36b 100%);\n  background-size: 260% 100%;\n  -webkit-background-clip: text;\n  background-clip: text;\n  filter: drop-shadow(0 0 9px rgba(255, 140, 90, 0.75));\n  animation: vice-wanted-sweep 2.4s linear infinite;\n}\n\n/* Unlit stars stay as a faint outline so the meter always reads as six. */\nbody[data-vice-wanted] .vice-wanted b::before,\nbody[data-vice-wanted] .vice-wanted-panel b::before {\n  content: '★★★★★★';\n  position: absolute;\n  inset: 0;\n  color: rgba(255, 179, 92, 0.24);\n  -webkit-text-fill-color: rgba(255, 179, 92, 0.24);\n  z-index: -1;\n}\n\n@keyframes vice-wanted-sweep {\n  from { background-position: 160% 0; }\n  to { background-position: -60% 0; }\n}\n\n/* The label above the stars flickers on while wanted. */\n.vice-wanted span,\n.vice-wanted-panel span {\n  transition: color 220ms ease, opacity 220ms ease;\n}\n\nbody[data-vice-wanted] .vice-wanted span,\nbody[data-vice-wanted] .vice-wanted-panel span {\n  color: #ff8a8a;\n  opacity: 1;\n  animation: vice-wanted-pulse 1.6s ease-in-out infinite;\n}\n\n@keyframes vice-wanted-pulse {\n  0%, 100% { opacity: 0.72; }\n  50% { opacity: 1; }\n}\n\n@media (prefers-reduced-motion: reduce) {\n  body[data-vice-wanted] .vice-wanted b,\n  body[data-vice-wanted] .vice-wanted-panel b,\n  body[data-vice-wanted] .vice-wanted span,\n  body[data-vice-wanted] .vice-wanted-panel span {\n    animation: none;\n    background: none;\n    -webkit-text-fill-color: var(--vice-gold);\n    color: var(--vice-gold);\n  }\n}\n";
+  var styles_default10 = "/* Wanted level read by the artwork. `body[data-vice-wanted]` carries 0 or 6. */\n\n.vice-wanted,\n.vice-wanted-panel {\n  --vice-wanted-on: 0;\n}\n\nbody[data-vice-wanted] .vice-wanted,\nbody[data-vice-wanted] .vice-wanted-panel {\n  --vice-wanted-on: 1;\n}\n\n/* Six stars, lit one after another while the agent works. */\n.vice-wanted b,\n.vice-wanted-panel b {\n  position: relative;\n  display: inline-block;\n  letter-spacing: 3px;\n  color: rgba(255, 179, 92, 0.26);\n  transition: color 220ms ease, filter 220ms ease, transform 220ms ease;\n}\n\nbody[data-vice-wanted] .vice-wanted b,\nbody[data-vice-wanted] .vice-wanted-panel b {\n  color: transparent;\n  background: linear-gradient(90deg,\n    #ffd36b 0%, #ffb35c 18%, #ff8a4c 34%, #ff5f92 52%, #ff8a4c 68%, #ffb35c 84%, #ffd36b 100%);\n  background-size: 260% 100%;\n  -webkit-background-clip: text;\n  background-clip: text;\n  filter: drop-shadow(0 0 9px rgba(255, 140, 90, 0.75));\n  animation: vice-wanted-sweep 2.4s linear infinite;\n}\n\n/* Unlit stars stay as a faint outline so the meter always reads as six. */\nbody[data-vice-wanted] .vice-wanted b::before,\nbody[data-vice-wanted] .vice-wanted-panel b::before {\n  content: '★★★★★★';\n  position: absolute;\n  inset: 0;\n  color: rgba(255, 179, 92, 0.24);\n  -webkit-text-fill-color: rgba(255, 179, 92, 0.24);\n  z-index: -1;\n}\n\n@keyframes vice-wanted-sweep {\n  from { background-position: 160% 0; }\n  to { background-position: -60% 0; }\n}\n\n/* The label above the stars flickers on while wanted. */\n.vice-wanted span,\n.vice-wanted-panel span {\n  transition: color 220ms ease, opacity 220ms ease;\n}\n\nbody[data-vice-wanted] .vice-wanted span,\nbody[data-vice-wanted] .vice-wanted-panel span {\n  color: #ff8a8a;\n  opacity: 1;\n  animation: vice-wanted-pulse 1.6s ease-in-out infinite;\n}\n\n@keyframes vice-wanted-pulse {\n  0%, 100% { opacity: 0.72; }\n  50% { opacity: 1; }\n}\n\n@media (prefers-reduced-motion: reduce) {\n  body[data-vice-wanted] .vice-wanted b,\n  body[data-vice-wanted] .vice-wanted-panel b,\n  body[data-vice-wanted] .vice-wanted span,\n  body[data-vice-wanted] .vice-wanted-panel span {\n    animation: none;\n    background: none;\n    -webkit-text-fill-color: var(--vice-gold);\n    color: var(--vice-gold);\n  }\n}\n";
 
   // src/client/index.js
   window.__ModuleLoader__.load({
@@ -695,13 +907,14 @@
         const form = ctx.configForms.get(CONFIG_FORM_ID);
         const store = createConfigStore(form, DEFAULTS);
         const removeStyles = installStyles(PLUGIN_ID, [
-          styles_default7,
-          styles_default2,
           styles_default8,
-          styles_default,
-          styles_default6,
-          styles_default5,
+          styles_default2,
           styles_default9,
+          styles_default,
+          styles_default7,
+          styles_default5,
+          styles_default6,
+          styles_default10,
           styles_default3,
           styles_default4
         ]);
@@ -712,6 +925,7 @@
         const wanted = createWantedMeter({ body });
         const intro = createIntro({ assets: ASSETS });
         const motion = createMotion(body);
+        const pet = createPet({ body, assets: ASSETS });
         const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
         scene.start();
         wanted.start();
@@ -722,6 +936,7 @@
           scene.sync(values);
           motion.sync(animations);
           intro.sync(animations && values.intro === "1");
+          pet.sync(values);
         }
         const unsubscribeStore = store.subscribe(sync);
         reducedMotion.addEventListener?.("change", sync);
@@ -731,6 +946,7 @@
           reducedMotion.removeEventListener?.("change", sync);
           motion.dispose();
           intro.dispose();
+          pet.dispose();
           wanted.dispose();
           scene.dispose();
           theme.dispose();

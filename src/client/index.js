@@ -9,6 +9,8 @@ import { createMotion } from './features/motion/index.js'
 import motionStyles from './features/motion/styles.css'
 import { registerVicePanel } from './features/panel/index.js'
 import panelStyles from './features/panel/styles.css'
+import { createPet } from './features/pet/index.js'
+import petStyles from './features/pet/styles.css'
 import { createScene } from './features/scene/index.js'
 import sceneStyles from './features/scene/styles.css'
 import { createThemeController } from './features/theme/index.js'
@@ -34,6 +36,7 @@ window.__ModuleLoader__.load({
         brandStyles,
         sceneStyles,
         panelStyles,
+        petStyles,
         wantedStyles,
         introStyles,
         motionStyles,
@@ -45,6 +48,7 @@ window.__ModuleLoader__.load({
       const wanted = createWantedMeter({ body })
       const intro = createIntro({ assets: ASSETS })
       const motion = createMotion(body)
+      const pet = createPet({ body, assets: ASSETS })
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
       scene.start()
@@ -59,6 +63,7 @@ window.__ModuleLoader__.load({
         scene.sync(values)
         motion.sync(animations)
         intro.sync(animations && values.intro === '1')
+        pet.sync(values)
       }
 
       const unsubscribeStore = store.subscribe(sync)
@@ -70,6 +75,7 @@ window.__ModuleLoader__.load({
         reducedMotion.removeEventListener?.('change', sync)
         motion.dispose()
         intro.dispose()
+        pet.dispose()
         wanted.dispose()
         scene.dispose()
         theme.dispose()

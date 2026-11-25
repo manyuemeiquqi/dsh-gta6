@@ -27,6 +27,11 @@ DeepSeek Harness 的 Vice City 主题：官方 GTA VI 主视觉、通缉星级�
 「Vice City」标签页：主视觉卡片、雷达与电台、速度表、格子旗分隔、VCPD 警灯、
 载具与海滩画报。Agent 运行中警灯闪烁、速度表指针摆动。
 
+**桌面宠物**
+
+右下角的 Jason 与 Lucia，取自 Rockstar 官方 4K 截图抠像。空闲时轻轻摇晃，Agent 开始工作时
+来回浮动，结束瞬间跳两下，久无操作会犯困；可以拖动到任意位置，位置记在本地；点一下会说一句台词。
+
 **开场动画**
 
 首次加载时五块主视觉碎片拼合、标识放大、扫描线扫过，约 3 秒后消散。
@@ -82,6 +87,7 @@ dsh plugin --profile <profile> add github:manyuemeiquqi/dsh-theme-vice
 | `glow` | `1` | 标题、边框与按钮的霓虹光晕 |
 | `motion` | `1` | 消息进场动画与工具行扫光 |
 | `intro` | `1` | 开场动画 |
+| `pet` | `1` | 右下角桌面宠物（Jason 与 Lucia） |
 
 ## 开发
 
@@ -111,6 +117,7 @@ src/
       tools/                # 工具调用行按动作着色
       wanted/               # 通缉星级与运行状态判定
       panel/                # 右栏 Vice City 画报
+      pet/                  # 桌面宠物（拖动、状态联动、台词）
       brand/                # 侧栏标识替换
       scene/                # 主视觉横幅与空状态场景
       intro/                # 开场动画
