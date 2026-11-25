@@ -62,6 +62,66 @@
     };
   }
 
+  // src/client/core/run-signal.js
+  var STOP_LABELS = /* @__PURE__ */ new Set(["停止生成", "Stop generating"]);
+  var SETTLE_MS = 260;
+  function createRunSignal({ body }) {
+    const listeners = /* @__PURE__ */ new Set();
+    let observer;
+    let timer;
+    let scheduled = false;
+    let running = false;
+    let started = false;
+    function read() {
+      return [...document.querySelectorAll("button")].some((button) => STOP_LABELS.has(button.getAttribute("aria-label") || ""));
+    }
+    function publish() {
+      scheduled = false;
+      const next = read();
+      if (next === running) return;
+      running = next;
+      for (const listener of listeners) listener(running);
+    }
+    function schedule() {
+      if (scheduled) return;
+      scheduled = true;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(publish, SETTLE_MS);
+    }
+    return {
+      start() {
+        if (started) return;
+        started = true;
+        running = read();
+        observer = new MutationObserver(schedule);
+        observer.observe(body, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ["aria-label", "disabled"]
+        });
+      },
+      /** Current state, for a subscriber that mounts mid-run. */
+      get() {
+        return running;
+      },
+      subscribe(listener) {
+        listeners.add(listener);
+        return () => listeners.delete(listener);
+      },
+      dispose() {
+        window.clearTimeout(timer);
+        timer = void 0;
+        scheduled = false;
+        observer?.disconnect();
+        observer = void 0;
+        listeners.clear();
+        running = false;
+        started = false;
+      }
+    };
+  }
+
   // src/client/core/styles.js
   function installStyles(pluginId, chunks) {
     const sheet = document.createElement("style");
@@ -386,12 +446,13 @@
     { who: "LUCIA", line: "天快亮了，动作快点。" },
     { who: "LUCIA", line: "Ocean Beach，老地方见。" }
   ];
-  function createPet({ body, assets }) {
+  function createPet({ body, assets, signal }) {
     let host;
     let stage;
     let layers = [];
     let bubble;
-    let observer;
+    let unsubscribe = () => {
+    };
     let bubbleTimer;
     let sleepTimer;
     let doneTimer;
@@ -484,12 +545,6 @@
         setState("done");
         armSleep();
       }
-    }
-    function readRunning() {
-      return [...document.querySelectorAll("button")].some((button) => {
-        const label = button.getAttribute("aria-label") || "";
-        return label === "停止生成" || label === "Stop generating";
-      });
     }
     function say() {
       if (!bubble) return;
@@ -595,9 +650,8 @@
       host.addEventListener("pointercancel", onPointerUp);
       host.addEventListener("click", onClick);
       window.addEventListener("resize", onResize);
-      observer = new MutationObserver(() => applyRunning(readRunning()));
-      observer.observe(body, { childList: true, subtree: true, attributes: true, attributeFilter: ["aria-label"] });
-      running = readRunning();
+      running = signal.get();
+      unsubscribe = signal.subscribe(applyRunning);
       state = running ? "working" : "idle";
       pose = 0;
       host.dataset.state = state;
@@ -606,8 +660,9 @@
       armPoseTurn();
     }
     function unmount() {
-      observer?.disconnect();
-      observer = void 0;
+      unsubscribe();
+      unsubscribe = () => {
+      };
       window.clearTimeout(bubbleTimer);
       window.clearTimeout(sleepTimer);
       window.clearTimeout(doneTimer);
@@ -914,17 +969,13 @@
   var styles_default9 = "/* Tool-call rows.\n   The harness tags every process step with `data-process-activity`, so the\n   colour and the running animation are keyed off semantics rather than the\n   hashed class names, which change between releases.\n\n   The title button ships with `padding: 0`, so the accent rail is drawn in\n   added padding that a matching negative margin cancels out: content does not\n   move, only the band around it grows. */\n\nbody[data-vice-enabled='1'] {\n  --vice-act-thinking: #a78bfa;\n  --vice-act-read: #6fe3ec;\n  --vice-act-search: #7fb8ff;\n  --vice-act-edit: #a6e88f;\n  --vice-act-command: #ffb35c;\n  --vice-act-plan: #ff5f92;\n  --vice-act-context: #b9a8d8;\n  /* Default accent for any activity the harness adds later; the per-activity\n     rules below win because they sit on a descendant, not because of weight. */\n  --vice-act: var(--vice-act-context);\n}\n\n/* ---------- per-activity accent ---------- */\n\nbody[data-vice-enabled='1'] [data-process-activity='thinking'] { --vice-act: var(--vice-act-thinking); }\nbody[data-vice-enabled='1'] [data-process-activity='read'],\nbody[data-vice-enabled='1'] [data-process-activity='readImage'] { --vice-act: var(--vice-act-read); }\nbody[data-vice-enabled='1'] [data-process-activity='search'],\nbody[data-vice-enabled='1'] [data-process-activity='webSearch'],\nbody[data-vice-enabled='1'] [data-process-activity='webFetch'] { --vice-act: var(--vice-act-search); }\nbody[data-vice-enabled='1'] [data-process-activity='edit'],\nbody[data-vice-enabled='1'] [data-process-activity='write'],\nbody[data-vice-enabled='1'] [data-process-activity='code'] { --vice-act: var(--vice-act-edit); }\nbody[data-vice-enabled='1'] [data-process-activity='commands'],\nbody[data-vice-enabled='1'] [data-process-activity='tools'] { --vice-act: var(--vice-act-command); }\nbody[data-vice-enabled='1'] [data-process-activity='subagents'],\nbody[data-vice-enabled='1'] [data-process-activity='plan'],\nbody[data-vice-enabled='1'] [data-process-activity='questions'] { --vice-act: var(--vice-act-plan); }\nbody[data-vice-enabled='1'] [data-process-activity='context'] { --vice-act: var(--vice-act-context); }\n\n/* ---------- the step row ---------- */\n\nbody[data-vice-enabled='1'] [data-process-activity] {\n  padding-inline: 10px;\n  margin-inline: -10px;\n  border-radius: 6px;\n  background: linear-gradient(90deg, color-mix(in srgb, var(--vice-act) 12%, transparent), transparent 62%);\n  box-shadow: inset 2px 0 0 color-mix(in srgb, var(--vice-act) 62%, transparent);\n  transition: background 180ms var(--vice-ease), box-shadow 180ms var(--vice-ease);\n}\n\nbody[data-vice-enabled='1'] [data-process-activity]:hover {\n  background: linear-gradient(90deg, color-mix(in srgb, var(--vice-act) 20%, transparent), transparent 72%);\n  box-shadow: inset 2px 0 0 var(--vice-act);\n}\n\nbody[data-vice-enabled='1'] [data-process-activity]:focus-visible {\n  outline: none;\n  box-shadow: inset 2px 0 0 var(--vice-act), 0 0 0 1px color-mix(in srgb, var(--vice-act) 45%, transparent);\n}\n\n/* The glyph carries the accent; the label stays on the readable token. */\nbody[data-vice-enabled='1'] [data-step-process-icon] {\n  color: var(--vice-act, var(--vice-act-context));\n  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--vice-act, var(--vice-act-context)) 45%, transparent));\n}\n\nbody[data-vice-enabled='1'] [data-process-activity] [class*='_label'] {\n  letter-spacing: -0.005em;\n}\n\n/* Running: the rail sweeps like a patrol light. */\nbody[data-vice-enabled='1'][data-vice-wanted] [data-process-activity] {\n  background: linear-gradient(90deg,\n    color-mix(in srgb, var(--vice-act) 26%, transparent),\n    transparent 70%);\n  background-size: 220% 100%;\n  animation: vice-activity-sweep 1.6s linear infinite;\n}\n\n@keyframes vice-activity-sweep {\n  from { background-position: 130% 0; }\n  to { background-position: -30% 0; }\n}\n\n/* ---------- expanded body ---------- */\n\nbody[data-vice-enabled='1'] [data-step-process-body] {\n  margin-inline-start: 2px;\n  border-inline-start: 1px solid color-mix(in srgb, var(--vice-act, var(--vice-act-context)) 26%, transparent);\n}\n\nbody[data-vice-enabled='1'] [data-step-process-body] [data-step-process-content] {\n  padding-inline-start: 12px;\n}\n\n/* ---------- turn summary ---------- */\n\nbody[data-vice-enabled='1'] [data-turn-process] {\n  padding-inline: 10px;\n  margin-inline: -10px;\n  border-radius: 6px;\n  color: var(--dsw-alias-label-secondary);\n  background: linear-gradient(90deg, rgba(255, 179, 92, 0.09), transparent 58%);\n  box-shadow: inset 2px 0 0 rgba(255, 179, 92, 0.45);\n  transition: background 180ms var(--vice-ease), box-shadow 180ms var(--vice-ease);\n}\n\nbody[data-vice-enabled='1'] [data-turn-process]:hover {\n  background: linear-gradient(90deg, rgba(255, 179, 92, 0.15), transparent 66%);\n  box-shadow: inset 2px 0 0 var(--vice-gold);\n}\n\nbody[data-vice-enabled='1'] [data-turn-process]:focus-visible {\n  outline: none;\n  box-shadow: inset 2px 0 0 var(--vice-gold), 0 0 0 1px rgba(255, 179, 92, 0.4);\n}\n\nbody[data-vice-enabled='1'] [data-turn-process] [class*='_label'] {\n  font-variant-numeric: tabular-nums;\n  letter-spacing: 0.01em;\n}\n\nbody[data-vice-enabled='1'] [data-turn-process] [class*='_durationNumber'] {\n  color: var(--vice-gold);\n}\n\n/* ---------- generic disclosure rows (tool payloads, subagent work) ---------- */\n\nbody[data-vice-enabled='1'] [data-disclosure-row][data-expandable] {\n  border-radius: 6px;\n  transition: background 160ms var(--vice-ease);\n}\n\nbody[data-vice-enabled='1'] [data-disclosure-row][data-expandable]:hover {\n  background: rgba(255, 95, 146, 0.07);\n}\n\nbody[data-vice-enabled='1'] [data-disclosure-row][data-expandable]:focus-visible {\n  outline: none;\n  background: rgba(255, 95, 146, 0.1);\n  box-shadow: 0 0 0 1px rgba(255, 95, 146, 0.35);\n}\n\n/* ---------- reduced motion ---------- */\n\n@media (prefers-reduced-motion: reduce) {\n  body[data-vice-enabled='1'][data-vice-wanted] [data-process-activity] {\n    animation: none;\n  }\n}\n";
 
   // src/client/features/wanted/index.js
-  var STOP_LABEL = "停止生成";
-  var SETTLE_MS = 260;
-  function createWantedMeter({ body }) {
-    let observer;
-    let timer;
+  var MAX_LEVEL = 6;
+  function createWantedMeter({ body, signal }) {
     let level = 0;
-    function read() {
-      const running = [...document.querySelectorAll("button")].some((button) => (button.getAttribute("aria-label") || "") === STOP_LABEL);
-      return running ? 6 : 0;
-    }
-    function apply(next) {
+    let unsubscribe = () => {
+    };
+    function apply(running) {
+      const next = running ? MAX_LEVEL : 0;
       if (next === level) return;
       level = next;
       if (next > 0) {
@@ -935,27 +986,16 @@
         body.removeAttribute("data-vice-wanted");
       }
     }
-    function schedule() {
-      window.clearTimeout(timer);
-      timer = window.setTimeout(() => apply(read()), SETTLE_MS);
-    }
     return {
       start() {
-        apply(read());
-        observer = new MutationObserver(schedule);
-        observer.observe(body, {
-          childList: true,
-          subtree: true,
-          attributes: true,
-          attributeFilter: ["aria-label", "disabled"]
-        });
+        apply(signal.get());
+        unsubscribe = signal.subscribe(apply);
       },
       dispose() {
-        window.clearTimeout(timer);
-        timer = void 0;
-        observer?.disconnect();
-        observer = void 0;
-        apply(0);
+        unsubscribe();
+        unsubscribe = () => {
+        };
+        apply(false);
       }
     };
   }
@@ -988,11 +1028,13 @@
         const scene = createScene({ body, assets: ASSETS });
         const unregisterPanel = registerVicePanel({ ctx, React, store, assets: ASSETS });
         const unregisterBrand = registerBrandMark();
-        const wanted = createWantedMeter({ body });
+        const runSignal = createRunSignal({ body });
+        const wanted = createWantedMeter({ body, signal: runSignal });
         const intro = createIntro({ assets: ASSETS });
         const motion = createMotion(body);
-        const pet = createPet({ body, assets: ASSETS });
+        const pet = createPet({ body, assets: ASSETS, signal: runSignal });
         const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        runSignal.start();
         scene.start();
         wanted.start();
         function sync() {
@@ -1014,6 +1056,7 @@
           intro.dispose();
           pet.dispose();
           wanted.dispose();
+          runSignal.dispose();
           scene.dispose();
           theme.dispose();
           unregisterBrand();

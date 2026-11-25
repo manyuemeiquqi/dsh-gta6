@@ -32,12 +32,12 @@ const LINES = [
   { who: 'LUCIA', line: 'Ocean Beach，老地方见。' },
 ]
 
-export function createPet({ body, assets }) {
+export function createPet({ body, assets, signal }) {
   let host
   let stage
   let layers = []
   let bubble
-  let observer
+  let unsubscribe = () => {}
   let bubbleTimer
   let sleepTimer
   let doneTimer
@@ -146,15 +146,6 @@ export function createPet({ body, assets }) {
       setState('done')
       armSleep()
     }
-  }
-
-  function readRunning() {
-    // The harness exposes no public "agent is working" flag, so the stop
-    // control is the signal. Its label is localised, hence the match on either.
-    return [...document.querySelectorAll('button')].some(button => {
-      const label = button.getAttribute('aria-label') || ''
-      return label === '停止生成' || label === 'Stop generating'
-    })
   }
 
   function say() {
@@ -275,10 +266,8 @@ export function createPet({ body, assets }) {
     host.addEventListener('click', onClick)
     window.addEventListener('resize', onResize)
 
-    observer = new MutationObserver(() => applyRunning(readRunning()))
-    observer.observe(body, { childList: true, subtree: true, attributes: true, attributeFilter: ['aria-label'] })
-
-    running = readRunning()
+    running = signal.get()
+    unsubscribe = signal.subscribe(applyRunning)
     state = running ? 'working' : 'idle'
     pose = 0
     host.dataset.state = state
@@ -288,8 +277,8 @@ export function createPet({ body, assets }) {
   }
 
   function unmount() {
-    observer?.disconnect()
-    observer = undefined
+    unsubscribe()
+    unsubscribe = () => {}
     window.clearTimeout(bubbleTimer)
     window.clearTimeout(sleepTimer)
     window.clearTimeout(doneTimer)

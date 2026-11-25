@@ -1,4 +1,5 @@
 import { createConfigStore } from './core/config-store.js'
+import { createRunSignal } from './core/run-signal.js'
 import { installStyles } from './core/styles.js'
 import { registerBrandMark } from './features/brand/index.js'
 import brandStyles from './features/brand/styles.css'
@@ -45,12 +46,14 @@ window.__ModuleLoader__.load({
       const scene = createScene({ body, assets: ASSETS })
       const unregisterPanel = registerVicePanel({ ctx, React, store, assets: ASSETS })
       const unregisterBrand = registerBrandMark()
-      const wanted = createWantedMeter({ body })
+      const runSignal = createRunSignal({ body })
+      const wanted = createWantedMeter({ body, signal: runSignal })
       const intro = createIntro({ assets: ASSETS })
       const motion = createMotion(body)
-      const pet = createPet({ body, assets: ASSETS })
+      const pet = createPet({ body, assets: ASSETS, signal: runSignal })
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
+      runSignal.start()
       scene.start()
       wanted.start()
 
@@ -77,6 +80,7 @@ window.__ModuleLoader__.load({
         intro.dispose()
         pet.dispose()
         wanted.dispose()
+        runSignal.dispose()
         scene.dispose()
         theme.dispose()
         unregisterBrand()
