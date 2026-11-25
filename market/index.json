@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "title": {
+    "en": "dsh-gta6",
+    "zh": "dsh-gta6"
+  },
+  "description": {
+    "en": "Vice City theme for DeepSeek Harness, with a desktop pet",
+    "zh": "DeepSeek Harness 的 Vice City 主题，含桌面宠物"
+  },
+  "metadata": {
+    "categories": {
+      "appearance": {
+        "title": {
+          "en": "Appearance",
+          "zh": "外观"
+        }
+      }
+    }
+  },
+  "plugins": [
+    {
+      "name": "dsh-gta6",
+      "title": {
+        "en": "GTA VI · Vice City",
+        "zh": "GTA VI · Vice City"
+      },
+      "description": {
+        "en": "Neon Vice City theme on official GTA VI key art: key-art banner, wanted stars, a session panel, and Jason & Lucia as a desktop pet.",
+        "zh": "基于官方 GTA VI 主视觉的霓虹主题：主视觉横幅、通缉星级、会话面板，以及 Jason 与 Lucia 桌面宠物。"
+      },
+      "icon": "https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/lib/assets/poster_logo-8eb6649ac961.png",
+      "author": "manyuemeiquqi",
+      "homepage": "https://github.com/manyuemeiquqi/dsh-gta6",
+      "repository": {
+        "url": "https://github.com/manyuemeiquqi/dsh-gta6"
+      },
+      "metadata": {
+        "category": "appearance",
+        "keywords": [
+          "gta6",
+          "vice-city",
+          "theme",
+          "pet"
+        ]
+      },
+      "dist-tags": {
+        "latest": "0.1.0"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1795597567,
+          "source": {
+            "type": "npm"
+          },
+          "engines": {
+            "dsh": ">=0.2.0 <0.3.0"
+          }
+        }
+      ]
+    }
+  ]
+}
