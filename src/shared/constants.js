@@ -1,17 +1,17 @@
-export const PLUGIN_ID = 'dsh-theme-vice'
-export const CONFIG_FORM_ID = 'theme-vice'
+export const PLUGIN_ID = 'dsh-gta6'
+export const CONFIG_FORM_ID = 'gta6'
 
 export const ASSETS = Object.freeze({
-  poster: 'plugins/dsh-theme-vice/assets/poster_full-25ce00b5d601.jpg',
-  logo: 'plugins/dsh-theme-vice/assets/poster_logo-8eb6649ac961.png',
-  rooftop: 'plugins/dsh-theme-vice/assets/jason-lucia-rooftop.webp',
-  postcard: 'plugins/dsh-theme-vice/assets/vice-city.webp',
-  cheetah: 'plugins/dsh-theme-vice/assets/cheetah.webp',
-  beachNight: 'plugins/dsh-theme-vice/assets/vice-beach-night.webp',
-  street: 'plugins/dsh-theme-vice/assets/leonida-street.webp',
-  nightlife: 'plugins/dsh-theme-vice/assets/nightlife.webp',
-  pet: 'plugins/dsh-theme-vice/assets/pet-keyart-56a1afa1c5df.png',
-  petAlt: 'plugins/dsh-theme-vice/assets/pet-roof-b179a351be25.png',
+  poster: 'plugins/dsh-gta6/assets/poster_full-25ce00b5d601.jpg',
+  logo: 'plugins/dsh-gta6/assets/poster_logo-8eb6649ac961.png',
+  rooftop: 'plugins/dsh-gta6/assets/jason-lucia-rooftop.webp',
+  postcard: 'plugins/dsh-gta6/assets/vice-city.webp',
+  cheetah: 'plugins/dsh-gta6/assets/cheetah.webp',
+  beachNight: 'plugins/dsh-gta6/assets/vice-beach-night.webp',
+  street: 'plugins/dsh-gta6/assets/leonida-street.webp',
+  nightlife: 'plugins/dsh-gta6/assets/nightlife.webp',
+  pet: 'plugins/dsh-gta6/assets/pet-keyart-56a1afa1c5df.png',
+  petAlt: 'plugins/dsh-gta6/assets/pet-roof-b179a351be25.png',
 })
 
 export const DEFAULTS = Object.freeze({

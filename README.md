@@ -1,4 +1,4 @@
-# dsh-theme-vice
+# dsh-gta6
 
 DeepSeek Harness 的 Vice City 主题：官方 GTA VI 主视觉、通缉星级、右栏画报、开场动画。
 
@@ -52,20 +52,20 @@ DeepSeek Harness 的 Vice City 主题：官方 GTA VI 主视觉、通缉星级�
 ## 安装
 
 ```bash
-dsh plugin --profile <profile> add github:manyuemeiquqi/dsh-theme-vice
+dsh plugin --profile <profile> add github:manyuemeiquqi/dsh-gta6
 ```
 
 装好后在 profile 的 `package.json` 里确认已列入 bundles：
 
 ```json
 {
-  "dependencies": { "dsh-theme-vice": "github:manyuemeiquqi/dsh-theme-vice" },
+  "dependencies": { "dsh-gta6": "github:manyuemeiquqi/dsh-gta6" },
   "dsh": {
     "profile": {
       "bundles": [
         "@deepseek-ai/dsh-base",
         "@deepseek-ai/dsh-web-app",
-        "dsh-theme-vice"
+        "dsh-gta6"
       ]
     }
   }

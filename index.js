@@ -35,4 +35,4 @@ const Config = z?.object({
 
 function apply() {}
 
-module.exports = { name: 'dsh-theme-vice', Config, apply }
+module.exports = { name: 'dsh-gta6', Config, apply }

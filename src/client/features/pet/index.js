@@ -11,7 +11,7 @@
  * stop control — so the two never disagree.
  */
 
-const STORAGE_KEY = 'dsh-theme-vice:pet'
+const STORAGE_KEY = 'dsh-gta6:pet'
 const SLEEP_AFTER_MS = 45_000
 const NIGHT_SLEEP_AFTER_MS = 9_000
 const NIGHT_FROM = 22
