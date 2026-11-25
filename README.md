@@ -55,8 +55,6 @@ DeepSeek Harness 的 Vice City 主题：官方 GTA VI 主视觉、通缉星级�
 dsh plugin --profile <profile> add github:manyuemeiquqi/dsh-theme-vice
 ```
 
-> 仓库目前是**私有**的。别人要安装，需要先被加为协作者，或把仓库转为公开。
-
 装好后在 profile 的 `package.json` 里确认已列入 bundles：
 
 ```json
