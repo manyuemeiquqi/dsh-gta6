@@ -14,7 +14,8 @@
 | `vice-beach-night.webp` | Vice Beach 夜景截图 |
 | `leonida-street.webp` | Leonida 街头人物截图 |
 | `nightlife.webp` | Vice City 夜生活截图（未在界面中使用） |
-| `pet-lean-798908b814cb.png` | 官方 4K 截图《Jason and Lucia》第 03 张抠像，宠物主姿态 |
+| `pet-keyart-56a1afa1c5df.png` | 官方主视觉拼贴中 Jason 与 Lucia 那一格的抠像，宠物主姿态 |
+| `pet-roof-b179a351be25.png` | 官方屋顶主视觉上半身抠像，宠物轮换姿态 |
 | `pet-neon-c80c474ea14d.png` | 官方 4K 截图《Jason and Lucia》第 20 张抠像，宠物轮换姿态 |
 
 原始来源：<https://www.rockstargames.com/VI>，逐项来源见 `lib/assets/NOTICE.txt`。

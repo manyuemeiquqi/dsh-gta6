@@ -10,8 +10,8 @@ export const ASSETS = Object.freeze({
   beachNight: 'plugins/dsh-theme-vice/assets/vice-beach-night.webp',
   street: 'plugins/dsh-theme-vice/assets/leonida-street.webp',
   nightlife: 'plugins/dsh-theme-vice/assets/nightlife.webp',
-  pet: 'plugins/dsh-theme-vice/assets/pet-lean-798908b814cb.png',
-  petAlt: 'plugins/dsh-theme-vice/assets/pet-neon-c80c474ea14d.png',
+  pet: 'plugins/dsh-theme-vice/assets/pet-keyart-56a1afa1c5df.png',
+  petAlt: 'plugins/dsh-theme-vice/assets/pet-roof-b179a351be25.png',
 })
 
 export const DEFAULTS = Object.freeze({
