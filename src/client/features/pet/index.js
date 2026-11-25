@@ -13,8 +13,14 @@
 
 const STORAGE_KEY = 'dsh-theme-vice:pet'
 const SLEEP_AFTER_MS = 45_000
+const NIGHT_SLEEP_AFTER_MS = 9_000
+const NIGHT_FROM = 22
+const NIGHT_TO = 6
 const DONE_MS = 1300
 const BUBBLE_MS = 3600
+const CLICK_DELAY_MS = 240
+const CHATTER_MIN_MS = 52_000
+const CHATTER_SPREAD_MS = 68_000
 const DRAG_THRESHOLD = 5
 const SNAP_MARGIN = 30
 const EDGE = 26
@@ -32,13 +38,15 @@ const LINES = [
   { who: 'LUCIA', line: 'Ocean Beach，老地方见。' },
 ]
 
-export function createPet({ body, assets, signal }) {
+export function createPet({ body, assets, signal, openPanel }) {
   let host
   let stage
   let layers = []
   let bubble
   let unsubscribe = () => {}
   let bubbleTimer
+  let clickTimer
+  let chatterTimer
   let sleepTimer
   let doneTimer
   let poseTimer
@@ -121,11 +129,26 @@ export function createPet({ body, assets, signal }) {
     else if (next === 'done') showPose(0)
   }
 
+  function isNight() {
+    const hour = new Date().getHours()
+    return hour >= NIGHT_FROM || hour < NIGHT_TO
+  }
+
   function armSleep() {
     window.clearTimeout(sleepTimer)
+    const delay = isNight() ? NIGHT_SLEEP_AFTER_MS : SLEEP_AFTER_MS
     sleepTimer = window.setTimeout(() => {
       if (!running) setState('sleep')
-    }, SLEEP_AFTER_MS)
+    }, delay)
+  }
+
+  /** Idle company: they occasionally say something without being clicked. */
+  function armChatter() {
+    window.clearTimeout(chatterTimer)
+    chatterTimer = window.setTimeout(() => {
+      if (state === 'idle' && bubble?.hidden !== false) say()
+      armChatter()
+    }, CHATTER_MIN_MS + Math.random() * CHATTER_SPREAD_MS)
   }
 
   function armPoseTurn() {
@@ -210,8 +233,18 @@ export function createPet({ body, assets, signal }) {
       }
       armSleep()
     } else {
-      say()
+      // Held briefly so a double click opens the panel instead of firing a
+      // line first.
+      window.clearTimeout(clickTimer)
+      clickTimer = window.setTimeout(say, CLICK_DELAY_MS)
     }
+  }
+
+  function onDoubleClick(event) {
+    event.preventDefault()
+    window.clearTimeout(clickTimer)
+    if (bubble) bubble.hidden = true
+    openPanel?.()
   }
 
   function onResize() {
@@ -264,6 +297,7 @@ export function createPet({ body, assets, signal }) {
     host.addEventListener('pointerup', onPointerUp)
     host.addEventListener('pointercancel', onPointerUp)
     host.addEventListener('click', onClick)
+    host.addEventListener('dblclick', onDoubleClick)
     window.addEventListener('resize', onResize)
 
     running = signal.get()
@@ -274,12 +308,15 @@ export function createPet({ body, assets, signal }) {
     if (running) showPose(1)
     else armSleep()
     armPoseTurn()
+    armChatter()
   }
 
   function unmount() {
     unsubscribe()
     unsubscribe = () => {}
     window.clearTimeout(bubbleTimer)
+    window.clearTimeout(clickTimer)
+    window.clearTimeout(chatterTimer)
     window.clearTimeout(sleepTimer)
     window.clearTimeout(doneTimer)
     window.clearTimeout(poseTimer)

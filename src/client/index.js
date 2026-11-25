@@ -47,12 +47,19 @@ window.__ModuleLoader__.load({
       const scene = createScene({ body, assets: ASSETS })
       const sessionState = createSessionState({ ctx })
       const unregisterPanel = registerVicePanel({ ctx, React, store, assets: ASSETS, sessionState })
+      let sidebarRight
+      ctx.inject(['sidebarRight'], child => { sidebarRight = child.sidebarRight })
       const unregisterBrand = registerBrandMark()
       const runSignal = createRunSignal({ body })
       const wanted = createWantedMeter({ body, signal: runSignal })
       const intro = createIntro({ assets: ASSETS })
       const motion = createMotion(body)
-      const pet = createPet({ body, assets: ASSETS, signal: runSignal })
+      const pet = createPet({
+        body,
+        assets: ASSETS,
+        signal: runSignal,
+        openPanel: () => sidebarRight?.openTab('vice-coast'),
+      })
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
       runSignal.start()

@@ -514,8 +514,14 @@
   // src/client/features/pet/index.js
   var STORAGE_KEY = "dsh-theme-vice:pet";
   var SLEEP_AFTER_MS = 45e3;
+  var NIGHT_SLEEP_AFTER_MS = 9e3;
+  var NIGHT_FROM = 22;
+  var NIGHT_TO = 6;
   var DONE_MS = 1300;
   var BUBBLE_MS = 3600;
+  var CLICK_DELAY_MS = 240;
+  var CHATTER_MIN_MS = 52e3;
+  var CHATTER_SPREAD_MS = 68e3;
   var DRAG_THRESHOLD = 5;
   var SNAP_MARGIN = 30;
   var EDGE = 26;
@@ -528,7 +534,7 @@
     { who: "LUCIA", line: "天快亮了，动作快点。" },
     { who: "LUCIA", line: "Ocean Beach，老地方见。" }
   ];
-  function createPet({ body, assets, signal }) {
+  function createPet({ body, assets, signal, openPanel }) {
     let host;
     let stage;
     let layers = [];
@@ -536,6 +542,8 @@
     let unsubscribe = () => {
     };
     let bubbleTimer;
+    let clickTimer;
+    let chatterTimer;
     let sleepTimer;
     let doneTimer;
     let poseTimer;
@@ -604,11 +612,23 @@
       if (next === "working") showPose(1);
       else if (next === "done") showPose(0);
     }
+    function isNight() {
+      const hour = (/* @__PURE__ */ new Date()).getHours();
+      return hour >= NIGHT_FROM || hour < NIGHT_TO;
+    }
     function armSleep() {
       window.clearTimeout(sleepTimer);
+      const delay = isNight() ? NIGHT_SLEEP_AFTER_MS : SLEEP_AFTER_MS;
       sleepTimer = window.setTimeout(() => {
         if (!running) setState("sleep");
-      }, SLEEP_AFTER_MS);
+      }, delay);
+    }
+    function armChatter() {
+      window.clearTimeout(chatterTimer);
+      chatterTimer = window.setTimeout(() => {
+        if (state === "idle" && bubble?.hidden !== false) say();
+        armChatter();
+      }, CHATTER_MIN_MS + Math.random() * CHATTER_SPREAD_MS);
     }
     function armPoseTurn() {
       window.clearTimeout(poseTimer);
@@ -687,8 +707,15 @@
         }
         armSleep();
       } else {
-        say();
+        window.clearTimeout(clickTimer);
+        clickTimer = window.setTimeout(say, CLICK_DELAY_MS);
       }
+    }
+    function onDoubleClick(event) {
+      event.preventDefault();
+      window.clearTimeout(clickTimer);
+      if (bubble) bubble.hidden = true;
+      openPanel?.();
     }
     function onResize() {
       if (!position) return;
@@ -731,6 +758,7 @@
       host.addEventListener("pointerup", onPointerUp);
       host.addEventListener("pointercancel", onPointerUp);
       host.addEventListener("click", onClick);
+      host.addEventListener("dblclick", onDoubleClick);
       window.addEventListener("resize", onResize);
       running = signal.get();
       unsubscribe = signal.subscribe(applyRunning);
@@ -740,12 +768,15 @@
       if (running) showPose(1);
       else armSleep();
       armPoseTurn();
+      armChatter();
     }
     function unmount() {
       unsubscribe();
       unsubscribe = () => {
       };
       window.clearTimeout(bubbleTimer);
+      window.clearTimeout(clickTimer);
+      window.clearTimeout(chatterTimer);
       window.clearTimeout(sleepTimer);
       window.clearTimeout(doneTimer);
       window.clearTimeout(poseTimer);
@@ -1110,12 +1141,21 @@
         const scene = createScene({ body, assets: ASSETS });
         const sessionState = createSessionState({ ctx });
         const unregisterPanel = registerVicePanel({ ctx, React, store, assets: ASSETS, sessionState });
+        let sidebarRight;
+        ctx.inject(["sidebarRight"], (child) => {
+          sidebarRight = child.sidebarRight;
+        });
         const unregisterBrand = registerBrandMark();
         const runSignal = createRunSignal({ body });
         const wanted = createWantedMeter({ body, signal: runSignal });
         const intro = createIntro({ assets: ASSETS });
         const motion = createMotion(body);
-        const pet = createPet({ body, assets: ASSETS, signal: runSignal });
+        const pet = createPet({
+          body,
+          assets: ASSETS,
+          signal: runSignal,
+          openPanel: () => sidebarRight?.openTab("vice-coast")
+        });
         const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
         runSignal.start();
         scene.start();
