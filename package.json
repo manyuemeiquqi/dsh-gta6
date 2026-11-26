@@ -37,6 +37,7 @@
   },
   "files": [
     "README.md",
+    "README.en.md",
     "NOTICE.md",
     "index.js",
     "client.js",

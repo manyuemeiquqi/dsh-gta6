@@ -1,11 +1,14 @@
 # dsh-gta6
 
-**给 DeepSeek Harness 的 Vice City 主题。** 用 Rockstar 官方 GTA VI 主视觉重做了界面里几个最常被看到的位置，
-外加一只会跟着 Agent 状态变化的桌面宠物。
+**把 DeepSeek Harness 换到雷奥奈达的海岸线上。**
+
+一套 GTA VI 主题：通缉星级接 Agent 的运行状态，右栏是真实的会话仪表盘，角落住着两个会累的人物。
 
 [![npm](https://img.shields.io/npm/v/dsh-gta6?style=flat-square&color=ff5f92)](https://www.npmjs.com/package/dsh-gta6)
 [![license](https://img.shields.io/npm/l/dsh-gta6?style=flat-square)](LICENSE)
 [![dsh](https://img.shields.io/badge/DSH-0.2.x-5fe0ea?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
+
+[English](README.en.md)
 
 ![dsh-gta6 深色界面](https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/docs/shots/overview-dark.jpg)
 
@@ -15,36 +18,35 @@
 
 ---
 
-## 它做了什么
+## 通缉星级
 
-不是换一套配色那种主题。它改的是几个「每次用都会看到」的位置：
+GTA 里六颗星的意思是警察在追你。这里它接的是 Agent 的运行状态——任务开始，右下角六颗星依次点亮；任务结束，瞬间归零。
 
-| | |
-|---|---|
-| **通缉星级** | 六颗星跟着 Agent 真实的运行状态亮起，不是装饰 |
-| **右栏仪表盘** | 会话标题、累计 token、模型与推理档位，全部来自宿主真实数据 |
-| **工具调用行** | 按动作着色：思考紫、读取青、搜索蓝、编辑绿、命令琥珀、规划玫红 |
-| **桌面宠物** | Jason 与 Lucia，可拖动、会犯困、会跟着任务变疲惫 |
-| **主视觉横幅** | 会话顶部换成官方主视觉，替代默认标题 |
-| **开场动画** | 五块碎片拼合、标识放大、扫描线掠过 |
+判断依据是宿主会话服务里的运行字段，不是去扫页面上有没有「停止生成」按钮。所以它不会因为你换了语言、换了窗口尺寸就失灵。
 
-### 通缉星级跟随真实状态
-
-GTA 最有辨识度的语言，恰好能对上 Agent 的状态：街道安静，直到它开始干活。
-星级读的是宿主自己的会话状态，不扫页面文字——开始生成即亮起，结束归零。
+不用挂进度条，扫一眼就知道它是在干活还是已经闲置半天。
 
 ![右侧面板](https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/docs/shots/panel.jpg)
 
-### 右栏是真仪表盘
+## 右栏是真仪表盘
 
-「Vice City」标签页订阅宿主的会话服务，显示当前会话的标题、累计 token、模型与推理档位。
-切会话，它跟着变。
+「Vice City」标签页订阅宿主的会话服务，显示当前会话的标题、累计消耗的 token、调用的模型和推理档位。切会话，它跟着换。
 
-### 桌面宠物
+不是画上去的贴图。
 
-Jason 与 Lucia，从官方主视觉插画抠出。会跟着任务变累、夜里会困、点一下会说话，可拖到任意角落。
+## 工具调用行按动作分色
 
-### 开场动画
+思考、读文件、搜索、改代码、执行命令、出方案，一类一个颜色。长任务一路滚下来的时候，整屏的颜色节奏就是它这一路的轨迹。
+
+着色挂的是宿主的语义标记，不是那些带哈希的类名——宿主发版之后，样式不容易整体失效。
+
+## 桌面宠物
+
+Jason 与 Lucia，从官方主视觉里抠出来的。跑得越久越没精神，夜里会犯困，点一下说一句话。
+
+可以拖到屏幕任意位置，也能在设置里关掉。
+
+## 开场动画
 
 ![开场动画](https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/docs/shots/intro.jpg)
 
@@ -70,7 +72,21 @@ dsh plugin --profile <profile> add github:manyuemeiquqi/dsh-gta6
 https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/market/index.json
 ```
 
-装好后确认 profile 的 `package.json` 里已列入 bundles：
+### 装出来是旧版本？
+
+宿主内置的 pnpm 默认只选**发布满 24 小时**的 npm 版本，用来防供应链投毒。所以新版本刚发出来的头一天，`dsh plugin add dsh-gta6` 会装到上一版。
+
+想要新版就显式写版本号：
+
+```bash
+dsh plugin --profile <profile> add 'dsh-gta6@^0.1.1'
+```
+
+这条命令会把它写进 profile 的 `pnpm-workspace.yaml` 的 `minimumReleaseAgeExclude`，之后正常升级即可。等 24 小时过去，不带版本号也会装到新版。
+
+### 装完确认
+
+profile 的 `package.json` 里应已列入 bundles：
 
 ```json
 {
@@ -111,15 +127,13 @@ https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/market/index.jso
 - DeepSeek Harness `>= 0.2.0 < 0.3.0`
 - Node.js `>= 24.9.0`（仅构建期需要）
 
-宿主仍在预览阶段，插件 API 可能继续变化。选择器优先挂宿主的 `data-*` 语义标记
-（`data-process-activity`、`data-message-bubble` 等），不绑哈希类名，但发版后仍可能需要跟进。
+宿主仍在预览阶段，插件 API 可能继续变化。样式优先挂宿主的 `data-*` 语义标记（`data-process-activity`、`data-message-bubble` 等），不绑哈希类名，但发版后仍可能需要跟进。
 
 ---
 
 ## 素材与授权
 
-界面美术来自 Rockstar Games 官方发布的 GTA VI 宣传物料，**著作权归 Rockstar 与 Take-Two**，
-不在本项目 MIT 许可范围内。逐项来源、原创部分与授权说明见 [NOTICE.md](NOTICE.md)。
+界面美术来自 Rockstar Games 官方发布的 GTA VI 宣传物料，**著作权归 Rockstar 与 Take-Two**，不在本项目 MIT 许可范围内。逐项来源、原创部分与授权说明见 [NOTICE.md](NOTICE.md)。
 
 本插件与 Rockstar Games、Take-Two Interactive、DeepSeek 均无隶属关系，未获其背书。
 
