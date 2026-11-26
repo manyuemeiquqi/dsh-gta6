@@ -46,12 +46,6 @@ Jason 与 Lucia，从官方主视觉里抠出来的。跑得越久越没精神�
 
 可以拖到屏幕任意位置，也能在设置里关掉。
 
-## 开场动画
-
-![开场动画](https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/docs/shots/intro.jpg)
-
-五块碎片拼合，约 3 秒。
-
 ---
 
 ## 安装

@@ -46,12 +46,6 @@ Jason and Lucia, cut from the official key art. The longer a task runs, the wear
 
 Drag them anywhere, or switch them off in settings.
 
-## Intro animation
-
-![Intro](https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/docs/shots/intro.jpg)
-
-Five fragments assemble in about three seconds.
-
 ---
 
 ## Install
