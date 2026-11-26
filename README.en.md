@@ -84,7 +84,7 @@ The profile's `package.json` should list the bundle:
 
 ```json
 {
-  "dependencies": { "dsh-gta6": "^0.1.0" },
+  "dependencies": { "dsh-gta6": "^0.1.2" },
   "dsh": {
     "profile": {
       "bundles": ["@deepseek-ai/dsh-base", "@deepseek-ai/dsh-web-app", "dsh-gta6"]
@@ -139,30 +139,6 @@ npm run build   # produces index.js and client.js
 npm run check   # build + syntax check
 ```
 
-`index.js` and `client.js` are build artefacts committed to the repo. Do not edit them by hand.
-
-```text
-src/
-  host/index.cjs            # host entry and config schema
-  shared/constants.js       # plugin id, asset paths, defaults
-  client/
-    index.js                # client entry: assembly and lifecycle only
-    core/
-      run-signal.js         # run state: one observer, many subscribers
-      session-state.js      # session data: title / tokens / model
-      art.js                # original SVG: palms, skyline, radar, stars
-    features/
-      theme/ conversation/ tools/ wanted/ panel/ pet/ brand/ scene/ intro/ motion/
-market/index.json           # in-app market index (format 1)
-docs/shots/                 # README screenshots
-```
-
-**Conventions**
-
-- Every CSS rule is namespaced with `vice-` or scoped to `body[data-vice-*]`.
-- Selectors use `data-*` semantic markers, never hashed class names.
-- To add padding without moving layout, use `padding` with an equal negative `margin`.
-- Every feature's teardown must release its listeners, observers and injected styles.
-- State is read from the host's services; page text is never scraped.
+`index.js` and `client.js` are build artefacts committed to the repo. Do not edit them by hand. The directory layout, code conventions and what each feature owns are in [CONTRIBUTING.en.md](CONTRIBUTING.en.md).
 
 See [LICENSE](LICENSE).

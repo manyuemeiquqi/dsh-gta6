@@ -84,7 +84,7 @@ profile 的 `package.json` 里应已列入 bundles：
 
 ```json
 {
-  "dependencies": { "dsh-gta6": "^0.1.0" },
+  "dependencies": { "dsh-gta6": "^0.1.2" },
   "dsh": {
     "profile": {
       "bundles": ["@deepseek-ai/dsh-base", "@deepseek-ai/dsh-web-app", "dsh-gta6"]
@@ -139,30 +139,6 @@ npm run build   # 生成 index.js、client.js
 npm run check   # build + 语法检查
 ```
 
-`index.js` 与 `client.js` 是构建产物，随仓库提交，不要手改。
-
-```text
-src/
-  host/index.cjs            # 宿主入口与配置 schema
-  shared/constants.js       # 插件 id、素材路径、默认值
-  client/
-    index.js                # 客户端入口，只负责组装与生命周期
-    core/
-      run-signal.js         # 运行状态：一个 observer，多订阅者
-      session-state.js      # 会话数据：标题 / token / 模型
-      art.js                # 原创 SVG：棕榈、天际线、雷达、星点
-    features/
-      theme/ conversation/ tools/ wanted/ panel/ pet/ brand/ scene/ intro/ motion/
-market/index.json           # 应用内市场索引（format 1）
-docs/shots/                 # README 截图
-```
-
-**约定**
-
-- CSS 一律带 `vice-` 命名空间或 `body[data-vice-*]` 作用域，不污染全局元素。
-- 选择器挂 `data-*` 语义标记，不绑哈希类名。
-- 需要加内边距又要保持布局时，用 `padding` + 等量负 `margin` 抵消。
-- 每个 feature 的清理函数必须完整释放监听器、Observer 与注入的样式。
-- 不扫描页面文字推断状态；只读宿主自己的服务与控件。
+`index.js` 与 `client.js` 是构建产物，随仓库提交，不要手改。目录结构、代码约定和各 feature 的职责见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 许可证见 [LICENSE](LICENSE)。
