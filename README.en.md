@@ -5,6 +5,7 @@
 A GTA VI theme: a wanted-level meter driven by the agent's own run state, a sidebar that is a real session dashboard, and two characters in the corner who get tired.
 
 [![npm](https://img.shields.io/npm/v/dsh-gta6?style=flat-square&color=ff5f92)](https://www.npmjs.com/package/dsh-gta6)
+[![stars](https://img.shields.io/github/stars/manyuemeiquqi/dsh-gta6?style=flat-square&color=ff5f92&label=star)](https://github.com/manyuemeiquqi/dsh-gta6/stargazers)
 [![license](https://img.shields.io/npm/l/dsh-gta6?style=flat-square)](LICENSE)
 [![dsh](https://img.shields.io/badge/DSH-0.2.x-5fe0ea?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
 
@@ -130,6 +131,10 @@ The host is still in preview and its plugin API may keep moving. Styles hang off
 Interface artwork comes from Rockstar Games' published GTA VI promotional material. **Copyright Rockstar and Take-Two.** It is not covered by this project's MIT licence; per-asset sourcing and the original parts are listed in [NOTICE.md](NOTICE.md).
 
 This plugin is not affiliated with Rockstar Games, Take-Two Interactive or DeepSeek, and is not endorsed by them.
+
+---
+
+If it makes the interface nicer to look at, [a star](https://github.com/manyuemeiquqi/dsh-gta6) is the whole tip jar.
 
 ## Development
 

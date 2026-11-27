@@ -5,6 +5,7 @@
 一套 GTA VI 主题：通缉星级接 Agent 的运行状态，右栏是真实的会话仪表盘，角落住着两个会累的人物。
 
 [![npm](https://img.shields.io/npm/v/dsh-gta6?style=flat-square&color=ff5f92)](https://www.npmjs.com/package/dsh-gta6)
+[![stars](https://img.shields.io/github/stars/manyuemeiquqi/dsh-gta6?style=flat-square&color=ff5f92&label=star)](https://github.com/manyuemeiquqi/dsh-gta6/stargazers)
 [![license](https://img.shields.io/npm/l/dsh-gta6?style=flat-square)](LICENSE)
 [![dsh](https://img.shields.io/badge/DSH-0.2.x-5fe0ea?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
 
@@ -130,6 +131,10 @@ profile 的 `package.json` 里应已列入 bundles：
 界面美术来自 Rockstar Games 官方发布的 GTA VI 宣传物料，**著作权归 Rockstar 与 Take-Two**，不在本项目 MIT 许可范围内。逐项来源、原创部分与授权说明见 [NOTICE.md](NOTICE.md)。
 
 本插件与 Rockstar Games、Take-Two Interactive、DeepSeek 均无隶属关系，未获其背书。
+
+---
+
+用着顺手的话，[点个 star](https://github.com/manyuemeiquqi/dsh-gta6) 就够了。
 
 ## 开发
 
