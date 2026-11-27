@@ -67,18 +67,6 @@ dsh plugin --profile <profile> add github:manyuemeiquqi/dsh-gta6
 https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/market/index.json
 ```
 
-### Installed an older version?
-
-The pnpm bundled with the host only picks npm versions **published more than 24 hours ago**, as supply-chain protection. So for the first day after a release, `dsh plugin add dsh-gta6` resolves to the previous version.
-
-Pin the version to get the new one:
-
-```bash
-dsh plugin --profile <profile> add 'dsh-gta6@^0.1.1'
-```
-
-That writes the package into the profile's `pnpm-workspace.yaml` under `minimumReleaseAgeExclude`. After 24 hours, the plain command picks up the new version too.
-
 ### After installing
 
 The profile's `package.json` should list the bundle:

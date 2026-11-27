@@ -67,18 +67,6 @@ dsh plugin --profile <profile> add github:manyuemeiquqi/dsh-gta6
 https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/market/index.json
 ```
 
-### 装出来是旧版本？
-
-宿主内置的 pnpm 默认只选**发布满 24 小时**的 npm 版本，用来防供应链投毒。所以新版本刚发出来的头一天，`dsh plugin add dsh-gta6` 会装到上一版。
-
-想要新版就显式写版本号：
-
-```bash
-dsh plugin --profile <profile> add 'dsh-gta6@^0.1.1'
-```
-
-这条命令会把它写进 profile 的 `pnpm-workspace.yaml` 的 `minimumReleaseAgeExclude`，之后正常升级即可。等 24 小时过去，不带版本号也会装到新版。
-
 ### 装完确认
 
 profile 的 `package.json` 里应已列入 bundles：
