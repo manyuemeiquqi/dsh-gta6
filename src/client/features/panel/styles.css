@@ -344,6 +344,34 @@ body[data-vice-wanted] .vice-panel-crime i {
   text-align: center;
 }
 
+.vice-panel-footer-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.vice-panel-star {
+  display: inline-flex;
+  align-items: center;
+  font: 600 7px/1.4 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.18em;
+  color: inherit;
+  opacity: 0.5;
+  text-decoration: none;
+  transition: opacity 160ms ease, color 160ms ease;
+}
+
+.vice-panel-star:hover,
+.vice-panel-star:focus-visible {
+  opacity: 1;
+  color: var(--vice-rose);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vice-panel-star { transition: none; }
+}
+
 .vice-guide-icon {
   display: inline-flex;
   width: 24px;

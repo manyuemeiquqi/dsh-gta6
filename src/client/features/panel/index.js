@@ -85,7 +85,15 @@ export function registerVicePanel({ ctx, React, store, assets, sessionState }) {
             h('i', null, detail))),
         h('div', { className: 'vice-panel-footer' },
           h('img', { src: assets.logo, alt: 'Grand Theft Auto VI', className: 'vice-panel-logo' }),
-          h('span', null, session?.running ? 'RUN IN PROGRESS' : 'AWAIT YOUR NEXT MOVE')))
+          h('div', { className: 'vice-panel-footer-text' },
+            h('span', null, session?.running ? 'RUN IN PROGRESS' : 'AWAIT YOUR NEXT MOVE'),
+            h('a', {
+              className: 'vice-panel-star',
+              href: 'https://github.com/manyuemeiquqi/dsh-gta6',
+              target: '_blank',
+              rel: 'noreferrer noopener',
+              title: '在 GitHub 上给这个项目点个 star',
+            }, '★ STAR ON GITHUB'))))
     }
 
     child.slots.inject('sidebar.right.pane.tab', function* () {

@@ -132,10 +132,6 @@ Interface artwork comes from Rockstar Games' published GTA VI promotional materi
 
 This plugin is not affiliated with Rockstar Games, Take-Two Interactive or DeepSeek, and is not endorsed by them.
 
----
-
-If it makes the interface nicer to look at, [a star](https://github.com/manyuemeiquqi/dsh-gta6) is the whole tip jar.
-
 ## Development
 
 ```bash

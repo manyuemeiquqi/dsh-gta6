@@ -132,10 +132,6 @@ profile 的 `package.json` 里应已列入 bundles：
 
 本插件与 Rockstar Games、Take-Two Interactive、DeepSeek 均无隶属关系，未获其背书。
 
----
-
-用着顺手的话，[点个 star](https://github.com/manyuemeiquqi/dsh-gta6) 就够了。
-
 ## 开发
 
 ```bash
