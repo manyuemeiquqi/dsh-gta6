@@ -85,7 +85,7 @@ README 的「装出来是旧版本？」章节已从中英两版删除（只删�
 | Reddit `r/coolgithubprojects` | 表单已填好，卡在 reCAPTCHA |
 | Reddit 版主私信 | `reddit.com/mail/compose` 持续返回 Server error，未发 |
 | 知乎 | 草稿已建但编辑器不接受自动化操作，正文见 [zhihu.md](zhihu.md)，需手动粘贴 |
-| 掘金 | **已过审上线**：https://juejin.cn/post/7712756337687871514 。现行标题《给 DeepSeek Harness 换上 GTA 6 皮肤：Agent 一干活，通缉星级就亮》，标题修改版在重审（线上暂显旧题「开源自荐：dsh-gta6…」+「文章有更新」提示，重审过后自动切换；预览 /spost/ 同 id）。稿件见 [juejin.md](juejin.md)：主稿开场 + README 功能段 + 安装说明。初版技术长文被否，留档 [juejin-tech.md](juejin-tech.md)。走浏览器登录态调内部 API（article_draft/create/update → article/publish），分类「前端」，标签「前端/JavaScript/开源」。三张截图已验证可加载。注意：draft/update 只传部分字段会清掉分类，导致 publish 报 1002「至少添加一个分类」，更新必须带全 category_id/tag_ids |
+| 掘金 | **已完成**：https://juejin.cn/post/7712756337687871514 ，最终标题《给 DeepSeek Harness 换上 GTA 6 皮肤：Agent 一干活，通缉星级就亮》与简化安装段均已过审上线（11-27）。稿件见 [juejin.md](juejin.md)：主稿开场 + README 功能段 + 安装说明。初版技术长文被否，留档 [juejin-tech.md](juejin-tech.md)。走浏览器登录态调内部 API（article_draft/create/update → article/publish），分类「前端」，标签「前端/JavaScript/开源」。三张截图已验证可加载。注意：draft/update 只传部分字段会清掉分类，导致 publish 报 1002「至少添加一个分类」，更新必须带全 category_id/tag_ids |
 | 小红书 / 微博 / X / V2EX | 未发，稿件见 [promo.md](promo.md) |
 
 ### 掘金博主渠道（2026-11-27 调研）
