@@ -5,8 +5,8 @@
     "zh": "dsh-gta6"
   },
   "description": {
-    "en": "Vice City theme for DeepSeek Harness, with a desktop pet",
-    "zh": "DeepSeek Harness 的 Vice City 主题，含桌面宠物"
+    "en": "A Vice City theme for DeepSeek Harness: a wanted level driven by the agent's run state, a live session dashboard, and two characters who tire as you work.",
+    "zh": "给 DeepSeek Harness 的 Vice City 主题：通缉星级跟随 Agent 运行状态，右栏实时显示会话数据，角落有两个人会跟着任务变累。"
   },
   "metadata": {
     "categories": {
@@ -26,8 +26,8 @@
         "zh": "GTA VI · Vice City"
       },
       "description": {
-        "en": "Neon Vice City theme on official GTA VI key art: key-art banner, wanted stars, a session panel, and Jason & Lucia as a desktop pet.",
-        "zh": "基于官方 GTA VI 主视觉的霓虹主题：主视觉横幅、通缉星级、会话面板，以及 Jason 与 Lucia 桌面宠物。"
+        "en": "A Vice City theme for DeepSeek Harness: a wanted level driven by the agent's run state, a live session dashboard, and two characters who tire as you work.",
+        "zh": "给 DeepSeek Harness 的 Vice City 主题：通缉星级跟随 Agent 运行状态，右栏实时显示会话数据，角落有两个人会跟着任务变累。"
       },
       "icon": "https://raw.githubusercontent.com/manyuemeiquqi/dsh-gta6/master/lib/assets/poster_logo-8eb6649ac961.png",
       "author": "manyuemeiquqi",
