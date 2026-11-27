@@ -88,7 +88,7 @@ README 的「装出来是旧版本？」章节已从中英两版删除（只删�
 | 掘金 | **已完成**：https://juejin.cn/post/7712756337687871514 ，最终标题《给 DeepSeek Harness 换上 GTA 6 皮肤：Agent 一干活，通缉星级就亮》与简化安装段均已过审上线（11-27）。稿件见 [juejin.md](juejin.md)：主稿开场 + README 功能段 + 安装说明。初版技术长文被否，留档 [juejin-tech.md](juejin-tech.md)。走浏览器登录态调内部 API（article_draft/create/update → article/publish），分类「前端」，标签「前端/JavaScript/开源」。三张截图已验证可加载。注意：draft/update 只传部分字段会清掉分类，导致 publish 报 1002「至少添加一个分类」，更新必须带全 category_id/tag_ids |
 | X / Twitter | **已发**（11-27，账号 @pengjin69199898）：中文推文（通缉星级钩子 + 安装 + 链接）配深色截图 |
 | V2EX | **已发**（11-27，账号 manyuemeiquqi）：https://www.v2ex.com/t/1260405 ，分享创造节点，公开可见。操作要点：/go/create 表单 input[name=title] + textarea[name=content]，native setter + input 事件即可 |
-| Reddit | 表单已填（old.reddit.com/r/coolgithubprojects/submit，link 帖：标题 + GitHub 链接），提交触发 reCAPTCHA，**待用户本人过验证码后点 submit**。账号 AntelopeOk8137（2023 注册，karma 低故需验证码）。新版 submit UI 是 Lit shadow DOM 且 type 切不到 link，改用 old.reddit 干净表单 |
+| Reddit | **已发**（11-27，用户本人过 reCAPTCHA 后提交）：https://www.reddit.com/r/coolgithubprojects/comments/1y6pn11/ ，r/coolgithubprojects link 帖（标题 + GitHub 链接），账号 AntelopeOk8137，正常显示未被移除。操作要点：新版 submit UI 是 Lit shadow DOM 且 type 切不到 link，改用 old.reddit 干净表单（textarea[name=title] + input[name=url]，kind=link）；低 karma 账号提交触发 reCAPTCHA，须用户本人过 |
 | 小红书 / 微博 | 未发（用户表示 X/V2EX/Reddit 基本够，暂不投） |
 
 ### 掘金博主渠道（2026-11-27 调研）
