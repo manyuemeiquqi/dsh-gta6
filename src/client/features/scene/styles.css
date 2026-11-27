@@ -276,6 +276,26 @@ body.vice-art-enabled [class*='_composerHero'] [data-composer-placeholder='true'
   background: linear-gradient(90deg, rgba(255, 95, 146, 0.5), transparent);
 }
 
+.vice-scene-star {
+  flex: none;
+  font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.18em;
+  color: inherit;
+  opacity: 0.45;
+  text-decoration: none;
+  transition: opacity 160ms ease, color 160ms ease;
+}
+
+.vice-scene-star:hover,
+.vice-scene-star:focus-visible {
+  opacity: 1;
+  color: var(--vice-rose);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vice-scene-star { transition: none; }
+}
+
 body:not(.vice-art-enabled) .vice-scene {
   display: none;
 }

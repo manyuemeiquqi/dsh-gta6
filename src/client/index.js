@@ -9,6 +9,8 @@ import { createIntro } from './features/intro/index.js'
 import introStyles from './features/intro/styles.css'
 import { createMotion } from './features/motion/index.js'
 import motionStyles from './features/motion/styles.css'
+import { createNudge } from './features/nudge/index.js'
+import nudgeStyles from './features/nudge/styles.css'
 import { registerVicePanel } from './features/panel/index.js'
 import panelStyles from './features/panel/styles.css'
 import { createPet } from './features/pet/index.js'
@@ -42,6 +44,7 @@ window.__ModuleLoader__.load({
         wantedStyles,
         introStyles,
         motionStyles,
+        nudgeStyles,
       ])
       const theme = createThemeController({ ctx, body })
       const scene = createScene({ body, assets: ASSETS })
@@ -54,6 +57,7 @@ window.__ModuleLoader__.load({
       const wanted = createWantedMeter({ body, signal: runSignal })
       const intro = createIntro({ assets: ASSETS })
       const motion = createMotion(body)
+      const nudge = createNudge({ body })
       const pet = createPet({
         body,
         assets: ASSETS,
@@ -77,6 +81,7 @@ window.__ModuleLoader__.load({
         motion.sync(animations)
         intro.sync(animations && values.intro === '1')
         pet.sync(values)
+        nudge.sync(values)
       }
 
       const unsubscribeStore = store.subscribe(sync)
@@ -87,6 +92,7 @@ window.__ModuleLoader__.load({
         unsubscribeStore()
         reducedMotion.removeEventListener?.('change', sync)
         motion.dispose()
+        nudge.dispose()
         intro.dispose()
         pet.dispose()
         wanted.dispose()

@@ -18,11 +18,15 @@ export function createScene({ body, assets }) {
     remove()
     scene = document.createElement('div')
     scene.className = 'vice-scene'
-    scene.setAttribute('aria-hidden', 'true')
     scene.innerHTML = `
-      <div class="vice-eyebrow"><i></i> GRAND THEFT AUTO VI <span>LEONIDA · 2026</span></div>
-      <div class="vice-frame">${sceneArtHtml(assets)}</div>
-      <div class="vice-scene-footer"><span>WELCOME TO</span><strong>VICE CITY</strong><i></i></div>
+      <div class="vice-eyebrow" aria-hidden="true"><i></i> GRAND THEFT AUTO VI <span>LEONIDA · 2026</span></div>
+      <div class="vice-frame" aria-hidden="true">${sceneArtHtml(assets)}</div>
+      <div class="vice-scene-footer">
+        <span aria-hidden="true">WELCOME TO</span>
+        <strong aria-hidden="true">VICE CITY</strong>
+        <i aria-hidden="true"></i>
+        <a class="vice-scene-star" href="https://github.com/manyuemeiquqi/dsh-gta6" target="_blank" rel="noreferrer noopener" title="在 GitHub 上给这个项目点个 star">★ STAR ON GITHUB</a>
+      </div>
     `
     hero.appendChild(scene)
   }

@@ -1,0 +1,104 @@
+.vice-nudge {
+  position: fixed;
+  right: 26px;
+  bottom: calc(124px + clamp(124px, 9.6vw, 164px) + 16px);
+  z-index: 55;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 264px;
+  padding: 0;
+  border: 1px solid rgba(255, 95, 146, 0.3);
+  border-radius: 12px;
+  background:
+    linear-gradient(140deg, rgba(255, 95, 146, 0.14), rgba(95, 224, 234, 0.05) 70%),
+    var(--dsw-alias-bg-layer-1);
+  box-shadow: 0 14px 32px rgba(24, 8, 32, 0.28);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  transform: translateY(8px);
+  opacity: 0;
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.vice-nudge[data-state='shown'] {
+  opacity: 1;
+  transform: none;
+}
+
+.vice-nudge[data-state='leaving'] {
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+}
+
+.vice-nudge-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  padding: 11px 4px 11px 13px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.vice-nudge-star {
+  flex: none;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--vice-rose);
+  text-shadow: 0 0 12px rgba(255, 95, 146, 0.55);
+}
+
+.vice-nudge-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.vice-nudge-text b {
+  font: 600 12px/1.25 ui-sans-serif, system-ui, sans-serif;
+  color: var(--dsw-alias-label-primary);
+}
+
+.vice-nudge-text i {
+  font: 500 11px/1.35 ui-sans-serif, system-ui, sans-serif;
+  font-style: normal;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.vice-nudge-close {
+  flex: none;
+  align-self: flex-start;
+  margin: 6px 6px 0 0;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--dsw-alias-label-tertiary);
+  font: 400 14px/1 ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.vice-nudge-close:hover,
+.vice-nudge-close:focus-visible {
+  background: rgba(255, 95, 146, 0.16);
+  color: var(--dsw-alias-label-primary);
+}
+
+@media (max-width: 720px) {
+  .vice-nudge {
+    right: 14px;
+    bottom: calc(124px + 96px + 14px);
+    width: 220px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vice-nudge,
+  .vice-nudge-close { transition: none; }
+}
