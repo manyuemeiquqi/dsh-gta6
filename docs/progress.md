@@ -84,7 +84,7 @@ README 的「装出来是旧版本？」章节已从中英两版删除（只删�
 | Reddit `r/SideProject` | 已发帖，发后被 Reddit 自动垃圾过滤删除（`removed_by_category: reddit`），账号太新 |
 | Reddit `r/coolgithubprojects` | 表单已填好，卡在 reCAPTCHA |
 | Reddit 版主私信 | `reddit.com/mail/compose` 持续返回 Server error，未发 |
-| 知乎 | 草稿已建但编辑器不接受自动化操作，正文见 [zhihu.md](zhihu.md)，需手动粘贴 |
+| 知乎 | 稿已定稿（11-27 用户确认）：与掘金同源的项目自荐版，见 [zhihu.md](zhihu.md)。旧赏析版作废。**已通过浏览器自动化填入知乎编辑器**：标题、正文、六小节、三张图（编辑器 paste 时自动转存知乎 CDN）全部就位，草稿自动保存。最后「发布」点击被权限系统拦截，待用户在浏览器里点发布或明确授权。知乎开放平台 CLI 无发布接口（0.6.3 核实）。操作要点：Draft.js 编辑器接受合成 ClipboardEvent paste（text/html），目标元素是 .public-DraftEditor-content；「导入」菜单走的是直答知识库，不要用 |
 | 掘金 | **已完成**：https://juejin.cn/post/7712756337687871514 ，最终标题《给 DeepSeek Harness 换上 GTA 6 皮肤：Agent 一干活，通缉星级就亮》与简化安装段均已过审上线（11-27）。稿件见 [juejin.md](juejin.md)：主稿开场 + README 功能段 + 安装说明。初版技术长文被否，留档 [juejin-tech.md](juejin-tech.md)。走浏览器登录态调内部 API（article_draft/create/update → article/publish），分类「前端」，标签「前端/JavaScript/开源」。三张截图已验证可加载。注意：draft/update 只传部分字段会清掉分类，导致 publish 报 1002「至少添加一个分类」，更新必须带全 category_id/tag_ids |
 | 小红书 / 微博 / X / V2EX | 未发，稿件见 [promo.md](promo.md) |
 
