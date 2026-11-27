@@ -298,10 +298,16 @@ body.vice-art-enabled [class*='_composerHero'] [data-composer-placeholder='true'
 }
 
 .vice-scene-star i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
   font-style: normal;
   font-size: 12px;
   line-height: 1;
   color: var(--vice-hot);
+  transform: translateY(-0.5px);
 }
 
 .vice-scene-star:hover,
