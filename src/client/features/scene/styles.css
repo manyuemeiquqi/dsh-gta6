@@ -278,6 +278,9 @@ body.vice-art-enabled [class*='_composerHero'] [data-composer-placeholder='true'
 
 .vice-scene-star {
   flex: none;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
   font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;
   letter-spacing: 0.18em;
   color: inherit;
