@@ -281,22 +281,43 @@ body.vice-art-enabled [class*='_composerHero'] [data-composer-placeholder='true'
   position: relative;
   z-index: 2;
   pointer-events: auto;
-  font: 600 8px/1 ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: 0.18em;
-  color: inherit;
-  opacity: 0.45;
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 95, 146, 0.38);
+  border-radius: 999px;
+  background: rgba(255, 95, 146, 0.07);
+  font: 600 9px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.16em;
+  color: var(--vice-rose);
   text-decoration: none;
-  transition: opacity 160ms ease, color 160ms ease;
+  white-space: nowrap;
+  animation: vice-star-breathe 4.6s ease-in-out infinite;
+  transition: background-color 180ms ease, border-color 180ms ease;
 }
 
 .vice-scene-star:hover,
 .vice-scene-star:focus-visible {
-  opacity: 1;
-  color: var(--vice-rose);
+  background: rgba(255, 95, 146, 0.18);
+  border-color: rgba(255, 95, 146, 0.75);
+  animation-play-state: paused;
+}
+
+@keyframes vice-star-breathe {
+  0%, 100% {
+    opacity: 0.62;
+    box-shadow: 0 0 0 rgba(255, 95, 146, 0);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 16px rgba(255, 95, 146, 0.42);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .vice-scene-star { transition: none; }
+  .vice-scene-star {
+    transition: none;
+    animation: none;
+    opacity: 0.9;
+  }
 }
 
 body:not(.vice-art-enabled) .vice-scene {
