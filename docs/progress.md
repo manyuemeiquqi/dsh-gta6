@@ -16,7 +16,11 @@ npm `latest` 当前指向 0.1.3。
 > 宿主内置 pnpm 只选发布满 24 小时的版本。新版发布后的头一天，
 > `dsh plugin add dsh-gta6` 会装到上一版；显式写 `'dsh-gta6@^0.1.3'` 可立即安装。
 
-## 目录收录
+## GitHub 投稿
+
+投稿媒介都在 GitHub 上，但性质分两类：插件目录是 PR 改条目文件，通用渠道是 issue 表单。后者不限于 DSH 生态，面向的是所有开源项目。
+
+### 插件目录（PR）
 
 | 渠道 | 体量 | 方式 | 状态 |
 |---|---|---|---|
@@ -28,8 +32,15 @@ npm `latest` 当前指向 0.1.3。
 | `beancookie/awesome-dsh-plugin` | 198 | [PR #316](https://github.com/beancookie/awesome-dsh-plugin/pull/316) | 待审 |
 | `kejixiaoliang/awesome-dsh-plugins` | 85 | [PR #237](https://github.com/kejixiaoliang/awesome-dsh-plugins/pull/237) | 待审 |
 | `awesome-deepseekharness/awesome-deepseek-harness` | 47 | [PR #245](https://github.com/awesome-deepseekharness/awesome-deepseek-harness/pull/245) | 待审 |
+
+### 通用渠道（issue）
+
+| 渠道 | 体量 | 方式 | 状态 |
+|---|---|---|---|
 | HelloGitHub | 191k | [issue #4533](https://github.com/521xueweihan/HelloGitHub/issues/4533) | 待审 |
 | 阮一峰《科技爱好者周刊》 | — | [issue #13768](https://github.com/ruanyf/weekly/issues/13768) | 待审 |
+
+两家都只在 issue 里填表单，不进代码仓库，所以不涉及 fork、PR 或冲突。
 
 ### 未投
 
@@ -41,7 +52,7 @@ npm `latest` 当前指向 0.1.3。
 | `Alex-Yanggg/awesome-DSH-plugin` | 2026-08-15 后无提交，已停更 |
 | `libukai/awesome-deepseek-harness` | 386 star 但 2026-09-12 后无提交，已停更 |
 
-## 媒体
+## 站外平台
 
 | 平台 | 状态 |
 |---|---|
