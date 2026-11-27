@@ -25,7 +25,7 @@ export function createScene({ body, assets }) {
         <span aria-hidden="true">WELCOME TO</span>
         <strong aria-hidden="true">VICE CITY</strong>
         <i aria-hidden="true"></i>
-        <a class="vice-scene-star" href="https://github.com/manyuemeiquqi/dsh-gta6" target="_blank" rel="noreferrer noopener" title="在 GitHub 上给这个项目点个 star">★ STAR ON GITHUB</a>
+        <a class="vice-scene-star" href="https://github.com/manyuemeiquqi/dsh-gta6" target="_blank" rel="noreferrer noopener" title="在 GitHub 上给这个项目点个 star"><i aria-hidden="true">★</i> STAR ON GITHUB</a>
       </div>
     `
     hero.appendChild(scene)

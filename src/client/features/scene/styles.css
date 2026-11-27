@@ -281,34 +281,44 @@ body.vice-art-enabled [class*='_composerHero'] [data-composer-placeholder='true'
   position: relative;
   z-index: 2;
   pointer-events: auto;
-  padding: 5px 10px;
-  border: 1px solid rgba(255, 95, 146, 0.38);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border: 1px solid color-mix(in srgb, var(--vice-hot) 55%, transparent);
   border-radius: 999px;
-  background: rgba(255, 95, 146, 0.07);
-  font: 600 9px/1 ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: 0.16em;
-  color: var(--vice-rose);
+  background: color-mix(in srgb, var(--vice-hot) 12%, transparent);
+  font: 600 10px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.14em;
+  color: var(--dsw-alias-label-primary);
   text-decoration: none;
   white-space: nowrap;
   animation: vice-star-breathe 4.6s ease-in-out infinite;
   transition: background-color 180ms ease, border-color 180ms ease;
 }
 
+.vice-scene-star i {
+  font-style: normal;
+  font-size: 12px;
+  line-height: 1;
+  color: var(--vice-hot);
+}
+
 .vice-scene-star:hover,
 .vice-scene-star:focus-visible {
-  background: rgba(255, 95, 146, 0.18);
-  border-color: rgba(255, 95, 146, 0.75);
+  background: color-mix(in srgb, var(--vice-hot) 24%, transparent);
+  border-color: var(--vice-hot);
   animation-play-state: paused;
 }
 
 @keyframes vice-star-breathe {
   0%, 100% {
-    opacity: 0.62;
+    opacity: 0.86;
     box-shadow: 0 0 0 rgba(255, 95, 146, 0);
   }
   50% {
     opacity: 1;
-    box-shadow: 0 0 16px rgba(255, 95, 146, 0.42);
+    box-shadow: 0 0 18px rgba(255, 95, 146, 0.45);
   }
 }
 
@@ -316,7 +326,7 @@ body.vice-art-enabled [class*='_composerHero'] [data-composer-placeholder='true'
   .vice-scene-star {
     transition: none;
     animation: none;
-    opacity: 0.9;
+    opacity: 1;
   }
 }
 
