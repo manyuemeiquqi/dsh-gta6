@@ -297,7 +297,7 @@ body.vice-art-enabled [class*='_composerHero'] [data-composer-placeholder='true'
   transition: background-color 180ms ease, border-color 180ms ease;
 }
 
-.vice-scene-star i {
+.vice-scene-star-glyph {
   display: inline-flex;
   align-items: center;
   justify-content: center;
